@@ -1,13 +1,15 @@
 package org.chelak.ea.database
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
+import org.chelak.ea.common.BitMask
 import org.chelak.ea.database.dao.EstateDao
 import org.chelak.ea.database.entity.Estate
 
-@Database(entities = [Estate::class], version = 1)
+@TypeConverters(Converters::class)
+@Database(entities = [Estate::class],
+    exportSchema = false,
+    version = 1)
 abstract class UserDatabase : RoomDatabase() {
 
     companion object {
@@ -17,4 +19,12 @@ abstract class UserDatabase : RoomDatabase() {
     }
 
     abstract fun estateDao(): EstateDao
+}
+
+private class Converters {
+    @TypeConverter
+    fun toBitMask(value: Int): BitMask = BitMask(value)
+
+    @TypeConverter
+    fun toInt(bitMask: BitMask?): Int = bitMask?.raw ?: 0
 }
