@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_nav_graph"
+    app:startDestination="@id/myEstatesFragment">
+
+    <fragment
+        android:id="@+id/myEstatesFragment"
+        android:name="org.chelak.ea.ui.home.MyEstatesFragment"
+        android:label="my_estates_fragment"
+        tools:layout="@layout/my_estates_fragment" >
+        <action
+            android:id="@+id/action_myEstatesFragment_to_estateDetailsFragment"
+            app:destination="@id/estateDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tariffsFragment"
+        android:name="org.chelak.ea.ui.home.TariffFragment"
+        android:label="tariff_fragment"
+        tools:layout="@layout/tariff_fragment" />
+    <fragment
+        android:id="@+id/paymentHistoryFragment"
+        android:name="org.chelak.ea.ui.home.PaymentHistoryFragment"
+        android:label="payment_history_fragment"
+        tools:layout="@layout/payment_history_fragment" />
+    <fragment
+        android:id="@+id/estateDetailsFragment"
+        android:name="org.chelak.ea.ui.estate.EstateDetailsFragment"
+        android:label="estate_details_fragment"
+        tools:layout="@layout/estate_details_fragment" />
+</navigation>
