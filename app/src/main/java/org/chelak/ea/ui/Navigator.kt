@@ -5,14 +5,20 @@ import org.chelak.ea.R
 import org.chelak.ea.common.Logger
 import javax.inject.Inject
 
-class Navigator(val navController: NavController) {
+class Navigator(private val navController: NavController) {
 
     fun openEstateDetails(estateId: Long) {
-        navController.navigate(R.id.action_myEstatesFragment_to_estateDetailsFragment)
+        val container = ArgumentContainer.builder()
+            .putEstateId(estateId)
+            .build()
+        navController.navigate(R.id.action_myEstatesFragment_to_estateDetailsFragment, container.getBundle())
     }
 
     fun openMeterList(estateId: Long) {
-        navController.navigate(R.id.action_estateDetailsFragment_to_meterListFragment)
+        val container = ArgumentContainer.builder()
+            .putEstateId(estateId)
+            .build()
+        navController.navigate(R.id.action_estateDetailsFragment_to_meterListFragment, container.getBundle())
     }
 
 }
