@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.home.MyEstatesFragment">
+    tools:context=".screens.estate.MeterDetailsFragment">
 
-    <Button
-        android:id="@+id/test_btn_open_estate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Open Estate" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Hello" />
+
 </FrameLayout>

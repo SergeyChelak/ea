@@ -6,13 +6,13 @@ import org.chelak.ea.common.BitMask
 import org.chelak.ea.database.dao.EstateDao
 import org.chelak.ea.database.entity.Estate
 
-@TypeConverters(UserDatabase.Addons::class)
+@TypeConverters(UserDatabase.Companion::class)
 @Database(entities = [Estate::class],
     exportSchema = false,
     version = 1)
 abstract class UserDatabase : RoomDatabase() {
 
-    companion object Addons {
+    companion object {
         fun create(context: Context, file: String): UserDatabase = Room.databaseBuilder(
             context, UserDatabase::class.java, file
         ).build()

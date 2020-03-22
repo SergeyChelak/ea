@@ -8,26 +8,48 @@
 
     <fragment
         android:id="@+id/myEstatesFragment"
-        android:name="org.chelak.ea.ui.home.MyEstatesFragment"
+        android:name="org.chelak.ea.screens.home.MyEstatesFragment"
         android:label="my_estates_fragment"
         tools:layout="@layout/my_estates_fragment" >
         <action
             android:id="@+id/action_myEstatesFragment_to_estateDetailsFragment"
-            app:destination="@id/estateDetailsFragment" />
+            app:destination="@id/estate_navigation" />
     </fragment>
     <fragment
         android:id="@+id/tariffsFragment"
-        android:name="org.chelak.ea.ui.home.TariffFragment"
+        android:name="org.chelak.ea.screens.home.TariffFragment"
         android:label="tariff_fragment"
         tools:layout="@layout/tariff_fragment" />
     <fragment
         android:id="@+id/paymentHistoryFragment"
-        android:name="org.chelak.ea.ui.home.PaymentHistoryFragment"
+        android:name="org.chelak.ea.screens.home.PaymentHistoryFragment"
         android:label="payment_history_fragment"
         tools:layout="@layout/payment_history_fragment" />
-    <fragment
-        android:id="@+id/estateDetailsFragment"
-        android:name="org.chelak.ea.ui.estate.EstateDetailsFragment"
-        android:label="estate_details_fragment"
-        tools:layout="@layout/estate_details_fragment" />
+    <navigation
+        android:id="@+id/estate_navigation"
+        app:startDestination="@id/estateDetailsFragment" >
+        <fragment
+            android:id="@+id/meterListFragment"
+            android:name="org.chelak.ea.screens.estate.MeterListFragment"
+            android:label="meter_list_fragment"
+            tools:layout="@layout/meter_list_fragment">
+            <action
+                android:id="@+id/action_meterListFragment_to_meterDetailsFragment"
+                app:destination="@id/meterDetailsFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/estateDetailsFragment"
+            android:name="org.chelak.ea.screens.estate.EstateDetailsFragment"
+            android:label="estate_details_fragment"
+            tools:layout="@layout/estate_details_fragment">
+            <action
+                android:id="@+id/action_estateDetailsFragment_to_meterListFragment"
+                app:destination="@id/meterListFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/meterDetailsFragment"
+            android:name="org.chelak.ea.screens.estate.MeterDetailsFragment"
+            android:label="meter_details_fragment"
+            tools:layout="@layout/meter_details_fragment" />
+    </navigation>
 </navigation>

@@ -1,19 +1,19 @@
-package org.chelak.ea.ui.estate
+package org.chelak.ea.screens.estate
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 
 import org.chelak.ea.R
+import org.chelak.ea.common.Logger
+import org.chelak.ea.ui.MainActivity
 
 class EstateDetailsFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = EstateDetailsFragment()
-    }
 
     private lateinit var viewModel: EstateDetailsViewModel
 
@@ -26,8 +26,15 @@ class EstateDetailsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        view.let {
+            val button: Button? = it?.findViewById(R.id.dbg_button_meter_list)
+            button?.setOnClickListener { _ ->
+//                nc.navigate(R.id.action_estateDetailsFragment_to_meterListFragment)
+                viewModel.openMeterList()
+            }
+        }
         viewModel = ViewModelProvider(this).get(EstateDetailsViewModel::class.java)
-        // TODO: Use the ViewModel
+        (activity as? MainActivity)?.component?.inject(viewModel)
     }
 
 }

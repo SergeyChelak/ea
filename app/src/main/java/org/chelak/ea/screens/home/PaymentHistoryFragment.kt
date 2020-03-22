@@ -1,4 +1,4 @@
-package org.chelak.ea.ui.home
+package org.chelak.ea.screens.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,24 +9,20 @@ import androidx.lifecycle.ViewModelProvider
 
 import org.chelak.ea.R
 
-class TariffFragment : Fragment() {
+class PaymentHistoryFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = TariffFragment()
-    }
-
-    private lateinit var viewModel: TariffViewModel
+    private lateinit var viewModel: PaymentHistoryViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.tariff_fragment, container, false)
+        return inflater.inflate(R.layout.payment_history_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(TariffViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(PaymentHistoryViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

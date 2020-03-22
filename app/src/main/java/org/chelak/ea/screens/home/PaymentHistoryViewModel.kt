@@ -1,4 +1,4 @@
-package org.chelak.ea.ui.home
+package org.chelak.ea.screens.home
 
 import androidx.lifecycle.ViewModel
 

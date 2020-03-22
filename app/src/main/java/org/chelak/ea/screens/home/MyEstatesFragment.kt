@@ -1,24 +1,22 @@
-package org.chelak.ea.ui.home
+package org.chelak.ea.screens.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import kotlinx.android.synthetic.main.my_estates_fragment.*
 
 import org.chelak.ea.R
+import org.chelak.ea.common.Logger
+import org.chelak.ea.ui.MainActivity
 
 class MyEstatesFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = MyEstatesFragment()
-    }
-
-    private lateinit var viewModel: MyEstatesViewModel
+    private val viewModel: MyEstatesViewModel by navGraphViewModels(R.id.root_nav_graph)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,12 +30,14 @@ class MyEstatesFragment : Fragment() {
 
         view?.let {
             test_btn_open_estate.setOnClickListener {
-                findNavController().navigate(R.id.action_myEstatesFragment_to_estateDetailsFragment)
+                viewModel.openEstateDetails(0)
             }
         }
-
-        viewModel = ViewModelProvider(this).get(MyEstatesViewModel::class.java)
-        // TODO: Use the ViewModel
+//        viewModel = ViewModelProvider(this).get(MyEstatesViewModel::class.java)
+        (activity as? MainActivity)?.component?.inject(viewModel)
+        viewModel.getEstates().observe({ lifecycle }) { list ->
+            Logger.i("Loaded ${list.size} estates")
+        }
     }
 
 }
