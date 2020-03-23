@@ -1,10 +1,10 @@
 package org.chelak.ea.database.entity
 
 import androidx.room.*
-import java.math.BigDecimal
+import java.util.*
 
 @Entity(
-    tableName = "__rates",
+    tableName = "__payments",
     indices = [Index(value = ["__estate_uid"])],
     foreignKeys = [ForeignKey(
         entity = Estate::class,
@@ -13,9 +13,8 @@ import java.math.BigDecimal
         onDelete = ForeignKey.CASCADE
     )]
 )
-data class Rate(
+data class Payment(
     @PrimaryKey(autoGenerate = true) var uid: Long = 0,
     @ColumnInfo(name = "__estate_uid") var estateUid: Long = 0,
-    @ColumnInfo(name = "__title") var title: String?,
-    @ColumnInfo(name = "__value") var value: BigDecimal?
+    @ColumnInfo(name = "__date") var date: Date?
 )

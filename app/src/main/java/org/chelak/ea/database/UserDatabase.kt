@@ -3,13 +3,8 @@ package org.chelak.ea.database
 import android.content.Context
 import androidx.room.*
 import org.chelak.ea.common.BitMask
-import org.chelak.ea.database.dao.EstateDao
-import org.chelak.ea.database.dao.MeterDao
-import org.chelak.ea.database.dao.RateDao
-import org.chelak.ea.database.entity.Estate
-import org.chelak.ea.database.entity.Meter
-import org.chelak.ea.database.entity.MeterValue
-import org.chelak.ea.database.entity.Rate
+import org.chelak.ea.database.dao.*
+import org.chelak.ea.database.entity.*
 import java.math.BigDecimal
 import java.util.*
 
@@ -18,7 +13,10 @@ import java.util.*
     entities = [
         Estate::class,
         Meter::class, MeterValue::class,
-        Rate::class
+        Rate::class,
+        Payment::class, PaymentItem::class,
+        Tariff::class, TariffThreshold::class,
+        CalculationItem::class
     ],
     exportSchema = false,
     version = 1
@@ -36,4 +34,14 @@ abstract class UserDatabase : RoomDatabase() {
     abstract fun meterDao(): MeterDao
 
     abstract fun rateDao(): RateDao
+
+    abstract fun paymentDao(): PaymentDao
+
+    abstract fun paymentItemDao(): PaymentItemDao
+
+    abstract fun tariffDao(): TariffDao
+
+    abstract fun tariffThresholdDao(): TariffThresholdDao
+
+    abstract fun calculationItemDao(): CalculationItemDao
 }

@@ -29,7 +29,7 @@ class EstateListViewModel : ViewModel() {
     private fun populateNewEntry() {
         GlobalScope.launch {
             val title = "Est ${Date().time}"
-            val estate = Estate(null, title)
+            val estate = Estate(title = title)
             repository.addEstate(estate)
         }
     }
