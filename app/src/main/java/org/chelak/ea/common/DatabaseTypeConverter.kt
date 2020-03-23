@@ -1,4 +1,4 @@
-package org.chelak.ea.database
+package org.chelak.ea.common
 
 import androidx.room.TypeConverter
 import org.chelak.ea.common.BitMask
@@ -26,5 +26,9 @@ class DatabaseTypeConverter {
     @TypeConverter
     fun toString(value: BigDecimal?): String? = value?.toString()
 
+    @TypeConverter
+    fun toInt(value: EstateType?): Int = value?.typeId ?: 0
 
+    @TypeConverter
+    fun toEstateType(value: Int?): EstateType = EstateType.instance(value ?: 0)
 }

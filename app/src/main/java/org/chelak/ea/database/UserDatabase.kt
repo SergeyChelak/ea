@@ -1,12 +1,13 @@
 package org.chelak.ea.database
 
 import android.content.Context
-import androidx.room.*
-import org.chelak.ea.common.BitMask
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import org.chelak.ea.common.DatabaseTypeConverter
 import org.chelak.ea.database.dao.*
 import org.chelak.ea.database.entity.*
-import java.math.BigDecimal
-import java.util.*
 
 @TypeConverters(DatabaseTypeConverter::class)
 @Database(
@@ -16,7 +17,7 @@ import java.util.*
         Rate::class,
         Payment::class, PaymentItem::class,
         Tariff::class, TariffThreshold::class,
-        CalculationItem::class
+        CalculationItem::class, CalculationLinkMeter::class, CalculationLinkRate::class
     ],
     exportSchema = false,
     version = 1
@@ -44,4 +45,8 @@ abstract class UserDatabase : RoomDatabase() {
     abstract fun tariffThresholdDao(): TariffThresholdDao
 
     abstract fun calculationItemDao(): CalculationItemDao
+
+    abstract fun calculationLinkMeterDao(): CalculationLinkMeterDao
+
+    abstract fun calculationLinkRateDao(): CalculationLinkRateDao
 }
