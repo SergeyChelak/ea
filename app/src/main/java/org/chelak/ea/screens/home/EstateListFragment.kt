@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.estate_list_fragment.*
 
 import org.chelak.ea.R
@@ -14,22 +13,24 @@ import org.chelak.ea.common.Logger
 import org.chelak.ea.database.entity.Estate
 import org.chelak.ea.ui.MainActivity
 import org.chelak.ea.ui.list.ArrayListAdapter
+import org.chelak.ea.ui.list.HeadingViewHolder
+import org.chelak.ea.ui.list.clickPosition
+import org.chelak.ea.ui.list.setVerticalLayout
 
 class EstateListFragment : Fragment() {
 
     private lateinit var viewModel: EstateListViewModel
 
-    private val adapter = object : ArrayListAdapter<Estate, RecyclerView.ViewHolder>() {
+    private val adapter = object : ArrayListAdapter<Estate, HeadingViewHolder>() {
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-            TODO("Not yet implemented")
-        }
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeadingViewHolder =
+            HeadingViewHolder.instance(parent)
 
-        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-            TODO("Not yet implemented")
+        override fun onBindViewHolder(holder: HeadingViewHolder, position: Int) {
+            val estate = this[position]
+            holder.setTitle(estate.title)
         }
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,10 +43,13 @@ class EstateListFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         view?.let {
-            test_btn_open_estate.setOnClickListener {
-                viewModel.openEstateDetails(0)
+            recyclerView.clickPosition().observe({ lifecycle }) { position ->
+                val estate = adapter[position]
+                viewModel.openEstateDetails(estate.uid!!)
             }
-            dbg_btn_propagateEstate.setOnClickListener {
+            recyclerView.adapter = adapter
+            recyclerView.setVerticalLayout()
+            appendButton.setOnClickListener {
                 viewModel.addEstate()
             }
         }

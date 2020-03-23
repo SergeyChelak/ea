@@ -1,6 +1,5 @@
 package org.chelak.ea.ui.list
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,5 +34,3 @@ class HeadingViewHolder(view: View): RecyclerView.ViewHolder(view) {
     }
 
 }
-
-fun RecyclerView.ViewHolder.getContext(): Context = itemView.context
