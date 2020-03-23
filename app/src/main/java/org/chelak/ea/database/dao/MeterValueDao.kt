@@ -16,5 +16,4 @@ interface MeterValueDao: GenericDao<MeterValue> {
     @Query("SELECT * FROM __meters WHERE uid = :id LIMIT 1")
     fun fetchById(id: Long): LiveData<Meter>
 
-
 }

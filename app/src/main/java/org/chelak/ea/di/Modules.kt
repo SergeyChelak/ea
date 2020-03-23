@@ -12,7 +12,7 @@ import java.lang.ref.WeakReference
 
 @Module class RepositoryModule {
 
-    private val databaseFile = "ea_develop_3.db"
+    private val databaseFile = "ea_develop_4.db"
 
     @ApplicationScope
     @Provides fun provideDatabase(context: Context): UserDatabase = UserDatabase.create(context, databaseFile)
