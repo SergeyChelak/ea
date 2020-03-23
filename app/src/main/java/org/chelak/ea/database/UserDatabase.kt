@@ -4,10 +4,12 @@ import android.content.Context
 import androidx.room.*
 import org.chelak.ea.common.BitMask
 import org.chelak.ea.database.dao.EstateDao
+import org.chelak.ea.database.dao.MeterDao
 import org.chelak.ea.database.entity.Estate
+import org.chelak.ea.database.entity.Meter
 
 @TypeConverters(UserDatabase.Companion::class)
-@Database(entities = [Estate::class],
+@Database(entities = [Estate::class, Meter::class],
     exportSchema = false,
     version = 1)
 abstract class UserDatabase : RoomDatabase() {
@@ -25,4 +27,6 @@ abstract class UserDatabase : RoomDatabase() {
     }
 
     abstract fun estateDao(): EstateDao
+
+    abstract fun meterDao(): MeterDao
 }
