@@ -1,7 +1,6 @@
 package org.chelak.ea.di
 
 import android.content.Context
-import androidx.navigation.NavController
 import dagger.Module
 import dagger.Provides
 import org.chelak.ea.core.Repository
