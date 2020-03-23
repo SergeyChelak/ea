@@ -8,9 +8,9 @@
 
     <fragment
         android:id="@+id/myEstatesFragment"
-        android:name="org.chelak.ea.screens.home.MyEstatesFragment"
+        android:name="org.chelak.ea.screens.home.EstateListFragment"
         android:label="my_estates_fragment"
-        tools:layout="@layout/my_estates_fragment" >
+        tools:layout="@layout/estate_list_fragment" >
         <action
             android:id="@+id/action_myEstatesFragment_to_estateDetailsFragment"
             app:destination="@id/estate_navigation" />

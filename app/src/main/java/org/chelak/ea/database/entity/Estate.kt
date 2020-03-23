@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "__estates")
 data class Estate(
-    @PrimaryKey(autoGenerate = true) var uid: Int,
+    @PrimaryKey(autoGenerate = true) var uid: Long?,
     @ColumnInfo(name = "__title") var title: String?
 )
