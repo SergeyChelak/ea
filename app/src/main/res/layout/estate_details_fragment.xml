@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.estate.EstateDetailsFragment">
+    tools:context=".screens.estate.details.EstateDetailsFragment">
 
     <Button
         android:id="@+id/dbg_button_meter_list"

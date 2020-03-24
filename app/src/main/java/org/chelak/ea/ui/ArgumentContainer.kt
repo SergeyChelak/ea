@@ -2,7 +2,9 @@ package org.chelak.ea.ui
 
 import android.os.Bundle
 
-class ArgumentContainer(private var bundle: Bundle) {
+class ArgumentContainer(bundle: Bundle?) {
+
+    private var bundle: Bundle = bundle ?: Bundle()
 
     companion object {
         internal const val ESTATE_ID = "estate_id"

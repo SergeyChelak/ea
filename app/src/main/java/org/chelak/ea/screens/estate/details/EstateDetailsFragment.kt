@@ -1,4 +1,4 @@
-package org.chelak.ea.screens.estate
+package org.chelak.ea.screens.estate.details
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import org.chelak.ea.R
+import org.chelak.ea.ui.ArgumentContainer
 import org.chelak.ea.ui.MainActivity
 
 class EstateDetailsFragment : Fragment() {
@@ -31,6 +32,8 @@ class EstateDetailsFragment : Fragment() {
         }
         viewModel = ViewModelProvider(this).get(EstateDetailsViewModel::class.java)
         (activity as? MainActivity)?.component?.inject(viewModel)
+        val container = ArgumentContainer(arguments)
+        viewModel.setEstateId(container.getEstateId())
     }
 
 }

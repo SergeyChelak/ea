@@ -36,7 +36,7 @@
         </fragment>
         <fragment
             android:id="@+id/estateDetailsFragment"
-            android:name="org.chelak.ea.screens.estate.EstateDetailsFragment"
+            android:name="org.chelak.ea.screens.estate.details.EstateDetailsFragment"
             android:label="@string/estate_details_title"
             tools:layout="@layout/estate_details_fragment">
             <action
