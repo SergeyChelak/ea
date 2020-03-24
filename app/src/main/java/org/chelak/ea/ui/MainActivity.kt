@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         setupNavigation()
+        toolbar.title = getString(R.string.app_name)
     }
 
     override fun onSupportNavigateUp(): Boolean {

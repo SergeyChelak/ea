@@ -6,17 +6,17 @@
         <item
             android:id="@+id/myEstatesFragment"
             android:icon="@android:drawable/ic_menu_manage"
-            android:title="## My Estates" />
+            android:title="@string/estate_list" />
 
         <item
             android:id="@+id/tariffsFragment"
             android:icon="@android:drawable/ic_menu_manage"
-            android:title="## Tariffs" />
+            android:title="@string/tariff_list" />
 
         <item
             android:id="@+id/paymentHistoryFragment"
             android:icon="@android:drawable/ic_menu_manage"
-            android:title="## Payment History" />
+            android:title="@string/payment_history" />
 
     </group>
 

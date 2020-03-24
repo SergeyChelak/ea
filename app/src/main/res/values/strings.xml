@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Estate Accountant</string>
+
+    <string name="estate_details_title">Estate Details</string>
+    <string name="meter_details_title">Meter Details</string>
+    <string name="meter_list_title">Meters</string>
+
+    <string name="estate_list">Estates</string>
+    <string name="tariff_list">Tariffs</string>
+    <string name="payment_history">Payment History</string>
+
 </resources>

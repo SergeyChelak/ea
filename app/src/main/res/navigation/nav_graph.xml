@@ -9,7 +9,6 @@
     <fragment
         android:id="@+id/myEstatesFragment"
         android:name="org.chelak.ea.screens.home.EstateListFragment"
-        android:label="my_estates_fragment"
         tools:layout="@layout/estate_list_fragment" >
         <action
             android:id="@+id/action_myEstatesFragment_to_estateDetailsFragment"
@@ -18,12 +17,10 @@
     <fragment
         android:id="@+id/tariffsFragment"
         android:name="org.chelak.ea.screens.home.TariffFragment"
-        android:label="tariff_fragment"
         tools:layout="@layout/tariff_fragment" />
     <fragment
         android:id="@+id/paymentHistoryFragment"
         android:name="org.chelak.ea.screens.home.PaymentHistoryFragment"
-        android:label="payment_history_fragment"
         tools:layout="@layout/payment_history_fragment" />
     <navigation
         android:id="@+id/estate_navigation"
@@ -31,7 +28,7 @@
         <fragment
             android:id="@+id/meterListFragment"
             android:name="org.chelak.ea.screens.estate.MeterListFragment"
-            android:label="meter_list_fragment"
+            android:label="@string/meter_list_title"
             tools:layout="@layout/meter_list_fragment">
             <action
                 android:id="@+id/action_meterListFragment_to_meterDetailsFragment"
@@ -40,7 +37,7 @@
         <fragment
             android:id="@+id/estateDetailsFragment"
             android:name="org.chelak.ea.screens.estate.EstateDetailsFragment"
-            android:label="estate_details_fragment"
+            android:label="@string/estate_details_title"
             tools:layout="@layout/estate_details_fragment">
             <action
                 android:id="@+id/action_estateDetailsFragment_to_meterListFragment"
@@ -49,7 +46,7 @@
         <fragment
             android:id="@+id/meterDetailsFragment"
             android:name="org.chelak.ea.screens.estate.MeterDetailsFragment"
-            android:label="meter_details_fragment"
+            android:label="@string/meter_details_title"
             tools:layout="@layout/meter_details_fragment" />
     </navigation>
 </navigation>
