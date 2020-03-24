@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/estate_details_menu_add_meter"
+        android:title="@string/estate_details_menu_add_meter"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/estate_details_menu_manage_rates"
+        android:title="@string/estate_details_menu_manage_rates"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/estate_details_menu_payment_settings"
+        android:title="@string/estate_details_menu_payment_settings"
+        app:showAsAction="never" />
+
+
+</menu>

@@ -17,4 +17,16 @@ class EstateDetailsViewModel : ViewModel() {
     fun setEstateId(estateId: Long) {
         Logger.d("Estate id: $estateId")
     }
+
+    fun addMeter() {
+        //
+    }
+
+    fun manageRates() {
+
+    }
+
+    fun paymentSettings() {
+
+    }
 }
