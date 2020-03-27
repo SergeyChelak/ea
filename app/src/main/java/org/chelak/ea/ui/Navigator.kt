@@ -3,7 +3,6 @@ package org.chelak.ea.ui
 import androidx.navigation.NavController
 import org.chelak.ea.R
 import org.chelak.ea.common.Logger
-import javax.inject.Inject
 
 class Navigator(private val navController: NavController) {
 

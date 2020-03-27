@@ -37,6 +37,7 @@ class EstateDetailsFragment : Fragment() {
         (activity as? MainActivity)?.component?.inject(viewModel)
         val container = ArgumentContainer(arguments)
         viewModel.setEstateId(container.getEstateId())
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
