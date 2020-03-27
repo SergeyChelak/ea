@@ -12,6 +12,7 @@ import org.chelak.ea.R
 import org.chelak.ea.common.Logger
 import org.chelak.ea.database.entity.Estate
 import org.chelak.ea.ui.MainActivity
+import org.chelak.ea.ui.appComponent
 import org.chelak.ea.ui.list.ArrayListAdapter
 import org.chelak.ea.ui.list.HeadingViewHolder
 import org.chelak.ea.ui.list.clickPosition
@@ -54,7 +55,7 @@ class EstateListFragment : Fragment() {
             }
         }
         viewModel = ViewModelProvider(this).get(EstateListViewModel::class.java)
-        (activity as? MainActivity)?.component?.inject(viewModel)
+        appComponent?.inject(viewModel)
         viewModel.getEstates().observe({ lifecycle }) { list ->
             Logger.i("Loaded ${list.size} estates")
             adapter.replace(list)

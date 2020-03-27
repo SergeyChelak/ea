@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/tariffsFragment"
-        android:name="org.chelak.ea.screens.home.tariff.TariffFragment"
+        android:name="org.chelak.ea.screens.home.tariff.TariffsFragment"
         tools:layout="@layout/tariff_fragment" />
     <fragment
         android:id="@+id/paymentHistoryFragment"
