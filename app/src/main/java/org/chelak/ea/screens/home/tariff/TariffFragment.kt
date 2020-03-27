@@ -1,4 +1,4 @@
-package org.chelak.ea.screens.home
+package org.chelak.ea.screens.home.tariff
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
