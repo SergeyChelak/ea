@@ -36,7 +36,7 @@ class EstateDetailsFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(EstateDetailsViewModel::class.java)
         (activity as? MainActivity)?.component?.inject(viewModel)
         val container = ArgumentContainer(arguments)
-        viewModel.setEstateId(container.getEstateId())
+        viewModel.setEstateId(container.estateId)
 
     }
 

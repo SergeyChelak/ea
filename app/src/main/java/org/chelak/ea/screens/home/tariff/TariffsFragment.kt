@@ -45,8 +45,7 @@ class TariffsFragment : Fragment() {
 
         view?.let {
             recyclerView.clickPosition().observe({ lifecycle }) { position ->
-                val estate = adapter[position]
-//                viewModel.openEstateDetails(estate.uid)
+                viewModel.openTariffDetails(adapter[position].uid)
             }
             recyclerView.adapter = adapter
             recyclerView.setVerticalLayout()

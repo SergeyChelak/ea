@@ -17,7 +17,11 @@
     <fragment
         android:id="@+id/tariffsFragment"
         android:name="org.chelak.ea.screens.home.tariff.TariffsFragment"
-        tools:layout="@layout/tariff_fragment" />
+        tools:layout="@layout/tariff_fragment" >
+        <action
+            android:id="@+id/action_tariffsFragment_to_tariffDetailsFragment"
+            app:destination="@id/tariffDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/paymentHistoryFragment"
         android:name="org.chelak.ea.screens.home.PaymentHistoryFragment"
@@ -49,4 +53,9 @@
             android:label="@string/meter_details_title"
             tools:layout="@layout/meter_details_fragment" />
     </navigation>
+    <fragment
+        android:id="@+id/tariffDetailsFragment"
+        android:name="org.chelak.ea.screens.home.tariff.TariffDetailsFragment"
+        android:label="@string/tariff_details_title"
+        tools:layout="@layout/tariff_details_fragment" />
 </navigation>

@@ -9,6 +9,8 @@
     <string name="meter_details_title">Meter Details</string>
     <string name="meter_list_title">Meters</string>
 
+    <string name="tariff_details_title">Tariff Details</string>
+
     <string name="estate_list">Estates</string>
     <string name="tariff_list">Tariffs</string>
     <string name="payment_history">Payment History</string>

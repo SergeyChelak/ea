@@ -7,6 +7,7 @@ import kotlinx.coroutines.launch
 import org.chelak.ea.core.Repository
 import org.chelak.ea.database.entity.Tariff
 import org.chelak.ea.database.entity.TariffThreshold
+import org.chelak.ea.ui.Navigator
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -14,6 +15,9 @@ class TariffsViewModel : ViewModel() {
 
     @Inject
     lateinit var repository: Repository
+
+    @Inject
+    lateinit var navigator: Navigator
 
     fun getTariffs() : LiveData<List<Tariff>> = repository.allTariffs()
 
@@ -28,5 +32,9 @@ class TariffsViewModel : ViewModel() {
             val baseThreshold = TariffThreshold(tariffUid = tariffId, value = 0, price = BigDecimal.ZERO)
             repository.addThreshold(baseThreshold)
         }
+    }
+
+    fun openTariffDetails(tariffId: Long) {
+        navigator.openTariffDetails(tariffId)
     }
 }

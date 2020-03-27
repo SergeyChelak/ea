@@ -20,4 +20,9 @@ class Navigator(private val navController: NavController) {
         navController.navigate(R.id.action_estateDetailsFragment_to_meterListFragment, container.getBundle())
     }
 
+    fun openTariffDetails(tariffId: Long) {
+        val args = ArgumentContainer.builder().putTariffId(tariffId).build()
+        navController.navigate(R.id.tariffDetailsFragment, args.getBundle())
+    }
+
 }
