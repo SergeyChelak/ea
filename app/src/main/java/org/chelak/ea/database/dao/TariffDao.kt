@@ -13,6 +13,6 @@ interface TariffDao : GenericDao<Tariff> {
     fun fetchAll(): LiveData<List<Tariff>>
 
     @Query("SELECT * FROM __tariffs WHERE uid = :id LIMIT 1")
-    fun fetchById(id: Long): Tariff
+    fun fetchById(id: Long): LiveData<Tariff>
 
 }

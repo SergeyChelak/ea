@@ -19,14 +19,19 @@ class Repository constructor(private val dataBase: UserDatabase) {
     fun updateEstate(estate: Estate): Int = dataBase.estateDao().update(estate)
 
     // meters
-    fun meters(estateId: Long): LiveData<List<Meter>> = dataBase.meterDao().fetchMeters(estateId = estateId)
+    fun meters(estateId: Long): LiveData<List<Meter>> =
+        dataBase.meterDao().fetchMeters(estateId = estateId)
 
     // tariff
     fun allTariffs(): LiveData<List<Tariff>> = dataBase.tariffDao().fetchAll()
 
+    fun tariff(uid: Long): LiveData<Tariff> = dataBase.tariffDao().fetchById(uid)
+
     fun addTariff(tariff: Tariff): Long = dataBase.tariffDao().insert(tariff)
 
-    fun thresholds(tariffId: Long): LiveData<List<TariffThreshold>> = dataBase.tariffThresholdDao().fetchThresholds(tariffId)
+    fun thresholds(tariffId: Long): LiveData<List<TariffThreshold>> =
+        dataBase.tariffThresholdDao().fetchThresholds(tariffId)
 
-    fun addThreshold(threshold: TariffThreshold): Long = dataBase.tariffThresholdDao().insert(threshold)
+    fun addThreshold(threshold: TariffThreshold): Long =
+        dataBase.tariffThresholdDao().insert(threshold)
 }

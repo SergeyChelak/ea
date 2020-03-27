@@ -72,3 +72,5 @@ class MainActivity : AppCompatActivity() {
 }
 
 val Fragment.appComponent: AppComponent? get() = (activity as? MainActivity)?.component
+
+val Fragment.argumentContainer: ArgumentContainer get() = ArgumentContainer(arguments)
