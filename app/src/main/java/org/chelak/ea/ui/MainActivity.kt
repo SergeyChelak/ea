@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         setupNavigation()
-        toolbar.title = getString(R.string.app_name)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -49,16 +48,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupNavigation() {
-        appBarConfiguration = AppBarConfiguration.Builder(setOf(R.id.myEstatesFragment, R.id.tariffsFragment, R.id.paymentHistoryFragment))
+        val drawerFragments = setOf(R.id.myEstatesFragment, R.id.tariffsFragment, R.id.paymentHistoryFragment)
+        appBarConfiguration = AppBarConfiguration.Builder(drawerFragments)
             .setDrawerLayout(drawerLayout)
             .build()
         setupActionBarWithNavController(navController, appBarConfiguration)
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            supportActionBar.let {
-                val isVisible = destination.parent?.id == R.id.root_nav_graph
-                it?.setDisplayHomeAsUpEnabled(isVisible)
-                it?.setHomeButtonEnabled(isVisible)
+            val isDrawerFragment = drawerFragments.contains(destination.id)
+            if (isDrawerFragment) {
+                supportActionBar?.title = getString(R.string.app_name)
             }
+//            supportActionBar?.setDisplayHomeAsUpEnabled(isDrawerFragment)
+//            supportActionBar?.setHomeButtonEnabled(isDrawerFragment)
         }
         // Handle nav drawer item clicks
         navigationView.setNavigationItemSelectedListener { menuItem ->
