@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_nav_graph"
@@ -9,15 +8,15 @@
     <fragment
         android:id="@+id/myEstatesFragment"
         android:name="org.chelak.ea.screens.home.EstateListFragment"
-        tools:layout="@layout/estate_list_fragment" >
+        tools:layout="@layout/estate_list_fragment">
         <action
             android:id="@+id/action_myEstatesFragment_to_estateDetailsFragment"
-            app:destination="@id/estate_navigation" />
+            app:destination="@id/estateDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/tariffsFragment"
         android:name="org.chelak.ea.screens.home.tariff.TariffsFragment"
-        tools:layout="@layout/tariff_fragment" >
+        tools:layout="@layout/tariff_fragment">
         <action
             android:id="@+id/action_tariffsFragment_to_tariffDetailsFragment"
             app:destination="@id/tariffDetailsFragment" />
@@ -26,33 +25,29 @@
         android:id="@+id/paymentHistoryFragment"
         android:name="org.chelak.ea.screens.home.PaymentHistoryFragment"
         tools:layout="@layout/payment_history_fragment" />
-    <navigation
-        android:id="@+id/estate_navigation"
-        app:startDestination="@id/estateDetailsFragment" >
-        <fragment
-            android:id="@+id/meterListFragment"
-            android:name="org.chelak.ea.screens.estate.MeterListFragment"
-            android:label="@string/meter_list_title"
-            tools:layout="@layout/meter_list_fragment">
-            <action
-                android:id="@+id/action_meterListFragment_to_meterDetailsFragment"
-                app:destination="@id/meterDetailsFragment" />
-        </fragment>
-        <fragment
-            android:id="@+id/estateDetailsFragment"
-            android:name="org.chelak.ea.screens.estate.details.EstateDetailsFragment"
-            android:label="@string/estate_details_title"
-            tools:layout="@layout/estate_details_fragment">
-            <action
-                android:id="@+id/action_estateDetailsFragment_to_meterListFragment"
-                app:destination="@id/meterListFragment" />
-        </fragment>
-        <fragment
-            android:id="@+id/meterDetailsFragment"
-            android:name="org.chelak.ea.screens.estate.MeterDetailsFragment"
-            android:label="@string/meter_details_title"
-            tools:layout="@layout/meter_details_fragment" />
-    </navigation>
+    <fragment
+        android:id="@+id/meterListFragment"
+        android:name="org.chelak.ea.screens.estate.MeterListFragment"
+        android:label="@string/meter_list_title"
+        tools:layout="@layout/meter_list_fragment">
+        <action
+            android:id="@+id/action_meterListFragment_to_meterDetailsFragment"
+            app:destination="@id/meterDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/estateDetailsFragment"
+        android:name="org.chelak.ea.screens.estate.details.EstateDetailsFragment"
+        android:label="@string/estate_details_title"
+        tools:layout="@layout/estate_details_fragment">
+        <action
+            android:id="@+id/action_estateDetailsFragment_to_meterListFragment"
+            app:destination="@id/meterListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/meterDetailsFragment"
+        android:name="org.chelak.ea.screens.estate.MeterDetailsFragment"
+        android:label="@string/meter_details_title"
+        tools:layout="@layout/meter_details_fragment" />
     <fragment
         android:id="@+id/tariffDetailsFragment"
         android:name="org.chelak.ea.screens.home.tariff.TariffDetailsFragment"
