@@ -25,8 +25,8 @@ fun RecyclerView.clickPosition(): LiveData<Int> {
         fun getEmitter() = emitter
 
         override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
-            rv.findChildViewUnder(e.x, e.y).let {
-                emitter.value = rv.getChildAdapterPosition(it!!)
+            rv.findChildViewUnder(e.x, e.y)?.let {
+                emitter.value = rv.getChildAdapterPosition(it)
             }
         }
 
@@ -53,6 +53,13 @@ fun RecyclerView.setVerticalLayout() {
         orientation = LinearLayoutManager.VERTICAL
     }
 }
+
+fun RecyclerView.setLinearLayout() {
+    layoutManager = LinearLayoutManager(context).apply {
+        orientation = LinearLayoutManager.VERTICAL
+    }
+}
+
 
 fun RecyclerView.setVerticalGridLayout(spanCount: Int = 2) {
     layoutManager = GridLayoutManager(context, spanCount, GridLayoutManager.VERTICAL, false)
