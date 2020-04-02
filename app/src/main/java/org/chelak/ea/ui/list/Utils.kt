@@ -54,9 +54,9 @@ fun RecyclerView.setVerticalLayout() {
     }
 }
 
-fun RecyclerView.setLinearLayout() {
+fun RecyclerView.setHorizontalLayout() {
     layoutManager = LinearLayoutManager(context).apply {
-        orientation = LinearLayoutManager.VERTICAL
+        orientation = LinearLayoutManager.HORIZONTAL
     }
 }
 

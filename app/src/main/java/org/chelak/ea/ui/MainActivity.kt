@@ -1,10 +1,9 @@
 package org.chelak.ea.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -12,8 +11,11 @@ import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
 import org.chelak.ea.R
-import org.chelak.ea.common.Logger
-import org.chelak.ea.di.*
+import org.chelak.ea.di.AppComponent
+import org.chelak.ea.di.DaggerAppComponent
+import org.chelak.ea.di.HostModule
+import org.chelak.ea.di.RepositoryModule
+import org.chelak.ea.ui.alert.AlertController
 
 class MainActivity : AppCompatActivity() {
 
@@ -75,3 +77,8 @@ class MainActivity : AppCompatActivity() {
 val Fragment.appComponent: AppComponent? get() = (activity as? MainActivity)?.component
 
 val Fragment.argumentContainer: ArgumentContainer get() = ArgumentContainer(arguments)
+
+val Fragment.alertController: AlertController? get() {
+    val navController = (activity as? MainActivity)?.navController
+    return if (navController == null) null else AlertController(navController)
+}

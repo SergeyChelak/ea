@@ -7,14 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import kotlinx.android.synthetic.main.estate_list_fragment.*
 import kotlinx.android.synthetic.main.tariff_details_fragment.*
 import kotlinx.android.synthetic.main.tariff_details_fragment.recyclerView
 
 import org.chelak.ea.R
 import org.chelak.ea.common.Logger
-import org.chelak.ea.database.entity.Tariff
 import org.chelak.ea.database.entity.TariffThreshold
+import org.chelak.ea.ui.MainActivity
+import org.chelak.ea.ui.alert.Alert
+import org.chelak.ea.ui.alert.AlertController
+import org.chelak.ea.ui.alertController
 import org.chelak.ea.ui.appComponent
 import org.chelak.ea.ui.argumentContainer
 import org.chelak.ea.ui.list.ArrayListAdapter
@@ -55,9 +57,11 @@ class TariffDetailsFragment : Fragment() {
             Logger.d("Threshold count: ${it.size}")
             adapter.replace(it)
         })
-
         recyclerView.adapter = adapter
         recyclerView.setVerticalLayout()
+        appendButton.setOnClickListener { _ ->
+            //
+        }
     }
 
 }
