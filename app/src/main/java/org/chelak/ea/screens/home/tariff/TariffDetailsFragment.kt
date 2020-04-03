@@ -13,10 +13,6 @@ import kotlinx.android.synthetic.main.tariff_details_fragment.recyclerView
 import org.chelak.ea.R
 import org.chelak.ea.common.Logger
 import org.chelak.ea.database.entity.TariffThreshold
-import org.chelak.ea.ui.MainActivity
-import org.chelak.ea.ui.alert.Alert
-import org.chelak.ea.ui.alert.AlertController
-import org.chelak.ea.ui.alertController
 import org.chelak.ea.ui.appComponent
 import org.chelak.ea.ui.argumentContainer
 import org.chelak.ea.ui.list.ArrayListAdapter

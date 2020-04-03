@@ -55,6 +55,6 @@
         tools:layout="@layout/tariff_details_fragment" />
     <dialog
         android:id="@+id/alertDialog"
-        android:name="org.chelak.ea.ui.alert.AlertController$AlertFragment"
+        android:name="org.chelak.ea.ui.AlertController$AlertFragment"
         android:label="AlertDialog" />
 </navigation>
