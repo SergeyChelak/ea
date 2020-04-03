@@ -57,7 +57,7 @@ class AlertController(private val navController: NavController) {
         private val alertId = AtomicLong(0)
         private var alerts : MutableMap<Long, Alert> = mutableMapOf()
 
-        fun put(alert: Alert): Long {
+        internal fun put(alert: Alert): Long {
             val id = alertId.addAndGet(1)
             alerts[id] = alert
             return id
