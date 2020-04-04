@@ -1,4 +1,4 @@
-package org.chelak.ea.ui
+package org.chelak.ea.ui.dialog
 
 import android.app.AlertDialog
 import android.app.Dialog

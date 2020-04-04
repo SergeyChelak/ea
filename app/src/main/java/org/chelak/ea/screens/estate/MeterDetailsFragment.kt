@@ -11,11 +11,9 @@ import org.chelak.ea.R
 
 class MeterDetailsFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = MeterDetailsFragment()
+    private val viewModel: MeterDetailsViewModel by lazy {
+        ViewModelProvider(this).get(MeterDetailsViewModel::class.java)
     }
-
-    private lateinit var viewModel: MeterDetailsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,8 +24,6 @@ class MeterDetailsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MeterDetailsViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
 }

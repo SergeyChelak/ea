@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.tariff_details_fragment.*
@@ -21,7 +22,9 @@ import org.chelak.ea.ui.list.setVerticalLayout
 
 class TariffDetailsFragment : Fragment() {
 
-    private lateinit var viewModel: TariffDetailsViewModel
+    private val viewModel: TariffDetailsViewModel by lazy {
+        ViewModelProvider(this).get(TariffDetailsViewModel::class.java)
+    }
 
     private val adapter = object : ArrayListAdapter<TariffThreshold, CaptionValueViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CaptionValueViewHolder = CaptionValueViewHolder.instance(parent)
@@ -42,7 +45,6 @@ class TariffDetailsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(TariffDetailsViewModel::class.java)
         appComponent?.inject(viewModel)
         viewModel.setTariffId(argumentContainer.tariffId)
 

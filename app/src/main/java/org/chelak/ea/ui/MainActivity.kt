@@ -15,6 +15,7 @@ import org.chelak.ea.di.AppComponent
 import org.chelak.ea.di.DaggerAppComponent
 import org.chelak.ea.di.HostModule
 import org.chelak.ea.di.RepositoryModule
+import org.chelak.ea.ui.dialog.AlertController
 
 class MainActivity : AppCompatActivity() {
 

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.estate_list_fragment.*
 
@@ -20,7 +21,9 @@ import org.chelak.ea.ui.list.setVerticalLayout
 
 class EstateListFragment : Fragment() {
 
-    private lateinit var viewModel: EstateListViewModel
+    private val viewModel: EstateListViewModel by lazy {
+        ViewModelProvider(this).get(EstateListViewModel::class.java)
+    }
 
     private val adapter = object : ArrayListAdapter<Estate, HeadingViewHolder>() {
 
@@ -54,7 +57,6 @@ class EstateListFragment : Fragment() {
                 viewModel.addEstate()
             }
         }
-        viewModel = ViewModelProvider(this).get(EstateListViewModel::class.java)
         appComponent?.inject(viewModel)
         viewModel.getEstates().observe({ lifecycle }) { list ->
             Logger.i("Loaded ${list.size} estates")
