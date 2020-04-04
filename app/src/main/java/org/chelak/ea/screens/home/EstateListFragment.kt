@@ -1,18 +1,16 @@
 package org.chelak.ea.screens.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.estate_list_fragment.*
-
 import org.chelak.ea.R
 import org.chelak.ea.common.Logger
 import org.chelak.ea.database.entity.Estate
-import org.chelak.ea.ui.MainActivity
 import org.chelak.ea.ui.appComponent
 import org.chelak.ea.ui.list.ArrayListAdapter
 import org.chelak.ea.ui.list.HeadingViewHolder
@@ -47,10 +45,10 @@ class EstateListFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         view?.let {
-            recyclerView.clickPosition().observe({ lifecycle }) { position ->
-                val estate = adapter[position]
+            recyclerView.clickPosition().observe(viewLifecycleOwner, Observer {
+                val estate = adapter[it]
                 viewModel.openEstateDetails(estate.uid)
-            }
+            })
             recyclerView.adapter = adapter
             recyclerView.setVerticalLayout()
             appendButton.setOnClickListener {
@@ -58,10 +56,10 @@ class EstateListFragment : Fragment() {
             }
         }
         appComponent?.inject(viewModel)
-        viewModel.getEstates().observe({ lifecycle }) { list ->
+        viewModel.getEstates().observe(viewLifecycleOwner, Observer { list ->
             Logger.i("Loaded ${list.size} estates")
             adapter.replace(list)
-        }
+        })
     }
 
 }

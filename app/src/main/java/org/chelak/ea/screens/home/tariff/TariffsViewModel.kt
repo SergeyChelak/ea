@@ -29,7 +29,7 @@ class TariffsViewModel : ViewModel() {
         GlobalScope.launch {
             val tariff = Tariff(title = "New Tariff")
             val tariffId = repository.addTariff(tariff)
-            val baseThreshold = TariffThreshold(tariffUid = tariffId, value = 0, price = BigDecimal.ZERO)
+            val baseThreshold = TariffThreshold(tariffUid = tariffId, value = null, price = BigDecimal.ZERO)
             repository.addThreshold(baseThreshold)
         }
     }

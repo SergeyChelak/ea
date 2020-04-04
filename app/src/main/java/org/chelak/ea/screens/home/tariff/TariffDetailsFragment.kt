@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.tariff_details_fragment.*
@@ -18,6 +17,7 @@ import org.chelak.ea.ui.appComponent
 import org.chelak.ea.ui.argumentContainer
 import org.chelak.ea.ui.list.ArrayListAdapter
 import org.chelak.ea.ui.list.CaptionValueViewHolder
+import org.chelak.ea.ui.list.clickPosition
 import org.chelak.ea.ui.list.setVerticalLayout
 
 class TariffDetailsFragment : Fragment() {
@@ -31,7 +31,8 @@ class TariffDetailsFragment : Fragment() {
 
         override fun onBindViewHolder(holder: CaptionValueViewHolder, position: Int) {
             val t = this[position]
-            holder.setCaption((t.value ?: 0).toString())
+            val caption = if (t.value != null) t.value.toString() else "Base"
+            holder.setCaption(caption)
             holder.setValue(t.price.toString())
         }
     }
@@ -39,9 +40,8 @@ class TariffDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.tariff_details_fragment, container, false)
-    }
+    ): View? = inflater.inflate(R.layout.tariff_details_fragment, container, false)
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -57,6 +57,9 @@ class TariffDetailsFragment : Fragment() {
         })
         recyclerView.adapter = adapter
         recyclerView.setVerticalLayout()
+        recyclerView.clickPosition().observe(viewLifecycleOwner, Observer {
+            Logger.d("Threshold selected $it")
+        })
         appendButton.setOnClickListener { _ ->
             //
         }

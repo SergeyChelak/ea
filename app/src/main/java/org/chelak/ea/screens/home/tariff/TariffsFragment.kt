@@ -44,9 +44,9 @@ class TariffsFragment : Fragment() {
         appComponent?.inject(viewModel)
 
         view?.let {
-            recyclerView.clickPosition().observe({ lifecycle }) { position ->
+            recyclerView.clickPosition().observe(viewLifecycleOwner, Observer { position ->
                 viewModel.openTariffDetails(adapter[position].uid)
-            }
+            })
             recyclerView.adapter = adapter
             recyclerView.setVerticalLayout()
             appendButton.setOnClickListener {

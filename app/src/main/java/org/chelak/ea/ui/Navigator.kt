@@ -2,7 +2,6 @@ package org.chelak.ea.ui
 
 import androidx.navigation.NavController
 import org.chelak.ea.R
-import org.chelak.ea.common.Logger
 
 class Navigator(private val navController: NavController) {
 
