@@ -67,7 +67,7 @@ class TariffDetailsFragment : Fragment() {
             //findNavController().navigate(R.id.textInputDialog)
             val alert = TextInputAlert()
                 .setTitle("Title")
-                //.setMessage("Message")
+                .setInitialValue("Initial text...")
                 .setPositive("Ok") { text -> Logger.d("Input Text = $text")}
                 .setNegative("Cancel")
             present(alert)

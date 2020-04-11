@@ -38,16 +38,15 @@ open class GenericActionShareViewModel<AlertType> : ViewModel() {
 
 open class BaseDialogFragment: DialogFragment() {
 
-    protected lateinit var alertModel: AlertModel
-    protected val alertId: Long get() = alertModel.alertId
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        alertModel = AlertModel(arguments)
-    }
+    protected val alertId: Long
+        get() {
+            val alertModel = AlertModel(arguments)
+            return alertModel.alertId
+        }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(context)
+        val alertModel = AlertModel(arguments)
         alertModel.title?.let {
             builder.setTitle(it)
         }

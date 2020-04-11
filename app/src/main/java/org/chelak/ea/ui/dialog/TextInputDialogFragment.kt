@@ -1,7 +1,9 @@
 package org.chelak.ea.ui.dialog
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import androidx.core.widget.doAfterTextChanged
@@ -13,11 +15,24 @@ import org.chelak.ea.common.Logger
 import org.chelak.ea.ui.MainActivity
 
 
+class TextInputAlertModel(bundle: Bundle? = null) : AlertModel(bundle) {
+
+    companion object {
+        internal const val ALERT_INITIAL_VALUE = "alert_initial_value"
+    }
+
+    var initialValue: String?
+        get() = bundle.getString(ALERT_INITIAL_VALUE)
+        set(value) {
+            bundle.putString(ALERT_INITIAL_VALUE, value)
+        }
+}
+
 typealias TextInputAction = (String?) -> Unit
 
 class TextInputAlert {
 
-    val alertModel = AlertModel()
+    val alertModel = TextInputAlertModel()
 
     var positiveHandler: TextInputAction? = null
         private set
@@ -32,6 +47,11 @@ class TextInputAlert {
 
     fun setMessage(message: String): TextInputAlert {
         alertModel.message = message
+        return this
+    }
+
+    fun setInitialValue(value: String): TextInputAlert {
+        alertModel.initialValue = value
         return this
     }
 
@@ -50,7 +70,7 @@ class TextInputAlert {
 }
 
 
-class TextInputViewModel: GenericActionShareViewModel<TextInputAlert>() {
+class TextInputViewModel : GenericActionShareViewModel<TextInputAlert>() {
 
     private var inputText: String = ""
 
@@ -73,16 +93,21 @@ class TextInputViewModel: GenericActionShareViewModel<TextInputAlert>() {
 }
 
 
-class TextInputDialogFragment: BaseDialogFragment() {
+class TextInputDialogFragment : BaseDialogFragment() {
 
     private val viewModel: TextInputViewModel by navGraphViewModels(R.id.root_nav_graph)
     var dialogView: View? = null
 
+    @SuppressLint("InflateParams")
     override fun setupView(builder: AlertDialog.Builder) {
         dialogView = activity?.layoutInflater?.inflate(R.layout.view_single_text_input, null)
         dialogView?.let {
             val editText: EditText = it.findViewById(R.id.textInputField)
             editText.doAfterTextChanged { text -> viewModel.setInputText(text?.toString() ?: "") }
+            val model = TextInputAlertModel(arguments)
+            model.initialValue?.let {
+                editText.setText(it)
+            }
             builder.setView(it)
         }
     }
