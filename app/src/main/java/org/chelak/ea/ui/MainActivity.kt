@@ -15,7 +15,6 @@ import org.chelak.ea.di.AppComponent
 import org.chelak.ea.di.DaggerAppComponent
 import org.chelak.ea.di.HostModule
 import org.chelak.ea.di.RepositoryModule
-import org.chelak.ea.ui.dialog.AlertController
 
 class MainActivity : AppCompatActivity() {
 
@@ -77,10 +76,3 @@ class MainActivity : AppCompatActivity() {
 val Fragment.appComponent: AppComponent? get() = (activity as? MainActivity)?.component
 
 val Fragment.argumentContainer: ArgumentContainer get() = ArgumentContainer(arguments)
-
-val Fragment.alertController: AlertController? get() {
-    val navController = (activity as? MainActivity)?.navController
-    return if (navController == null) null else AlertController(
-        navController
-    )
-}

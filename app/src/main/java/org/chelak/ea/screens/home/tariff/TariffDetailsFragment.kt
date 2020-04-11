@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.tariff_details_fragment.*
 import kotlinx.android.synthetic.main.tariff_details_fragment.recyclerView
 
@@ -15,6 +16,8 @@ import org.chelak.ea.common.Logger
 import org.chelak.ea.database.entity.TariffThreshold
 import org.chelak.ea.ui.appComponent
 import org.chelak.ea.ui.argumentContainer
+import org.chelak.ea.ui.dialog.TextInputAlert
+import org.chelak.ea.ui.dialog.present
 import org.chelak.ea.ui.list.ArrayListAdapter
 import org.chelak.ea.ui.list.CaptionValueViewHolder
 import org.chelak.ea.ui.list.clickPosition
@@ -61,7 +64,13 @@ class TariffDetailsFragment : Fragment() {
             Logger.d("Threshold selected $it")
         })
         appendButton.setOnClickListener { _ ->
-            //
+            //findNavController().navigate(R.id.textInputDialog)
+            val alert = TextInputAlert()
+                .setTitle("Title")
+                //.setMessage("Message")
+                .setPositive("Ok") { text -> Logger.d("Input Text = $text")}
+                .setNegative("Cancel")
+            present(alert)
         }
     }
 
