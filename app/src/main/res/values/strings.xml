@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Estate Accountant</string>
 
+    <string name="btn_ok">OK</string>
+    <string name="btn_cancel">Cancel</string>
+
     <string name="estate_details_title">Estate Details</string>
     <string name="estate_details_menu_add_meter">Add Meter</string>
     <string name="estate_details_menu_manage_rates">Manage Rates</string>
@@ -12,6 +15,8 @@
     <string name="tariff_details_title">Tariff Details</string>
 
     <string name="estate_list">Estates</string>
+    <string name="estate_dialog_new">New Estate</string>
+
     <string name="tariff_list">Tariffs</string>
     <string name="payment_history">Payment History</string>
 

@@ -9,7 +9,7 @@ class Navigator(private val navController: NavController) {
         val container = ArgumentContainer.builder()
             .putEstateId(estateId)
             .build()
-        navController.navigate(R.id.action_myEstatesFragment_to_estateDetailsFragment, container.getBundle())
+        navController.navigate(R.id.estateDetailsFragment, container.getBundle())
     }
 
     fun openMeterList(estateId: Long) {

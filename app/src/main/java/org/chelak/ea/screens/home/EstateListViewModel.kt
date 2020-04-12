@@ -2,9 +2,7 @@ package org.chelak.ea.screens.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import org.chelak.ea.core.Repository
 import org.chelak.ea.database.entity.Estate
 import org.chelak.ea.ui.Navigator
@@ -22,15 +20,14 @@ class EstateListViewModel : ViewModel() {
         navigator.openEstateDetails(estateId)
     }
 
-    fun addEstate() {
-        populateNewEntry()
-    }
-
-    private fun populateNewEntry() {
+    fun addEstate(name: String) {
         GlobalScope.launch {
-            val title = "Est ${Date().time}"
-            val estate = Estate(title = title)
-            repository.addEstate(estate)
+            val estate = Estate(title = name)
+            val id = repository.addEstate(estate)
+            withContext(Dispatchers.Main) {
+                openEstateDetails(id)
+            }
         }
     }
+
 }

@@ -12,6 +12,7 @@ import org.chelak.ea.R
 import org.chelak.ea.common.Logger
 import org.chelak.ea.database.entity.Estate
 import org.chelak.ea.ui.appComponent
+import org.chelak.ea.ui.dialog.presentTextInput
 import org.chelak.ea.ui.list.ArrayListAdapter
 import org.chelak.ea.ui.list.HeadingViewHolder
 import org.chelak.ea.ui.list.clickPosition
@@ -52,7 +53,12 @@ class EstateListFragment : Fragment() {
             recyclerView.adapter = adapter
             recyclerView.setVerticalLayout()
             appendButton.setOnClickListener {
-                viewModel.addEstate()
+                presentTextInput(
+                    title = getString(R.string.estate_dialog_new),
+                    positiveTitle = getString(R.string.btn_ok),
+                    positiveAction = { name -> viewModel.addEstate(name)},
+                    negativeTitle = getString(R.string.btn_cancel)
+                )
             }
         }
         appComponent?.inject(viewModel)
@@ -61,5 +67,6 @@ class EstateListFragment : Fragment() {
             adapter.replace(list)
         })
     }
+
 
 }
