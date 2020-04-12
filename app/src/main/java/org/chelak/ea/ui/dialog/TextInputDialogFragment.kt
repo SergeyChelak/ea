@@ -3,6 +3,7 @@ package org.chelak.ea.ui.dialog
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import androidx.core.widget.doAfterTextChanged
@@ -14,49 +15,15 @@ import org.chelak.ea.common.Logger
 import org.chelak.ea.ui.MainActivity
 
 
-typealias TextInputAction = (String?) -> Unit
+typealias TextInputAction = (String) -> Unit
 
-class TextInputAlert {
-
-    val alertData = AlertData()
-
-    var positiveHandler: TextInputAction? = null
-        private set
-
+data class TextInputActionHolder(
+    var positiveHandler: TextInputAction? = null,
     var negativeHandler: DialogAction? = null
-        private set
-
-    fun setTitle(title: String): TextInputAlert {
-        alertData.title = title
-        return this
-    }
-
-    fun setMessage(message: String): TextInputAlert {
-        alertData.message = message
-        return this
-    }
-
-    fun setInitialValue(value: String): TextInputAlert {
-        alertData.initialValue = value
-        return this
-    }
-
-    fun setPositive(title: String, handler: TextInputAction?): TextInputAlert {
-        alertData.positiveButton = title
-        positiveHandler = handler
-        return this
-    }
-
-    fun setNegative(title: String, handler: DialogAction? = null): TextInputAlert {
-        alertData.negativeButton = title
-        negativeHandler = handler
-        return this
-    }
-
-}
+)
 
 
-class TextInputViewModel : GenericActionShareViewModel<TextInputAlert>() {
+class TextInputViewModel : GenericActionShareViewModel<TextInputActionHolder>() {
 
     private var inputText: String = ""
 
@@ -90,8 +57,7 @@ class TextInputDialogFragment : BaseDialogFragment() {
         dialogView?.let {
             val editText: EditText = it.findViewById(R.id.textInputField)
             editText.doAfterTextChanged { text -> viewModel.setInputText(text?.toString() ?: "") }
-            val model = AlertData(arguments)
-            model.initialValue?.let {
+            arguments?.alertInitialTextValue?.let {
                 editText.setText(it)
             }
             builder.setView(it)
@@ -109,14 +75,27 @@ class TextInputDialogFragment : BaseDialogFragment() {
 }
 
 
-fun Fragment.present(alert: TextInputAlert) {
+fun Fragment.presentTextInput(
+    title: String? = null,
+    initialText: String? = null,
+    positiveTitle: String? = null,
+    positiveAction: TextInputAction? = null,
+    negativeTitle: String? = null,
+    negativeAction: DialogAction? = null
+) {
     val navController = (activity as? MainActivity)?.navController
     navController?.let {
         val owner = it.getViewModelStoreOwner(R.id.root_nav_graph)
         val viewModel = ViewModelProvider(owner).get(TextInputViewModel::class.java)
-        val alertId = viewModel.put(alert)
-        val model = alert.alertData
-        model.alertId = alertId
-        navController.navigate(R.id.textInputDialog, model.bundle)
+        val holder = TextInputActionHolder(positiveAction, negativeAction)
+        val alertId = viewModel.put(holder)
+        val params = Bundle().apply {
+            this.alertId = alertId
+            this.alertTitle = title
+            this.alertPositiveButton = positiveTitle
+            this.alertNegativeButton = negativeTitle
+            this.alertInitialTextValue = initialText
+        }
+        navController.navigate(R.id.textInputDialog, params)
     }
 }

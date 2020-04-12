@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.tariff_details_fragment.*
 import kotlinx.android.synthetic.main.tariff_details_fragment.recyclerView
 
@@ -16,8 +15,7 @@ import org.chelak.ea.common.Logger
 import org.chelak.ea.database.entity.TariffThreshold
 import org.chelak.ea.ui.appComponent
 import org.chelak.ea.ui.argumentContainer
-import org.chelak.ea.ui.dialog.TextInputAlert
-import org.chelak.ea.ui.dialog.present
+import org.chelak.ea.ui.dialog.presentTextInput
 import org.chelak.ea.ui.list.ArrayListAdapter
 import org.chelak.ea.ui.list.CaptionValueViewHolder
 import org.chelak.ea.ui.list.clickPosition
@@ -30,7 +28,8 @@ class TariffDetailsFragment : Fragment() {
     }
 
     private val adapter = object : ArrayListAdapter<TariffThreshold, CaptionValueViewHolder>() {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CaptionValueViewHolder = CaptionValueViewHolder.instance(parent)
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CaptionValueViewHolder =
+            CaptionValueViewHolder.instance(parent)
 
         override fun onBindViewHolder(holder: CaptionValueViewHolder, position: Int) {
             val t = this[position]
@@ -65,12 +64,15 @@ class TariffDetailsFragment : Fragment() {
         })
         appendButton.setOnClickListener { _ ->
             //findNavController().navigate(R.id.textInputDialog)
-            val alert = TextInputAlert()
-                .setTitle("Title")
-                .setInitialValue("Initial text...")
-                .setPositive("Ok") { text -> Logger.d("Input Text = $text")}
-                .setNegative("Cancel")
-            present(alert)
+            presentTextInput(
+                "Enter text",
+                "Sample",
+                positiveTitle = "OK",
+                positiveAction = { text ->
+                    Logger.d("Input Text = $text")
+                },
+                negativeTitle = "Cancel"
+            )
         }
     }
 

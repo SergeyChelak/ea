@@ -10,8 +10,7 @@ import org.chelak.ea.common.Logger
 import java.util.concurrent.atomic.AtomicLong
 
 
-open class AlertData(bundle: Bundle? = null) {
-
+internal class AlertBundleKeys {
     companion object {
         internal const val ALERT_ID = "alert_id"
         internal const val ALERT_TITLE = "alert_title"
@@ -22,58 +21,56 @@ open class AlertData(bundle: Bundle? = null) {
         internal const val ALERT_INITIAL_VALUE = "alert_initial_value"
         internal const val ALERT_2ND_INITIAL_VALUE = "alert_2nd_initial_value"
     }
-
-    val bundle: Bundle = bundle ?: Bundle()
-
-
-    var alertId: Long
-        get() = bundle.getLong(ALERT_ID, 0)
-        set(value) {
-            bundle.putLong(ALERT_ID, value)
-        }
-
-    var title: String?
-        get() = bundle.getString(ALERT_TITLE)
-        set(value) {
-            bundle.putString(ALERT_TITLE, value)
-        }
-
-    var message: String?
-        get() = bundle.getString(ALERT_MESSAGE)
-        set(value) {
-            bundle.putString(ALERT_MESSAGE, value)
-        }
-
-    var positiveButton: String?
-        get() = bundle.getString(ALERT_POSITIVE_BUTTON)
-        set(value) {
-            bundle.putString(ALERT_POSITIVE_BUTTON, value)
-        }
-
-    var negativeButton: String?
-        get() = bundle.getString(ALERT_NEGATIVE_BUTTON)
-        set(value) {
-            bundle.putString(ALERT_NEGATIVE_BUTTON, value)
-        }
-
-    var neutralButton: String?
-        get() = bundle.getString(ALERT_NEUTRAL_BUTTON)
-        set(value) {
-            bundle.putString(ALERT_NEUTRAL_BUTTON, value)
-        }
-
-    var initialValue: String?
-        get() = bundle.getString(ALERT_INITIAL_VALUE)
-        set(value) {
-            bundle.putString(ALERT_INITIAL_VALUE, value)
-        }
-
-    var secondLineInitialValue: String?
-        get() = bundle.getString(ALERT_2ND_INITIAL_VALUE)
-        set(value) {
-            bundle.putString(ALERT_2ND_INITIAL_VALUE, value)
-        }
 }
+
+var Bundle.alertId: Long
+    get() = getLong(AlertBundleKeys.ALERT_ID, 0)
+    set(value) {
+        putLong(AlertBundleKeys.ALERT_ID, value)
+    }
+
+var Bundle.alertTitle: String?
+    get() = getString(AlertBundleKeys.ALERT_TITLE)
+    set(value) {
+        putString(AlertBundleKeys.ALERT_TITLE, value)
+    }
+
+var Bundle.alertMessage: String?
+    get() = getString(AlertBundleKeys.ALERT_MESSAGE)
+    set(value) {
+        putString(AlertBundleKeys.ALERT_MESSAGE, value)
+    }
+
+var Bundle.alertPositiveButton: String?
+    get() = getString(AlertBundleKeys.ALERT_POSITIVE_BUTTON)
+    set(value) {
+        putString(AlertBundleKeys.ALERT_POSITIVE_BUTTON, value)
+    }
+
+var Bundle.alertNegativeButton: String?
+    get() = getString(AlertBundleKeys.ALERT_NEGATIVE_BUTTON)
+    set(value) {
+        putString(AlertBundleKeys.ALERT_NEGATIVE_BUTTON, value)
+    }
+
+var Bundle.alertNeutralButton: String?
+    get() = getString(AlertBundleKeys.ALERT_NEUTRAL_BUTTON)
+    set(value) {
+        putString(AlertBundleKeys.ALERT_NEUTRAL_BUTTON, value)
+    }
+
+var Bundle.alertInitialTextValue: String?
+    get() = getString(AlertBundleKeys.ALERT_INITIAL_VALUE)
+    set(value) {
+        putString(AlertBundleKeys.ALERT_INITIAL_VALUE, value)
+    }
+
+var Bundle.alertInitialSecondTextValue: String?
+    get() = getString(AlertBundleKeys.ALERT_2ND_INITIAL_VALUE)
+    set(value) {
+        putString(AlertBundleKeys.ALERT_2ND_INITIAL_VALUE, value)
+    }
+
 
 
 enum class ActionType {
@@ -106,28 +103,23 @@ open class GenericActionShareViewModel<AlertType> : ViewModel() {
 
 open class BaseDialogFragment: DialogFragment() {
 
-    protected val alertId: Long
-        get() {
-            val alertModel = AlertData(arguments)
-            return alertModel.alertId
-        }
+    protected val alertId: Long get() = arguments?.alertId ?: 0
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(context)
-        val alertData = AlertData(arguments)
-        alertData.title?.let {
+        arguments?.alertTitle?.let {
             builder.setTitle(it)
         }
-        alertData.message?.let {
+        arguments?.alertMessage?.let {
             builder.setMessage(it)
         }
-        alertData.positiveButton?.let {
+        arguments?.alertPositiveButton?.let {
             builder.setPositiveButton(it, this::onPositiveButtonClick)
         }
-        alertData.negativeButton?.let {
+        arguments?.alertNegativeButton?.let {
             builder.setNegativeButton(it, this::onNegativeButtonClick)
         }
-        alertData.neutralButton?.let {
+        arguments?.alertNeutralButton?.let {
             builder.setNeutralButton(it, this::onNeutralButtonClick)
         }
         setupView(builder)
