@@ -16,6 +16,9 @@
     <string name="tariff_dialog_new">Add Tariff</string>
     <string name="tariff_label_title">Title</string>
     <string name="tariff_label_base_price">Base Price</string>
+    <string name="threshold_label_start_from">Start From</string>
+    <string name="threshold_label_price">Price</string>
+    <string name="threshold_dialog_new">Add Threshold</string>
 
     <string name="estate_list">Estates</string>
     <string name="estate_dialog_new">New Estate</string>

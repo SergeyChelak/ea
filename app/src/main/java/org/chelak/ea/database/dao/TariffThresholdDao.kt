@@ -9,7 +9,7 @@ import org.chelak.ea.database.entity.TariffThreshold
 @Dao
 interface TariffThresholdDao: GenericDao<TariffThreshold> {
 
-    @Query("SELECT * FROM __tariff_thresholds WHERE __tariff_uid = :tariffUid")
+    @Query("SELECT * FROM __tariff_thresholds WHERE __tariff_uid = :tariffUid ORDER BY __value")
     fun fetchThresholds(tariffUid: Long): LiveData<List<TariffThreshold>>
 
     @Query("SELECT * FROM __tariff_thresholds WHERE uid = :id LIMIT 1")

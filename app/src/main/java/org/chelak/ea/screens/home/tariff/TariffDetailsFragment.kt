@@ -20,6 +20,7 @@ import org.chelak.ea.ui.list.ArrayListAdapter
 import org.chelak.ea.ui.list.CaptionValueViewHolder
 import org.chelak.ea.ui.list.clickPosition
 import org.chelak.ea.ui.list.setVerticalLayout
+import java.math.BigDecimal
 
 class TariffDetailsFragment : Fragment() {
 
@@ -33,7 +34,12 @@ class TariffDetailsFragment : Fragment() {
 
         override fun onBindViewHolder(holder: CaptionValueViewHolder, position: Int) {
             val t = this[position]
-            val caption = if (t.value != null) t.value.toString() else "Base"
+            val value = t.value ?: 0
+            val caption = if (value > 0) {
+                value.toString()
+            } else {
+                getString(R.string.tariff_label_base_price)
+            }
             holder.setCaption(caption)
             holder.setValue(t.price.toString())
         }
@@ -64,17 +70,16 @@ class TariffDetailsFragment : Fragment() {
         })
         appendButton.setOnClickListener {
             val options = Bundle().apply {
-                //this.alertInitialTextValue = "Initial text"
-                this.alertTopLabel = "Starting from"
-                this.alertBottomLabel = "Price"
+                this.alertTopLabel = getString(R.string.threshold_label_start_from)
+                this.alertBottomLabel = getString(R.string.threshold_label_price)
             }
             presentTwoTextFieldDialog(
-                "Tariff Threshold",
-                positiveTitle = "OK",
+                title = getString(R.string.threshold_dialog_new),
+                positiveTitle = getString(R.string.btn_ok),
                 positiveAction = { top, bottom ->
-                    Logger.d("Response: $top and $bottom")
+                    viewModel.addThreshold(startFrom = top, price = bottom)
                 },
-                negativeTitle = "Cancel",
+                negativeTitle = getString(R.string.btn_cancel),
                 options = options
             )
         }

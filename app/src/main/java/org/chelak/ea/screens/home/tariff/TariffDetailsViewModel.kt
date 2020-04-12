@@ -2,9 +2,12 @@ package org.chelak.ea.screens.home.tariff
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.chelak.ea.core.Repository
 import org.chelak.ea.database.entity.Tariff
 import org.chelak.ea.database.entity.TariffThreshold
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class TariffDetailsViewModel : ViewModel() {
@@ -20,5 +23,14 @@ class TariffDetailsViewModel : ViewModel() {
 
     fun setTariffId(tariffId: Long) {
         this.tariffId = tariffId
+    }
+
+    fun addThreshold(startFrom: String, price: String) {
+        val start = startFrom.toLong()
+        val priceValue = BigDecimal(price)
+        GlobalScope.launch {
+            val threshold = TariffThreshold(tariffUid = tariffId, value = start, price = priceValue)
+            repository.addThreshold(threshold)
+        }
     }
 }
