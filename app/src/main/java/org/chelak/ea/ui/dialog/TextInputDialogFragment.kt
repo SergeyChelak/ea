@@ -3,7 +3,6 @@ package org.chelak.ea.ui.dialog
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.DialogInterface
-import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import androidx.core.widget.doAfterTextChanged
@@ -15,24 +14,11 @@ import org.chelak.ea.common.Logger
 import org.chelak.ea.ui.MainActivity
 
 
-class TextInputAlertModel(bundle: Bundle? = null) : AlertModel(bundle) {
-
-    companion object {
-        internal const val ALERT_INITIAL_VALUE = "alert_initial_value"
-    }
-
-    var initialValue: String?
-        get() = bundle.getString(ALERT_INITIAL_VALUE)
-        set(value) {
-            bundle.putString(ALERT_INITIAL_VALUE, value)
-        }
-}
-
 typealias TextInputAction = (String?) -> Unit
 
 class TextInputAlert {
 
-    val alertModel = TextInputAlertModel()
+    val alertData = AlertData()
 
     var positiveHandler: TextInputAction? = null
         private set
@@ -41,28 +27,28 @@ class TextInputAlert {
         private set
 
     fun setTitle(title: String): TextInputAlert {
-        alertModel.title = title
+        alertData.title = title
         return this
     }
 
     fun setMessage(message: String): TextInputAlert {
-        alertModel.message = message
+        alertData.message = message
         return this
     }
 
     fun setInitialValue(value: String): TextInputAlert {
-        alertModel.initialValue = value
+        alertData.initialValue = value
         return this
     }
 
     fun setPositive(title: String, handler: TextInputAction?): TextInputAlert {
-        alertModel.positiveButton = title
+        alertData.positiveButton = title
         positiveHandler = handler
         return this
     }
 
     fun setNegative(title: String, handler: DialogAction? = null): TextInputAlert {
-        alertModel.negativeButton = title
+        alertData.negativeButton = title
         negativeHandler = handler
         return this
     }
@@ -104,7 +90,7 @@ class TextInputDialogFragment : BaseDialogFragment() {
         dialogView?.let {
             val editText: EditText = it.findViewById(R.id.textInputField)
             editText.doAfterTextChanged { text -> viewModel.setInputText(text?.toString() ?: "") }
-            val model = TextInputAlertModel(arguments)
+            val model = AlertData(arguments)
             model.initialValue?.let {
                 editText.setText(it)
             }
@@ -129,7 +115,7 @@ fun Fragment.present(alert: TextInputAlert) {
         val owner = it.getViewModelStoreOwner(R.id.root_nav_graph)
         val viewModel = ViewModelProvider(owner).get(TextInputViewModel::class.java)
         val alertId = viewModel.put(alert)
-        val model = alert.alertModel
+        val model = alert.alertData
         model.alertId = alertId
         navController.navigate(R.id.textInputDialog, model.bundle)
     }

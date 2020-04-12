@@ -11,7 +11,7 @@ typealias DialogAction = () -> Unit
 
 class DialogAlert {
 
-    val alertModel = AlertModel()
+    val alertModel = AlertData()
     var positiveHandler: DialogAction? = null
         private set
     var negativeHandler: DialogAction? = null

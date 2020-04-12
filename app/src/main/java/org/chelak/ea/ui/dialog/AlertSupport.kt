@@ -10,7 +10,7 @@ import org.chelak.ea.common.Logger
 import java.util.concurrent.atomic.AtomicLong
 
 
-open class AlertModel(bundle: Bundle? = null) {
+open class AlertData(bundle: Bundle? = null) {
 
     companion object {
         internal const val ALERT_ID = "alert_id"
@@ -19,6 +19,8 @@ open class AlertModel(bundle: Bundle? = null) {
         internal const val ALERT_POSITIVE_BUTTON = "positive_button"
         internal const val ALERT_NEGATIVE_BUTTON = "negative_button"
         internal const val ALERT_NEUTRAL_BUTTON = "neutral_button"
+        internal const val ALERT_INITIAL_VALUE = "alert_initial_value"
+        internal const val ALERT_2ND_INITIAL_VALUE = "alert_2nd_initial_value"
     }
 
     val bundle: Bundle = bundle ?: Bundle()
@@ -60,6 +62,17 @@ open class AlertModel(bundle: Bundle? = null) {
             bundle.putString(ALERT_NEUTRAL_BUTTON, value)
         }
 
+    var initialValue: String?
+        get() = bundle.getString(ALERT_INITIAL_VALUE)
+        set(value) {
+            bundle.putString(ALERT_INITIAL_VALUE, value)
+        }
+
+    var secondLineInitialValue: String?
+        get() = bundle.getString(ALERT_2ND_INITIAL_VALUE)
+        set(value) {
+            bundle.putString(ALERT_2ND_INITIAL_VALUE, value)
+        }
 }
 
 
@@ -95,26 +108,26 @@ open class BaseDialogFragment: DialogFragment() {
 
     protected val alertId: Long
         get() {
-            val alertModel = AlertModel(arguments)
+            val alertModel = AlertData(arguments)
             return alertModel.alertId
         }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(context)
-        val alertModel = AlertModel(arguments)
-        alertModel.title?.let {
+        val alertData = AlertData(arguments)
+        alertData.title?.let {
             builder.setTitle(it)
         }
-        alertModel.message?.let {
+        alertData.message?.let {
             builder.setMessage(it)
         }
-        alertModel.positiveButton?.let {
+        alertData.positiveButton?.let {
             builder.setPositiveButton(it, this::onPositiveButtonClick)
         }
-        alertModel.negativeButton?.let {
+        alertData.negativeButton?.let {
             builder.setNegativeButton(it, this::onNegativeButtonClick)
         }
-        alertModel.neutralButton?.let {
+        alertData.neutralButton?.let {
             builder.setNeutralButton(it, this::onNeutralButtonClick)
         }
         setupView(builder)
