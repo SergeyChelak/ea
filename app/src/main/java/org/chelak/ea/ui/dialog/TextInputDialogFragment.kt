@@ -120,10 +120,6 @@ class TextInputDialogFragment : BaseDialogFragment() {
         viewModel.handle(alertId, ActionType.NEGATIVE)
     }
 
-    override fun onNeutralButtonClick(dialogInterface: DialogInterface, which: Int) {
-        // neutral not supported
-    }
-
 }
 
 
