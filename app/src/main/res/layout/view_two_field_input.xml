@@ -8,44 +8,41 @@
         android:id="@+id/topTitleLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="Top Label"
+        android:layout_marginEnd="20dp"
         android:textColor="@android:color/black"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/topTextInputField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="4dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Top Name" />
+        android:importantForAutofill="no" />
 
     <TextView
-        android:id="@+id/bottonTitleLabel"
+        android:id="@+id/bottomTitleLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        android:text="Bottom Label"
+        android:layout_marginEnd="20dp"
         android:textColor="@android:color/black"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/bottomTextInputField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Bottom Name" />
+        android:importantForAutofill="no" />
 
 </LinearLayout>

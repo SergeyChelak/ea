@@ -15,7 +15,7 @@ import org.chelak.ea.common.Logger
 import org.chelak.ea.database.entity.TariffThreshold
 import org.chelak.ea.ui.appComponent
 import org.chelak.ea.ui.argumentContainer
-import org.chelak.ea.ui.dialog.presentTextInput
+import org.chelak.ea.ui.dialog.*
 import org.chelak.ea.ui.list.ArrayListAdapter
 import org.chelak.ea.ui.list.CaptionValueViewHolder
 import org.chelak.ea.ui.list.clickPosition
@@ -62,16 +62,20 @@ class TariffDetailsFragment : Fragment() {
         recyclerView.clickPosition().observe(viewLifecycleOwner, Observer {
             Logger.d("Threshold selected $it")
         })
-        appendButton.setOnClickListener { _ ->
-            //findNavController().navigate(R.id.textInputDialog)
-            presentTextInput(
-                "Enter text",
-                "Sample",
+        appendButton.setOnClickListener {
+            val options = Bundle().apply {
+                //this.alertInitialTextValue = "Initial text"
+                this.alertTopLabel = "Starting from"
+                this.alertBottomLabel = "Price"
+            }
+            presentTwoTextFieldDialog(
+                "Tariff Threshold",
                 positiveTitle = "OK",
-                positiveAction = { text ->
-                    Logger.d("Input Text = $text")
+                positiveAction = { top, bottom ->
+                    Logger.d("Response: $top and $bottom")
                 },
-                negativeTitle = "Cancel"
+                negativeTitle = "Cancel",
+                options = options
             )
         }
     }

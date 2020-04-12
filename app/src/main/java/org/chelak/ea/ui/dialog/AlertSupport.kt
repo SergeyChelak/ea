@@ -12,65 +12,79 @@ import java.util.concurrent.atomic.AtomicLong
 
 internal class AlertBundleKeys {
     companion object {
-        internal const val ALERT_ID = "alert_id"
-        internal const val ALERT_TITLE = "alert_title"
-        internal const val ALERT_MESSAGE = "alert_message"
-        internal const val ALERT_POSITIVE_BUTTON = "positive_button"
-        internal const val ALERT_NEGATIVE_BUTTON = "negative_button"
-        internal const val ALERT_NEUTRAL_BUTTON = "neutral_button"
-        internal const val ALERT_INITIAL_VALUE = "alert_initial_value"
-        internal const val ALERT_2ND_INITIAL_VALUE = "alert_2nd_initial_value"
+        internal const val id = "alert_id"
+        internal const val title = "alert_title"
+        internal const val message = "alert_message"
+        internal const val positiveButton = "positive_button"
+        internal const val negativeButton = "negative_button"
+        internal const val neutralButton = "neutral_button"
+        internal const val topInitialValue = "alert_initial_value"
+        internal const val bottomInitialValue = "alert_2nd_initial_value"
+        internal const val topLabel = "alert_top_label"
+        internal const val bottomLabel = "alert_bottom_label"
     }
 }
 
 var Bundle.alertId: Long
-    get() = getLong(AlertBundleKeys.ALERT_ID, 0)
+    get() = getLong(AlertBundleKeys.id, 0)
     set(value) {
-        putLong(AlertBundleKeys.ALERT_ID, value)
+        putLong(AlertBundleKeys.id, value)
     }
 
 var Bundle.alertTitle: String?
-    get() = getString(AlertBundleKeys.ALERT_TITLE)
+    get() = getString(AlertBundleKeys.title)
     set(value) {
-        putString(AlertBundleKeys.ALERT_TITLE, value)
+        putString(AlertBundleKeys.title, value)
     }
 
 var Bundle.alertMessage: String?
-    get() = getString(AlertBundleKeys.ALERT_MESSAGE)
+    get() = getString(AlertBundleKeys.message)
     set(value) {
-        putString(AlertBundleKeys.ALERT_MESSAGE, value)
+        putString(AlertBundleKeys.message, value)
     }
 
 var Bundle.alertPositiveButton: String?
-    get() = getString(AlertBundleKeys.ALERT_POSITIVE_BUTTON)
+    get() = getString(AlertBundleKeys.positiveButton)
     set(value) {
-        putString(AlertBundleKeys.ALERT_POSITIVE_BUTTON, value)
+        putString(AlertBundleKeys.positiveButton, value)
     }
 
 var Bundle.alertNegativeButton: String?
-    get() = getString(AlertBundleKeys.ALERT_NEGATIVE_BUTTON)
+    get() = getString(AlertBundleKeys.negativeButton)
     set(value) {
-        putString(AlertBundleKeys.ALERT_NEGATIVE_BUTTON, value)
+        putString(AlertBundleKeys.negativeButton, value)
     }
 
 var Bundle.alertNeutralButton: String?
-    get() = getString(AlertBundleKeys.ALERT_NEUTRAL_BUTTON)
+    get() = getString(AlertBundleKeys.neutralButton)
     set(value) {
-        putString(AlertBundleKeys.ALERT_NEUTRAL_BUTTON, value)
+        putString(AlertBundleKeys.neutralButton, value)
     }
 
 var Bundle.alertInitialTextValue: String?
-    get() = getString(AlertBundleKeys.ALERT_INITIAL_VALUE)
+    get() = getString(AlertBundleKeys.topInitialValue)
     set(value) {
-        putString(AlertBundleKeys.ALERT_INITIAL_VALUE, value)
+        putString(AlertBundleKeys.topInitialValue, value)
     }
 
 var Bundle.alertInitialSecondTextValue: String?
-    get() = getString(AlertBundleKeys.ALERT_2ND_INITIAL_VALUE)
+    get() = getString(AlertBundleKeys.bottomInitialValue)
     set(value) {
-        putString(AlertBundleKeys.ALERT_2ND_INITIAL_VALUE, value)
+        putString(AlertBundleKeys.bottomInitialValue, value)
     }
 
+var Bundle.alertTopLabel: String?
+    get() = getString(AlertBundleKeys.topLabel)
+    set(value) {
+        putString(AlertBundleKeys.topLabel, value)
+    }
+
+
+var Bundle.alertBottomLabel: String?
+    get() = getString(AlertBundleKeys.bottomLabel)
+    set(value) {
+        putString(AlertBundleKeys.bottomLabel, value)
+    }
 
 
 enum class ActionType {

@@ -61,4 +61,8 @@
         android:id="@+id/textInputDialog"
         android:name="org.chelak.ea.ui.dialog.TextInputDialogFragment"
         android:label="TextInputDialogFragment" />
+    <dialog
+        android:id="@+id/twoTextFieldDialogFragment"
+        android:name="org.chelak.ea.ui.dialog.TwoTextFieldDialogFragment"
+        android:label="TwoTextFieldDialogFragment" />
 </navigation>

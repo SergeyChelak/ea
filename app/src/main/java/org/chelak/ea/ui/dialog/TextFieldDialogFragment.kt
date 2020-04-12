@@ -77,11 +77,11 @@ class TextInputDialogFragment : BaseDialogFragment() {
 
 fun Fragment.presentTextInput(
     title: String? = null,
-    initialText: String? = null,
     positiveTitle: String? = null,
     positiveAction: TextInputAction? = null,
     negativeTitle: String? = null,
-    negativeAction: DialogAction? = null
+    negativeAction: DialogAction? = null,
+    options: Bundle? = null
 ) {
     val navController = (activity as? MainActivity)?.navController
     navController?.let {
@@ -90,11 +90,13 @@ fun Fragment.presentTextInput(
         val holder = TextInputActionHolder(positiveAction, negativeAction)
         val alertId = viewModel.put(holder)
         val params = Bundle().apply {
+            options?.let { bundle ->
+                this.putAll(bundle)
+            }
             this.alertId = alertId
             this.alertTitle = title
             this.alertPositiveButton = positiveTitle
             this.alertNegativeButton = negativeTitle
-            this.alertInitialTextValue = initialText
         }
         navController.navigate(R.id.textInputDialog, params)
     }
