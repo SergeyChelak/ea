@@ -13,6 +13,9 @@ import org.chelak.ea.R
 import org.chelak.ea.common.Logger
 import org.chelak.ea.database.entity.Tariff
 import org.chelak.ea.ui.appComponent
+import org.chelak.ea.ui.dialog.alertBottomLabel
+import org.chelak.ea.ui.dialog.alertTopLabel
+import org.chelak.ea.ui.dialog.presentTwoTextFieldDialog
 import org.chelak.ea.ui.list.ArrayListAdapter
 import org.chelak.ea.ui.list.CaptionValueViewHolder
 import org.chelak.ea.ui.list.clickPosition
@@ -50,7 +53,17 @@ class TariffsFragment : Fragment() {
             recyclerView.adapter = adapter
             recyclerView.setVerticalLayout()
             appendButton.setOnClickListener {
-                viewModel.addTariff()
+                val options = Bundle().apply {
+                    this.alertTopLabel = getString(R.string.tariff_label_title)
+                    this.alertBottomLabel = getString(R.string.tariff_label_base_price)
+                }
+                presentTwoTextFieldDialog(
+                    title = getString(R.string.tariff_dialog_new),
+                    positiveTitle = getString(R.string.btn_ok),
+                    positiveAction = { title, price -> viewModel.addTariff(title, price)},
+                    negativeTitle = getString(R.string.btn_cancel),
+                    options = options
+                )
             }
         }
 

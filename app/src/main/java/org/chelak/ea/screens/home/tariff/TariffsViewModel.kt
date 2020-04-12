@@ -2,8 +2,10 @@ package org.chelak.ea.screens.home.tariff
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.chelak.ea.core.Repository
 import org.chelak.ea.database.entity.Tariff
 import org.chelak.ea.database.entity.TariffThreshold
@@ -21,16 +23,17 @@ class TariffsViewModel : ViewModel() {
 
     fun getTariffs() : LiveData<List<Tariff>> = repository.allTariffs()
 
-    fun addTariff() {
-        populateNewTariff()
-    }
-
-    private fun populateNewTariff() {
+    fun addTariff(title: String, priceText: String) {
+        val price = BigDecimal(priceText) ?: BigDecimal.ZERO
         GlobalScope.launch {
-            val tariff = Tariff(title = "New Tariff")
+            // TODO perform inside data manager/repository
+            val tariff = Tariff(title = title)
             val tariffId = repository.addTariff(tariff)
-            val baseThreshold = TariffThreshold(tariffUid = tariffId, value = null, price = BigDecimal.ZERO)
+            val baseThreshold = TariffThreshold(tariffUid = tariffId, price = price)
             repository.addThreshold(baseThreshold)
+            withContext(Dispatchers.Main) {
+                openTariffDetails(tariffId)
+            }
         }
     }
 

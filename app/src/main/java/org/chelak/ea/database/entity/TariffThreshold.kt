@@ -16,6 +16,6 @@ import java.math.BigDecimal
 data class TariffThreshold(
     @PrimaryKey(autoGenerate = true) var uid: Long = 0,
     @ColumnInfo(name = "__tariff_uid") var tariffUid: Long = 0,
-    @ColumnInfo(name = "__value") var value: Long?,
+    @ColumnInfo(name = "__value") var value: Long? = 0,
     @ColumnInfo(name = "__price") var price: BigDecimal?
 )
