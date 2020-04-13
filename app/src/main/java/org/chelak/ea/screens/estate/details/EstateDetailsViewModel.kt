@@ -1,5 +1,6 @@
 package org.chelak.ea.screens.estate.details
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.Dispatchers
@@ -14,19 +15,20 @@ import javax.inject.Inject
 
 class EstateDetailsViewModel : ViewModel() {
 
-    private val meters = MutableLiveData<List<Meter>>()
     private var estateId: Long = 0
     @Inject
     lateinit var navigator: Navigator
     @Inject
     lateinit var repository: Repository
 
+    val meters: LiveData<List<Meter>> get() = repository.meters(estateId)
+
     fun openMeterList() {
         navigator.openMeterList(0)
     }
 
     fun setEstateId(id: Long) {
-        Logger.d("Estate id: $estateId")
+        Logger.d("Estate id: $id")
         this.estateId = id
         GlobalScope.launch {
         }

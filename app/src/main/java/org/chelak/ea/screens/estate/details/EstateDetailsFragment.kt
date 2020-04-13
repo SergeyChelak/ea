@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import org.chelak.ea.R
-import org.chelak.ea.ui.ArgumentContainer
+import org.chelak.ea.common.Logger
 import org.chelak.ea.ui.MainActivity
-import org.chelak.ea.ui.dialog.AlertBundleKeys.Companion.title
 import org.chelak.ea.ui.dialog.presentAlert
+import org.chelak.ea.ui.estateId
 
 class EstateDetailsFragment : Fragment() {
 
@@ -37,8 +38,12 @@ class EstateDetailsFragment : Fragment() {
         }
         viewModel = ViewModelProvider(this).get(EstateDetailsViewModel::class.java)
         (activity as? MainActivity)?.component?.inject(viewModel)
-        val container = ArgumentContainer(arguments)
-        viewModel.setEstateId(container.estateId)
+        arguments?.estateId?.let {
+            viewModel.setEstateId(it)
+        }
+        viewModel.meters.observe(viewLifecycleOwner, Observer {
+            Logger.d("Meters: $it")
+        })
 
     }
 

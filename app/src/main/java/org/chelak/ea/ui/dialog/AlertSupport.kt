@@ -10,19 +10,17 @@ import org.chelak.ea.common.Logger
 import java.util.concurrent.atomic.AtomicLong
 
 
-internal class AlertBundleKeys {
-    companion object {
-        internal const val id = "alert_id"
-        internal const val title = "alert_title"
-        internal const val message = "alert_message"
-        internal const val positiveButton = "positive_button"
-        internal const val negativeButton = "negative_button"
-        internal const val neutralButton = "neutral_button"
-        internal const val topInitialValue = "alert_initial_value"
-        internal const val bottomInitialValue = "alert_2nd_initial_value"
-        internal const val topLabel = "alert_top_label"
-        internal const val bottomLabel = "alert_bottom_label"
-    }
+object AlertBundleKeys {
+    internal const val id = "alert_id"
+    internal const val title = "alert_title"
+    internal const val message = "alert_message"
+    internal const val positiveButton = "positive_button"
+    internal const val negativeButton = "negative_button"
+    internal const val neutralButton = "neutral_button"
+    internal const val topInitialValue = "alert_initial_value"
+    internal const val bottomInitialValue = "alert_2nd_initial_value"
+    internal const val topLabel = "alert_top_label"
+    internal const val bottomLabel = "alert_bottom_label"
 }
 
 var Bundle.alertId: Long

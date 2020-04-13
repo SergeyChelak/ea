@@ -14,12 +14,12 @@ import org.chelak.ea.R
 import org.chelak.ea.common.Logger
 import org.chelak.ea.database.entity.TariffThreshold
 import org.chelak.ea.ui.appComponent
-import org.chelak.ea.ui.argumentContainer
 import org.chelak.ea.ui.dialog.*
 import org.chelak.ea.ui.list.ArrayListAdapter
 import org.chelak.ea.ui.list.CaptionValueViewHolder
 import org.chelak.ea.ui.list.clickPosition
 import org.chelak.ea.ui.list.setVerticalLayout
+import org.chelak.ea.ui.tariffId
 
 class TariffDetailsFragment : Fragment() {
 
@@ -53,7 +53,10 @@ class TariffDetailsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         appComponent?.inject(viewModel)
-        viewModel.setTariffId(argumentContainer.tariffId)
+
+        arguments?.tariffId?.let {
+            viewModel.setTariffId(it)
+        }
 
         viewModel.tariff.observe(viewLifecycleOwner, Observer {
             tariffTitleLabel.text = it.title
