@@ -34,4 +34,12 @@ class Repository constructor(private val dataBase: UserDatabase) {
 
     fun addThreshold(threshold: TariffThreshold): Long =
         dataBase.tariffThresholdDao().insert(threshold)
+
+    fun updateThreshold(threshold: TariffThreshold): Int = dataBase.tariffThresholdDao().update(threshold)
+
+    fun deleteThreshold(id: Long) {
+        dataBase.tariffThresholdDao().delete(id)
+    }
+
+    fun fetchThreshold(id: Long ): TariffThreshold = dataBase.tariffThresholdDao().fetchById(id)
 }

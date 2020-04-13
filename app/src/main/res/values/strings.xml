@@ -3,6 +3,7 @@
 
     <string name="btn_ok">OK</string>
     <string name="btn_cancel">Cancel</string>
+    <string name="btn_delete">Delete</string>
 
     <string name="estate_details_title">Estate Details</string>
     <string name="estate_details_menu_add_meter">Add Meter</string>
@@ -19,6 +20,7 @@
     <string name="threshold_label_start_from">Start From</string>
     <string name="threshold_label_price">Price</string>
     <string name="threshold_dialog_new">Add Threshold</string>
+    <string name="threshold_dialog_edit">Edit Threshold</string>
 
     <string name="estate_list">Estates</string>
     <string name="estate_dialog_new">New Estate</string>

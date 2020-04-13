@@ -20,7 +20,6 @@ import org.chelak.ea.ui.list.ArrayListAdapter
 import org.chelak.ea.ui.list.CaptionValueViewHolder
 import org.chelak.ea.ui.list.clickPosition
 import org.chelak.ea.ui.list.setVerticalLayout
-import java.math.BigDecimal
 
 class TariffDetailsFragment : Fragment() {
 
@@ -66,23 +65,51 @@ class TariffDetailsFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.setVerticalLayout()
         recyclerView.clickPosition().observe(viewLifecycleOwner, Observer {
-            Logger.d("Threshold selected $it")
+            val threshold = adapter[it]
+            openEditThresholdDialog(threshold)
         })
         appendButton.setOnClickListener {
-            val options = Bundle().apply {
-                this.alertTopLabel = getString(R.string.threshold_label_start_from)
-                this.alertBottomLabel = getString(R.string.threshold_label_price)
-            }
-            presentTwoTextFieldDialog(
-                title = getString(R.string.threshold_dialog_new),
-                positiveTitle = getString(R.string.btn_ok),
-                positiveAction = { top, bottom ->
-                    viewModel.addThreshold(startFrom = top, price = bottom)
-                },
-                negativeTitle = getString(R.string.btn_cancel),
-                options = options
-            )
+            openEditThresholdDialog()
         }
+    }
+
+    private fun openEditThresholdDialog(threshold: TariffThreshold? = null) {
+        val options = Bundle().apply {
+            this.alertTopLabel = getString(R.string.threshold_label_start_from)
+            this.alertBottomLabel = getString(R.string.threshold_label_price)
+            threshold?.let {
+                this.alertInitialTextValue = (threshold.value ?: 0).toString()
+                this.alertInitialSecondTextValue = threshold.price.toString()
+            }
+        }
+        val deleteAction: DialogAction?
+        val deleteTitle: String?
+        val positiveAction: TwoTextInputAction
+        val title: String
+        if (threshold != null) {
+            title = getString(R.string.threshold_dialog_edit)
+            deleteAction = { viewModel.deleteThreshold(threshold.uid) }
+            deleteTitle = getString(R.string.btn_delete)
+            positiveAction = { top, bottom ->
+                viewModel.updateThreshold(id = threshold.uid, startFrom = top, price = bottom)
+            }
+        } else {
+            title = getString(R.string.threshold_dialog_new)
+            deleteAction = null
+            deleteTitle = null
+            positiveAction = { top, bottom ->
+                viewModel.addThreshold(startFrom = top, price = bottom)
+            }
+        }
+        presentTwoTextFieldDialog(
+            title = title,
+            positiveTitle = getString(R.string.btn_ok),
+            positiveAction = positiveAction,
+            negativeTitle = getString(R.string.btn_cancel),
+            neutralTitle =  deleteTitle,
+            neutralAction = deleteAction,
+            options = options
+        )
     }
 
 }

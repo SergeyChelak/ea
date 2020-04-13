@@ -33,4 +33,21 @@ class TariffDetailsViewModel : ViewModel() {
             repository.addThreshold(threshold)
         }
     }
+
+    fun updateThreshold(id: Long, startFrom: String, price: String) {
+        GlobalScope.launch {
+            // TODO formatting
+            val threshold = repository.fetchThreshold(id)
+            threshold.price = BigDecimal(price)
+            threshold.value = startFrom.toLong()
+            repository.updateThreshold(threshold)
+            // TODO handle update result
+        }
+    }
+
+    fun deleteThreshold(id: Long) {
+        GlobalScope.launch {
+            repository.deleteThreshold(id)
+        }
+    }
 }

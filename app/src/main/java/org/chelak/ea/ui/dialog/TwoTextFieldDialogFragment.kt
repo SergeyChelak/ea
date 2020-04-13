@@ -12,14 +12,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.navGraphViewModels
 import org.chelak.ea.R
-import org.chelak.ea.common.Logger
 import org.chelak.ea.ui.MainActivity
 
 typealias TwoTextInputAction = (String, String) -> Unit
 
 data class TwoTextInputActionHolder(
     var positiveHandler: TwoTextInputAction? = null,
-    var negativeHandler: DialogAction? = null
+    var negativeHandler: DialogAction? = null,
+    var neutralHandler: DialogAction? = null
 )
 
 class TwoTextInputViewModel : GenericActionShareViewModel<TwoTextInputActionHolder>() {
@@ -40,9 +40,7 @@ class TwoTextInputViewModel : GenericActionShareViewModel<TwoTextInputActionHold
             when (actionType) {
                 ActionType.POSITIVE -> it.positiveHandler?.invoke(firstInput, secondInput)
                 ActionType.NEGATIVE -> it.negativeHandler?.invoke()
-                else -> {
-                    Logger.w("Unexpected action $actionType)")
-                }
+                ActionType.NEUTRAL -> it.neutralHandler?.invoke()
             }
         }
     }
@@ -74,11 +72,11 @@ class TwoTextFieldDialogFragment : BaseDialogFragment() {
                     editText.setText(value)
                 }
             }
-            it.findViewById<TextView>(R.id.topTitleLabel)?.let {
-                it.text = arguments?.alertTopLabel
+            it.findViewById<TextView>(R.id.topTitleLabel)?.let { textView ->
+                textView.text = arguments?.alertTopLabel
             }
-            it.findViewById<TextView>(R.id.bottomTitleLabel)?.let {
-                it.text = arguments?.alertBottomLabel
+            it.findViewById<TextView>(R.id.bottomTitleLabel)?.let { textView ->
+                textView.text = arguments?.alertBottomLabel
             }
             builder.setView(it)
         }
@@ -91,6 +89,10 @@ class TwoTextFieldDialogFragment : BaseDialogFragment() {
     override fun onNegativeButtonClick(dialogInterface: DialogInterface, which: Int) {
         viewModel.handle(alertId, ActionType.NEGATIVE)
     }
+
+    override fun onNeutralButtonClick(dialogInterface: DialogInterface, which: Int) {
+        viewModel.handle(alertId, ActionType.NEUTRAL)
+    }
 }
 
 
@@ -100,13 +102,15 @@ fun Fragment.presentTwoTextFieldDialog(
     positiveAction: TwoTextInputAction? = null,
     negativeTitle: String? = null,
     negativeAction: DialogAction? = null,
+    neutralTitle: String? = null,
+    neutralAction: DialogAction? = null,
     options: Bundle? = null
 ) {
     val navController = (activity as? MainActivity)?.navController
     navController?.let {
         val owner = it.getViewModelStoreOwner(R.id.root_nav_graph)
         val viewModel = ViewModelProvider(owner).get(TwoTextInputViewModel::class.java)
-        val holder = TwoTextInputActionHolder(positiveAction, negativeAction)
+        val holder = TwoTextInputActionHolder(positiveAction, negativeAction, neutralAction)
         val alertId = viewModel.put(holder)
         val params = Bundle().apply {
             options?.let {
@@ -116,6 +120,7 @@ fun Fragment.presentTwoTextFieldDialog(
             this.alertTitle = title
             this.alertPositiveButton = positiveTitle
             this.alertNegativeButton = negativeTitle
+            this.alertNeutralButton = neutralTitle
         }
         navController.navigate(R.id.twoTextFieldDialogFragment, params)
     }
