@@ -17,5 +17,9 @@
         android:title="@string/estate_details_menu_payment_settings"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/estate_details_menu_delete"
+        android:title="@string/estate_details_menu_delete"
+        app:showAsAction="never" />
 
 </menu>

@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModelProvider
 import org.chelak.ea.R
 import org.chelak.ea.ui.ArgumentContainer
 import org.chelak.ea.ui.MainActivity
+import org.chelak.ea.ui.dialog.AlertBundleKeys.Companion.title
+import org.chelak.ea.ui.dialog.presentAlert
 
 class EstateDetailsFragment : Fragment() {
 
@@ -59,8 +61,22 @@ class EstateDetailsFragment : Fragment() {
                 viewModel.paymentSettings()
                 true
             }
+            R.id.estate_details_menu_delete -> {
+                askDeleteEstate()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun askDeleteEstate() {
+        presentAlert(
+            title = getString(R.string.dialog_title_warning),
+            message = getString(R.string.dialog_confirm_undone_action),
+            positiveTitle = getString(R.string.btn_delete),
+            positiveAction = { viewModel.deleteEstate() },
+            negativeTitle = getString(R.string.btn_cancel)
+            )
     }
 
 }

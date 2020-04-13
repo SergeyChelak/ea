@@ -18,6 +18,8 @@ class Repository constructor(private val dataBase: UserDatabase) {
 
     fun updateEstate(estate: Estate): Int = dataBase.estateDao().update(estate)
 
+    fun deleteEstate(id: Long) = dataBase.estateDao().delete(id)
+
     // meters
     fun meters(estateId: Long): LiveData<List<Meter>> =
         dataBase.meterDao().fetchMeters(estateId = estateId)

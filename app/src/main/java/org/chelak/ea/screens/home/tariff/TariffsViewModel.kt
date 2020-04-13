@@ -24,7 +24,7 @@ class TariffsViewModel : ViewModel() {
     fun getTariffs() : LiveData<List<Tariff>> = repository.allTariffs()
 
     fun addTariff(title: String, priceText: String) {
-        val price = BigDecimal(priceText) ?: BigDecimal.ZERO
+        val price = BigDecimal(priceText)
         GlobalScope.launch {
             // TODO perform inside data manager/repository
             val tariff = Tariff(title = title)

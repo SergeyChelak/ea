@@ -5,10 +5,14 @@
     <string name="btn_cancel">Cancel</string>
     <string name="btn_delete">Delete</string>
 
+    <string name="dialog_title_warning">Warning</string>
+    <string name="dialog_confirm_undone_action">This action could not be undone. Please confirm your action</string>
+
     <string name="estate_details_title">Estate Details</string>
     <string name="estate_details_menu_add_meter">Add Meter</string>
     <string name="estate_details_menu_manage_rates">Manage Rates</string>
     <string name="estate_details_menu_payment_settings">Payment Settings</string>
+    <string name="estate_details_menu_delete">Delete Estate</string>
 
     <string name="meter_details_title">Meter Details</string>
     <string name="meter_list_title">Meters</string>

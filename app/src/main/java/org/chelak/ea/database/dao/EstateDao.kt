@@ -14,4 +14,7 @@ interface EstateDao: GenericDao<Estate> {
 
     @Query("SELECT * FROM __estates WHERE uid = :id LIMIT 1")
     fun fetchById(id: Long): LiveData<Estate>
+
+    @Query("DELETE FROM __estates WHERE uid = :id")
+    fun delete(id: Long)
 }

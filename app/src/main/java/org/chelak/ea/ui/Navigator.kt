@@ -5,6 +5,10 @@ import org.chelak.ea.R
 
 class Navigator(private val navController: NavController) {
 
+    fun navigateBackToEstates() {
+        navController.popBackStack(R.id.myEstatesFragment, false)
+    }
+
     fun openEstateDetails(estateId: Long) {
         val container = ArgumentContainer.builder()
             .putEstateId(estateId)
