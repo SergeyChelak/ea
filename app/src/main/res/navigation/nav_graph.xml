@@ -26,22 +26,13 @@
         android:name="org.chelak.ea.screens.home.PaymentHistoryFragment"
         tools:layout="@layout/payment_history_fragment" />
     <fragment
-        android:id="@+id/meterListFragment"
-        android:name="org.chelak.ea.screens.estate.MeterListFragment"
-        android:label="@string/meter_list_title"
-        tools:layout="@layout/meter_list_fragment">
-        <action
-            android:id="@+id/action_meterListFragment_to_meterDetailsFragment"
-            app:destination="@id/meterDetailsFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/estateDetailsFragment"
         android:name="org.chelak.ea.screens.estate.details.EstateDetailsFragment"
         android:label="@string/estate_details_title"
         tools:layout="@layout/estate_details_fragment">
         <action
-            android:id="@+id/action_estateDetailsFragment_to_meterListFragment"
-            app:destination="@id/meterListFragment" />
+            android:id="@+id/action_estateDetailsFragment_to_meterDetailsFragment"
+            app:destination="@id/meterDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/meterDetailsFragment"

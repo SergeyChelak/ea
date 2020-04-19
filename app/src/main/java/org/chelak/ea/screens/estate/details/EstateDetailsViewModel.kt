@@ -23,15 +23,9 @@ class EstateDetailsViewModel : ViewModel() {
 
     val meters: LiveData<List<Meter>> get() = repository.meters(estateId)
 
-    fun openMeterList() {
-        navigator.openMeterList(0)
-    }
-
     fun setEstateId(id: Long) {
         Logger.d("Estate id: $id")
         this.estateId = id
-        GlobalScope.launch {
-        }
     }
 
     fun deleteEstate() {

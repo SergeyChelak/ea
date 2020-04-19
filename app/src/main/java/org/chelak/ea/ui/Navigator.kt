@@ -17,13 +17,6 @@ class Navigator(private val navController: NavController) {
         navController.navigate(R.id.estateDetailsFragment, bundle)
     }
 
-    fun openMeterList(estateId: Long) {
-        val bundle = Bundle().apply {
-            this.estateId = estateId
-        }
-        navController.navigate(R.id.action_estateDetailsFragment_to_meterListFragment, bundle)
-    }
-
     fun openTariffDetails(tariffId: Long) {
         val bundle = Bundle().apply {
             this.tariffId = tariffId

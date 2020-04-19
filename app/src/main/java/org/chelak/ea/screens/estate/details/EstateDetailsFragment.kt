@@ -2,7 +2,6 @@ package org.chelak.ea.screens.estate.details
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -31,10 +30,7 @@ class EstateDetailsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         view.let {
-            val button: Button? = it?.findViewById(R.id.dbg_button_meter_list)
-            button?.setOnClickListener { _ ->
-                viewModel.openMeterList()
-            }
+            //
         }
         viewModel = ViewModelProvider(this).get(EstateDetailsViewModel::class.java)
         (activity as? MainActivity)?.component?.inject(viewModel)
