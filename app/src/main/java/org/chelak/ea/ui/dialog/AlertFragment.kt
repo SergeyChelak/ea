@@ -76,3 +76,11 @@ fun Fragment.presentAlert(
         navController.navigate(R.id.alertDialog, params)
     }
 }
+
+fun Fragment.debugAlert(message: String = "Not implemented") {
+    presentAlert(
+        title = "Warning",
+        message = message,
+        positiveTitle = "OK"
+    )
+}

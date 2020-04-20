@@ -13,6 +13,7 @@
     <string name="estate_details_menu_manage_rates">Manage Rates</string>
     <string name="estate_details_menu_payment_settings">Payment Settings</string>
     <string name="estate_details_menu_delete">Delete Estate</string>
+    <string name="estate_details_button_calculate">Calculate</string>
 
     <string name="meter_details_title">Meter Details</string>
     <string name="meter_list_title">Meters</string>
