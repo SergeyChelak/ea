@@ -13,6 +13,7 @@ import org.chelak.ea.ui.dialog.debugAlert
 import org.chelak.ea.ui.dialog.presentAlert
 import org.chelak.ea.ui.estateId
 import org.chelak.ea.ui.list.setVerticalLayout
+import java.lang.RuntimeException
 
 class EstateDetailsFragment : Fragment() {
 
@@ -33,15 +34,15 @@ class EstateDetailsFragment : Fragment() {
             }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-//            when (viewType) {
-//                typeTitle -> EstateViewHolder.instance(parent)
-//                else -> null
-//            }
-            return EstateViewHolder.instance(parent)
+            return when (viewType) {
+                typeTitle -> EstateViewHolder.instance(parent)
+                typePayment -> LastPaymentViewHolder.instance(parent)
+                else -> throw RuntimeException("Unsupported viewType $viewType")
+            }
         }
 
         override fun getItemCount(): Int {
-            return 1
+            return 2
         }
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -50,6 +51,9 @@ class EstateDetailsFragment : Fragment() {
                     it.setTitle(title)
                     it.setButtonHandler(calculateHandler)
                     it.setImageId(R.drawable.ic_house)
+                }
+                typePayment -> (holder as? LastPaymentViewHolder)?.let {
+                    //
                 }
                 else -> {
                     //

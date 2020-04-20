@@ -5,15 +5,72 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:padding="5dp">
+        android:layout_height="wrap_content">
 
+        <LinearLayout
+            android:id="@+id/topPriceLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
+            <TextView
+                android:id="@+id/lastPaymentLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Last payment at 11/08/2018" />
 
+        </LinearLayout>
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/bottomPriceLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/topPriceLayout">
+
+            <TextView
+                android:id="@+id/lastPaymentPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1235.60$" />
+
+            <ImageView
+                android:id="@+id/imageTrending"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_trend_up" />
+
+            <TextView
+                android:id="@+id/lastPaymentDelta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-57.64$" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonPayments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="Payments"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
