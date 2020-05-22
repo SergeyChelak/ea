@@ -33,4 +33,6 @@
     <string name="tariff_list">Tariffs</string>
     <string name="payment_history">Payment History</string>
 
+    <string name="meter_dialog_new">New Meter</string>
+
 </resources>

@@ -50,23 +50,20 @@ class EstateViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 }
 
 
-class LastPaymentViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+open class PaymentViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-    companion object {
-        fun instance(parent: ViewGroup): LastPaymentViewHolder {
-            val inflater = LayoutInflater.from(parent.context)
-            val view = inflater.inflate(R.layout.viewholder_estate_payment, parent, false)
-            return LastPaymentViewHolder(view)
-        }
-    }
-
-    private val buttonPayments: Button = view.findViewById(R.id.buttonPayments)
-    private val message: TextView = view.findViewById(R.id.lastPaymentLabel)
+    private val titleView: TextView = view.findViewById(R.id.titleLabel)
     private val price: TextView = view.findViewById(R.id.lastPaymentPrice)
     private val delta: TextView = view.findViewById(R.id.lastPaymentDelta)
     private val trendingImage: ImageView = view.findViewById(R.id.imageTrending)
 
-    private var buttonHandler: ButtonHandler? = null
+    init {
+        view.setOnClickListener {
+            cellClickHandler?.invoke()
+        }
+    }
+
+    var cellClickHandler: ButtonHandler? = null
 
     fun setPaymentPrice(price: String) {
         this.price.text = price
@@ -76,13 +73,34 @@ class LastPaymentViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         this.delta.text = delta
     }
 
-    fun setTrend(isUpTrend: Boolean) {
-        trendingImage.setImageResource(if (isUpTrend) R.drawable.ic_trend_up else R.drawable.ic_trend_down)
+    fun setTrendDirection(trendDirection: TrendDirection) {
+        when (trendDirection) {
+            TrendDirection.DOWN -> trendingImage.setImageResource(R.drawable.ic_trend_down)
+            TrendDirection.UP -> trendingImage.setImageResource(R.drawable.ic_trend_up)
+            else -> trendingImage.setImageDrawable(null)
+        }
     }
 
-    fun setPaymentMessage(message: String) {
-        this.message.text = message
+    fun setTitle(text: String) {
+        this.titleView.text = text
     }
+
+}
+
+
+class LastPaymentViewHolder(view: View) : PaymentViewHolder(view) {
+
+    companion object {
+        fun instance(parent: ViewGroup): LastPaymentViewHolder {
+            val inflater = LayoutInflater.from(parent.context)
+            val view = inflater.inflate(R.layout.viewholder_estate_payment, parent, false)
+            return LastPaymentViewHolder(view)
+        }
+    }
+
+    private var buttonHandler: ButtonHandler? = null
+
+    private val buttonPayments: Button = view.findViewById(R.id.buttonPayments)
 
     fun setButtonHandler(handler: ButtonHandler?) {
         this.buttonHandler = handler
@@ -90,4 +108,18 @@ class LastPaymentViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             buttonHandler?.invoke()
         }
     }
+
+}
+
+
+class MeterViewHolder(view: View) : PaymentViewHolder(view) {
+
+    companion object {
+        fun instance(parent: ViewGroup): MeterViewHolder {
+            val inflater = LayoutInflater.from(parent.context)
+            val view = inflater.inflate(R.layout.viewholder_estate_meter, parent, false)
+            return MeterViewHolder(view)
+        }
+    }
+
 }

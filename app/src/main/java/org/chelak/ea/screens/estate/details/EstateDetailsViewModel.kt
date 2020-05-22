@@ -26,6 +26,7 @@ class EstateDetailsViewModel : ViewModel() {
 
     val estate: LiveData<Estate> get() = repository.estate(estateId)
 
+
     fun setEstateId(id: Long) {
         Logger.d("Estate id: $id")
         this.estateId = id
@@ -42,8 +43,22 @@ class EstateDetailsViewModel : ViewModel() {
         }
     }
 
-    fun addMeter() {
-        //
+    fun addMeter(title: String) {
+        GlobalScope.launch {
+            var meterId: Long = 0
+            withContext(Dispatchers.IO) {
+                meterId = repository.addMeter(estateId, title)
+            }
+            openMeter(meterId)
+        }
+    }
+
+    fun openMeter(meterId: Long) {
+        GlobalScope.launch {
+            withContext(Dispatchers.Main) {
+                navigator.openMeterDetails(meterId)
+            }
+        }
     }
 
     fun manageRates() {

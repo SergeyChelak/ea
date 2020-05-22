@@ -23,7 +23,7 @@
                 android:id="@+id/titleLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Last payment at 11/08/2018" />
+                android:text="Meter Title" />
 
         </LinearLayout>
 
@@ -31,11 +31,11 @@
             android:id="@+id/bottomPriceLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:orientation="horizontal"
             android:padding="5dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/topPriceLayout">
+            app:layout_constraintStart_toEndOf="@+id/topPriceLayout"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/lastPaymentPrice"
@@ -61,15 +61,6 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/buttonPayments"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text="Payments"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

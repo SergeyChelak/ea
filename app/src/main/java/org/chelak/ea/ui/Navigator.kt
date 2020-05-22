@@ -24,4 +24,11 @@ class Navigator(private val navController: NavController) {
         navController.navigate(R.id.tariffDetailsFragment, bundle)
     }
 
+    fun openMeterDetails(meterId: Long) {
+        val bundle = Bundle().apply {
+            this.meterId = meterId
+        }
+        navController.navigate(R.id.meterDetailsFragment, bundle)
+    }
+
 }

@@ -8,12 +8,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import org.chelak.ea.R
 import org.chelak.ea.common.Logger
+import org.chelak.ea.database.entity.Meter
 import org.chelak.ea.ui.MainActivity
 import org.chelak.ea.ui.dialog.debugAlert
 import org.chelak.ea.ui.dialog.presentAlert
+import org.chelak.ea.ui.dialog.presentTextInput
 import org.chelak.ea.ui.estateId
 import org.chelak.ea.ui.list.setVerticalLayout
-import java.lang.RuntimeException
 
 class EstateDetailsFragment : Fragment() {
 
@@ -25,6 +26,7 @@ class EstateDetailsFragment : Fragment() {
 
         private var title: String? = null
         private var calculateHandler: ButtonHandler? = null
+        private var meters: List<Meter>? = null
 
         override fun getItemViewType(position: Int): Int =
             when (position) {
@@ -37,12 +39,16 @@ class EstateDetailsFragment : Fragment() {
             return when (viewType) {
                 typeTitle -> EstateViewHolder.instance(parent)
                 typePayment -> LastPaymentViewHolder.instance(parent)
-                else -> throw RuntimeException("Unsupported viewType $viewType")
+                else -> MeterViewHolder.instance(parent)
             }
         }
 
         override fun getItemCount(): Int {
-            return 2
+            var count = 2
+            meters?.let {
+                count += it.size
+            }
+            return count
         }
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -53,19 +59,32 @@ class EstateDetailsFragment : Fragment() {
                     it.setImageId(R.drawable.ic_house)
                 }
                 typePayment -> (holder as? LastPaymentViewHolder)?.let {
-                    //
+                    // TODO implement
                 }
-                else -> {
-                    //
+                else -> (holder as? MeterViewHolder)?.let { viewHolder ->
+                    meters?.let {
+                        val meter = it[position-2]
+                        viewHolder.setTitle(meter.title)
+                        viewHolder.cellClickHandler = {
+                            viewModel.openMeter(meter.uid)
+                        }
+                    }
+
                 }
             }
         }
 
-        fun set(title: String, handler: ButtonHandler?) {
+        fun setEstate(title: String, handler: ButtonHandler?) {
             this.title = title
             this.calculateHandler = handler
             notifyItemChanged(0)
         }
+
+        fun setMeters(meters: List<Meter>?) {
+            this.meters = meters
+            notifyDataSetChanged()
+        }
+
     }
 
     private lateinit var viewModel: EstateDetailsViewModel
@@ -96,10 +115,11 @@ class EstateDetailsFragment : Fragment() {
         }
         viewModel.meters.observe(viewLifecycleOwner, Observer {
             Logger.d("Meters: $it")
+            adapter.setMeters(it)
         })
         viewModel.estate.observe(viewLifecycleOwner, Observer {
             val title = it.title ?: ""
-            adapter.set(title = title, handler = {
+            adapter.setEstate(title = title, handler = {
                 debugAlert()
             })
         })
@@ -113,7 +133,12 @@ class EstateDetailsFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.estate_details_menu_add_meter -> {
-                viewModel.addMeter()
+                presentTextInput(
+                    title = getString(R.string.meter_dialog_new),
+                    positiveTitle = getString(R.string.btn_ok),
+                    positiveAction = { name -> viewModel.addMeter(name) },
+                    negativeTitle = getString(R.string.btn_cancel)
+                )
                 true
             }
             R.id.estate_details_menu_manage_rates -> {
