@@ -87,7 +87,9 @@ class EstateDetailsFragment : Fragment() {
 
     }
 
-    private lateinit var viewModel: EstateDetailsViewModel
+    private val viewModel: EstateDetailsViewModel by lazy {
+        ViewModelProvider(this).get(EstateDetailsViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,7 +110,6 @@ class EstateDetailsFragment : Fragment() {
             recyclerView.setVerticalLayout()
             recyclerView.adapter = adapter
         }
-        viewModel = ViewModelProvider(this).get(EstateDetailsViewModel::class.java)
         (activity as? MainActivity)?.component?.inject(viewModel)
         arguments?.estateId?.let {
             viewModel.setEstateId(it)
