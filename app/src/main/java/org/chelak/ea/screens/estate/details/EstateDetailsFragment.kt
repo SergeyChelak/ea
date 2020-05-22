@@ -151,21 +151,17 @@ class EstateDetailsFragment : Fragment() {
                 true
             }
             R.id.estate_details_menu_delete -> {
-                askDeleteEstate()
+                presentAlert(
+                    title = getString(R.string.dialog_title_warning),
+                    message = getString(R.string.dialog_confirm_undone_action),
+                    positiveTitle = getString(R.string.btn_delete),
+                    positiveAction = { viewModel.deleteEstate() },
+                    negativeTitle = getString(R.string.btn_cancel)
+                )
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun askDeleteEstate() {
-        presentAlert(
-            title = getString(R.string.dialog_title_warning),
-            message = getString(R.string.dialog_confirm_undone_action),
-            positiveTitle = getString(R.string.btn_delete),
-            positiveAction = { viewModel.deleteEstate() },
-            negativeTitle = getString(R.string.btn_cancel)
-        )
     }
 
 }
