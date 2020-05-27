@@ -1,6 +1,5 @@
 package org.chelak.ea.screens.estate.details
 
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -9,16 +8,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.chelak.ea.R
 import org.chelak.ea.ui.VoidHandler
+import org.chelak.ea.ui.inflateView
 import org.chelak.ea.ui.list.getContext
 
 class EstateViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     companion object {
-        fun instance(parent: ViewGroup): EstateViewHolder {
-            val inflater = LayoutInflater.from(parent.context)
-            val view = inflater.inflate(R.layout.viewholder_estate_heading, parent, false)
-            return EstateViewHolder(view)
-        }
+        fun instance(parent: ViewGroup): EstateViewHolder =
+            EstateViewHolder(inflateView(parent, R.layout.viewholder_estate_heading))
     }
 
     private val imageView: ImageView = view.findViewById(R.id.item_icon)
@@ -90,11 +87,8 @@ open class PaymentViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 class LastPaymentViewHolder(view: View) : PaymentViewHolder(view) {
 
     companion object {
-        fun instance(parent: ViewGroup): LastPaymentViewHolder {
-            val inflater = LayoutInflater.from(parent.context)
-            val view = inflater.inflate(R.layout.viewholder_estate_payment, parent, false)
-            return LastPaymentViewHolder(view)
-        }
+        fun instance(parent: ViewGroup): LastPaymentViewHolder =
+            LastPaymentViewHolder(inflateView(parent, R.layout.viewholder_estate_payment))
     }
 
     private var buttonHandler: VoidHandler? = null
@@ -114,11 +108,8 @@ class LastPaymentViewHolder(view: View) : PaymentViewHolder(view) {
 class MeterViewHolder(view: View) : PaymentViewHolder(view) {
 
     companion object {
-        fun instance(parent: ViewGroup): MeterViewHolder {
-            val inflater = LayoutInflater.from(parent.context)
-            val view = inflater.inflate(R.layout.viewholder_estate_meter, parent, false)
-            return MeterViewHolder(view)
-        }
+        fun instance(parent: ViewGroup): MeterViewHolder =
+            MeterViewHolder(inflateView(parent, R.layout.viewholder_estate_meter))
     }
 
 }
