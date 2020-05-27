@@ -22,8 +22,6 @@ class EstateViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val textView: TextView = view.findViewById(R.id.item_title)
     private val buttonCalculate: Button = view.findViewById(R.id.buttonCalculate)
 
-    private var buttonHandler: VoidHandler? = null
-
     fun setImageId(imageId: Int) {
         imageView.setImageResource(imageId)
     }
@@ -37,9 +35,8 @@ class EstateViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
     fun setButtonHandler(handler: VoidHandler?) {
-        this.buttonHandler = handler
         buttonCalculate.setOnClickListener {
-            buttonHandler?.invoke()
+            handler?.invoke()
         }
     }
 

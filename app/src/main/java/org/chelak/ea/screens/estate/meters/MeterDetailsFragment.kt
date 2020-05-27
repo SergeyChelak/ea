@@ -11,6 +11,7 @@ import org.chelak.ea.R
 import org.chelak.ea.common.Logger
 import org.chelak.ea.database.entity.MeterValue
 import org.chelak.ea.ui.MainActivity
+import org.chelak.ea.ui.list.setVerticalLayout
 import org.chelak.ea.ui.meterId
 
 class MeterDetailsFragment : Fragment() {
@@ -30,6 +31,11 @@ class MeterDetailsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        view?.let {
+            val recyclerView = it.findViewById<RecyclerView>(R.id.recyclerView)
+            recyclerView.setVerticalLayout()
+            recyclerView.adapter = adapter
+        }
         (activity as? MainActivity)?.component?.inject(viewModel)
         assert(arguments?.meterId != null) { Logger.e("MeterDetailsFragment: arguments.meterId is null") }
         arguments?.meterId?.let {
@@ -38,6 +44,11 @@ class MeterDetailsFragment : Fragment() {
         viewModel.meterValues.observe(viewLifecycleOwner, Observer {
             adapter.setValues(it)
         })
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
