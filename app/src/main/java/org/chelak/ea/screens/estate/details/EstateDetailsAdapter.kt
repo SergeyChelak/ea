@@ -8,7 +8,7 @@ import org.chelak.ea.ui.VoidHandler
 
 typealias MeterSelectionHandler = (Long) -> Unit
 
-class EstateDetailsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class EstateDetailsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val TYPE_TITLE = 1
@@ -17,7 +17,7 @@ class EstateDetailsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     private var title: String? = null
-    private var meters: List<Meter>? = null
+    private var meters: List<Meter> = emptyList()
 
     private var calculateHandler: VoidHandler? = null
     private var meterSelectionHandler: MeterSelectionHandler? = null
@@ -37,13 +37,7 @@ class EstateDetailsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    override fun getItemCount(): Int {
-        var count = 2
-        meters?.let {
-            count += it.size
-        }
-        return count
-    }
+    override fun getItemCount(): Int = 2 + meters.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
@@ -56,14 +50,11 @@ class EstateDetailsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 // TODO implement
             }
             else -> (holder as? MeterViewHolder)?.let { viewHolder ->
-                meters?.let {
-                    val meter = it[position-2]
-                    viewHolder.setTitle(meter.title)
-                    viewHolder.cellClickHandler = {
-                        meterSelectionHandler?.invoke(meter.uid)
-                    }
+                val meter = meters[position - 2]
+                viewHolder.setTitle(meter.title)
+                viewHolder.cellClickHandler = {
+                    meterSelectionHandler?.invoke(meter.uid)
                 }
-
             }
         }
     }
@@ -74,7 +65,7 @@ class EstateDetailsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyItemChanged(0)
     }
 
-    fun setMeters(meters: List<Meter>?, handler: MeterSelectionHandler?) {
+    fun setMeters(meters: List<Meter>, handler: MeterSelectionHandler?) {
         this.meters = meters
         this.meterSelectionHandler = handler
         notifyDataSetChanged()

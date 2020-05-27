@@ -12,9 +12,12 @@ class MeterDetailsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
     private var values: List<MeterValue> = emptyList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        TODO("Not yet implemented")
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+        if (viewType == COLLAPSED) {
+            CollapsedMeterViewHolder.instance(parent)
+        } else {
+            ExpandedMeterViewHolder.instance(parent)
+        }
 
     override fun getItemCount(): Int = 1 + values.size
 

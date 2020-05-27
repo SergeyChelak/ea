@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.chelak.ea.R
 import org.chelak.ea.ui.VoidHandler
-import org.chelak.ea.ui.inflateView
 import org.chelak.ea.ui.list.getContext
+import org.chelak.ea.ui.list.inflateView
 
 class EstateViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 

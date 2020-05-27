@@ -1,6 +1,5 @@
 package org.chelak.ea.ui.list
 
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -11,11 +10,8 @@ import org.chelak.ea.R
 class HeadingViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
     companion object {
-        fun instance(parent: ViewGroup): HeadingViewHolder {
-            val inflater = LayoutInflater.from(parent.context)
-            val view = inflater.inflate(R.layout.viewholder_heading, parent, false)
-            return HeadingViewHolder(view)
-        }
+        fun instance(parent: ViewGroup): HeadingViewHolder =
+            HeadingViewHolder(inflateView(parent, R.layout.viewholder_heading))
     }
 
     private val imageView: ImageView = view.findViewById(R.id.item_icon)

@@ -4,7 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.chelak.ea.R
-import org.chelak.ea.ui.inflateView
+import org.chelak.ea.ui.list.inflateView
 
 
 class CollapsedMeterViewHolder(view: View): RecyclerView.ViewHolder(view) {

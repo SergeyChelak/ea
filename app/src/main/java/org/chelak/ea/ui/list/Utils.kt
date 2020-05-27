@@ -1,8 +1,7 @@
 package org.chelak.ea.ui.list
 
 import android.content.Context
-import android.view.GestureDetector
-import android.view.MotionEvent
+import android.view.*
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.GridLayoutManager
@@ -10,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 fun RecyclerView.ViewHolder.getContext(): Context = itemView.context
+
 
 fun RecyclerView.clickPosition(): LiveData<Int> {
 
@@ -48,11 +48,19 @@ fun RecyclerView.clickPosition(): LiveData<Int> {
 
 }
 
+
+fun inflateView(parent: ViewGroup, layoutId: Int): View {
+    val inflater = LayoutInflater.from(parent.context)
+    return inflater.inflate(layoutId, parent, false)
+}
+
+
 fun RecyclerView.setVerticalLayout() {
     layoutManager = LinearLayoutManager(context).apply {
         orientation = LinearLayoutManager.VERTICAL
     }
 }
+
 
 fun RecyclerView.setHorizontalLayout() {
     layoutManager = LinearLayoutManager(context).apply {
