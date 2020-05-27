@@ -1,0 +1,83 @@
+package org.chelak.ea.screens.estate.details
+
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import org.chelak.ea.R
+import org.chelak.ea.database.entity.Meter
+import org.chelak.ea.ui.VoidHandler
+
+typealias MeterSelectionHandler = (Long) -> Unit
+
+class EstateDetailsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    companion object {
+        const val TYPE_TITLE = 1
+        const val TYPE_PAYMENT = 2
+        const val TYPE_METER = 3
+    }
+
+    private var title: String? = null
+    private var meters: List<Meter>? = null
+
+    private var calculateHandler: VoidHandler? = null
+    private var meterSelectionHandler: MeterSelectionHandler? = null
+
+    override fun getItemViewType(position: Int): Int =
+        when (position) {
+            0 -> TYPE_TITLE
+            1 -> TYPE_PAYMENT
+            else -> TYPE_METER
+        }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            TYPE_TITLE -> EstateViewHolder.instance(parent)
+            TYPE_PAYMENT -> LastPaymentViewHolder.instance(parent)
+            else -> MeterViewHolder.instance(parent)
+        }
+    }
+
+    override fun getItemCount(): Int {
+        var count = 2
+        meters?.let {
+            count += it.size
+        }
+        return count
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (getItemViewType(position)) {
+            TYPE_TITLE -> (holder as? EstateViewHolder)?.let {
+                it.setTitle(title)
+                it.setButtonHandler(calculateHandler)
+                it.setImageId(R.drawable.ic_house)
+            }
+            TYPE_PAYMENT -> (holder as? LastPaymentViewHolder)?.let {
+                // TODO implement
+            }
+            else -> (holder as? MeterViewHolder)?.let { viewHolder ->
+                meters?.let {
+                    val meter = it[position-2]
+                    viewHolder.setTitle(meter.title)
+                    viewHolder.cellClickHandler = {
+                        meterSelectionHandler?.invoke(meter.uid)
+                    }
+                }
+
+            }
+        }
+    }
+
+    fun setEstate(title: String, handler: VoidHandler?) {
+        this.title = title
+        this.calculateHandler = handler
+        notifyItemChanged(0)
+    }
+
+    fun setMeters(meters: List<Meter>?, handler: MeterSelectionHandler?) {
+        this.meters = meters
+        this.meterSelectionHandler = handler
+        notifyDataSetChanged()
+    }
+
+}

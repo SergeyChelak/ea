@@ -4,13 +4,18 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 
 import org.chelak.ea.R
+import org.chelak.ea.database.entity.MeterValue
 import org.chelak.ea.ui.MainActivity
 import org.chelak.ea.ui.meterId
 
 class MeterDetailsFragment : Fragment() {
+
+    private val adapter = MeterDetailsAdapter()
 
     private val viewModel: MeterDetailsViewModel by lazy {
         ViewModelProvider(this).get(MeterDetailsViewModel::class.java)
@@ -30,6 +35,9 @@ class MeterDetailsFragment : Fragment() {
         arguments?.meterId?.let {
             viewModel.setMeterId(it)
         }
+        viewModel.meterValues.observe(viewLifecycleOwner, Observer {
+            // TODO add to adapter
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

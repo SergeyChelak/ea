@@ -8,9 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.chelak.ea.R
+import org.chelak.ea.ui.VoidHandler
 import org.chelak.ea.ui.list.getContext
-
-typealias ButtonHandler = () -> Unit
 
 class EstateViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -26,7 +25,7 @@ class EstateViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val textView: TextView = view.findViewById(R.id.item_title)
     private val buttonCalculate: Button = view.findViewById(R.id.buttonCalculate)
 
-    private var buttonHandler: ButtonHandler? = null
+    private var buttonHandler: VoidHandler? = null
 
     fun setImageId(imageId: Int) {
         imageView.setImageResource(imageId)
@@ -40,7 +39,7 @@ class EstateViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         textView.text = getContext().getString(resourceId)
     }
 
-    fun setButtonHandler(handler: ButtonHandler?) {
+    fun setButtonHandler(handler: VoidHandler?) {
         this.buttonHandler = handler
         buttonCalculate.setOnClickListener {
             buttonHandler?.invoke()
@@ -63,7 +62,7 @@ open class PaymentViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
     }
 
-    var cellClickHandler: ButtonHandler? = null
+    var cellClickHandler: VoidHandler? = null
 
     fun setPaymentPrice(price: String) {
         this.price.text = price
@@ -98,11 +97,11 @@ class LastPaymentViewHolder(view: View) : PaymentViewHolder(view) {
         }
     }
 
-    private var buttonHandler: ButtonHandler? = null
+    private var buttonHandler: VoidHandler? = null
 
     private val buttonPayments: Button = view.findViewById(R.id.buttonPayments)
 
-    fun setButtonHandler(handler: ButtonHandler?) {
+    fun setButtonHandler(handler: VoidHandler?) {
         this.buttonHandler = handler
         buttonPayments.setOnClickListener {
             buttonHandler?.invoke()

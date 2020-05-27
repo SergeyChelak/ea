@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import org.chelak.ea.R
 import org.chelak.ea.common.Logger
-import org.chelak.ea.database.entity.Meter
 import org.chelak.ea.ui.MainActivity
 import org.chelak.ea.ui.dialog.debugAlert
 import org.chelak.ea.ui.dialog.presentAlert
@@ -18,74 +17,7 @@ import org.chelak.ea.ui.list.setVerticalLayout
 
 class EstateDetailsFragment : Fragment() {
 
-    private val adapter = object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-        private val typeTitle = 1
-        private val typePayment = 2
-        private val typeMeter = 3
-
-        private var title: String? = null
-        private var calculateHandler: ButtonHandler? = null
-        private var meters: List<Meter>? = null
-
-        override fun getItemViewType(position: Int): Int =
-            when (position) {
-                0 -> typeTitle
-                1 -> typePayment
-                else -> typeMeter
-            }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-            return when (viewType) {
-                typeTitle -> EstateViewHolder.instance(parent)
-                typePayment -> LastPaymentViewHolder.instance(parent)
-                else -> MeterViewHolder.instance(parent)
-            }
-        }
-
-        override fun getItemCount(): Int {
-            var count = 2
-            meters?.let {
-                count += it.size
-            }
-            return count
-        }
-
-        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-            when (getItemViewType(position)) {
-                typeTitle -> (holder as? EstateViewHolder)?.let {
-                    it.setTitle(title)
-                    it.setButtonHandler(calculateHandler)
-                    it.setImageId(R.drawable.ic_house)
-                }
-                typePayment -> (holder as? LastPaymentViewHolder)?.let {
-                    // TODO implement
-                }
-                else -> (holder as? MeterViewHolder)?.let { viewHolder ->
-                    meters?.let {
-                        val meter = it[position-2]
-                        viewHolder.setTitle(meter.title)
-                        viewHolder.cellClickHandler = {
-                            viewModel.openMeter(meter.uid)
-                        }
-                    }
-
-                }
-            }
-        }
-
-        fun setEstate(title: String, handler: ButtonHandler?) {
-            this.title = title
-            this.calculateHandler = handler
-            notifyItemChanged(0)
-        }
-
-        fun setMeters(meters: List<Meter>?) {
-            this.meters = meters
-            notifyDataSetChanged()
-        }
-
-    }
+    private val adapter = EstateDetailsAdapter()
 
     private val viewModel: EstateDetailsViewModel by lazy {
         ViewModelProvider(this).get(EstateDetailsViewModel::class.java)
@@ -116,13 +48,15 @@ class EstateDetailsFragment : Fragment() {
         }
         viewModel.meters.observe(viewLifecycleOwner, Observer {
             Logger.d("Meters: $it")
-            adapter.setMeters(it)
+            adapter.setMeters(it) { uid ->
+                viewModel.openMeter(uid)
+            }
         })
         viewModel.estate.observe(viewLifecycleOwner, Observer {
             val title = it.title ?: ""
-            adapter.setEstate(title = title, handler = {
+            adapter.setEstate(title) {
                 debugAlert()
-            })
+            }
         })
     }
 
