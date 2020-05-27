@@ -1,4 +1,4 @@
-package org.chelak.ea.screens.estate
+package org.chelak.ea.screens.estate.meters
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
