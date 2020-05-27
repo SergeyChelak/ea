@@ -1,7 +1,6 @@
 package org.chelak.ea.screens.estate.meters
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -9,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 
 import org.chelak.ea.R
+import org.chelak.ea.common.Logger
 import org.chelak.ea.database.entity.MeterValue
 import org.chelak.ea.ui.MainActivity
 import org.chelak.ea.ui.meterId
@@ -31,12 +31,12 @@ class MeterDetailsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         (activity as? MainActivity)?.component?.inject(viewModel)
-        assert(arguments?.meterId != null) { Log.e("MeterDetailsFragment", "meterId is null") }
+        assert(arguments?.meterId != null) { Logger.e("MeterDetailsFragment: arguments.meterId is null") }
         arguments?.meterId?.let {
             viewModel.setMeterId(it)
         }
         viewModel.meterValues.observe(viewLifecycleOwner, Observer {
-            // TODO add to adapter
+            adapter.setValues(it)
         })
     }
 

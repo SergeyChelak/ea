@@ -53,7 +53,7 @@ class TariffDetailsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         appComponent?.inject(viewModel)
-
+        assert(arguments?.tariffId != null) { Logger.e("TariffDetailsFragment: arguments.tariffId is null") }
         arguments?.tariffId?.let {
             viewModel.setTariffId(it)
         }
