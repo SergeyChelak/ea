@@ -10,6 +10,7 @@ import org.chelak.ea.core.Repository
 import org.chelak.ea.database.entity.Tariff
 import org.chelak.ea.database.entity.TariffThreshold
 import org.chelak.ea.ui.Navigator
+import java.lang.Exception
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -24,15 +25,16 @@ class TariffsViewModel : ViewModel() {
     fun getTariffs() : LiveData<List<Tariff>> = repository.allTariffs()
 
     fun addTariff(title: String, priceText: String) {
-        val price = BigDecimal(priceText)
-        GlobalScope.launch {
-            // TODO perform inside data manager/repository
-            val tariff = Tariff(title = title)
-            val tariffId = repository.addTariff(tariff)
-            val baseThreshold = TariffThreshold(tariffUid = tariffId, price = price)
-            repository.addThreshold(baseThreshold)
-            withContext(Dispatchers.Main) {
-                openTariffDetails(tariffId)
+        (try { BigDecimal(priceText) } catch (e: Exception) { null })?.let { price ->
+            GlobalScope.launch {
+                // TODO perform inside data manager/repository
+                val tariff = Tariff(title = title)
+                val tariffId = repository.addTariff(tariff)
+                val baseThreshold = TariffThreshold(tariffUid = tariffId, price = price)
+                repository.addThreshold(baseThreshold)
+                withContext(Dispatchers.Main) {
+                    openTariffDetails(tariffId)
+                }
             }
         }
     }

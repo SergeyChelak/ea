@@ -16,6 +16,8 @@
     <string name="estate_details_button_calculate">Calculate</string>
 
     <string name="meter_details_title">Meter Details</string>
+    <string name="meter_details_menu_delete">Delete</string>
+    <string name="meter_details_menu_edit_properties">Edit Properties</string>
     <string name="meter_list_title">Meters</string>
 
     <string name="tariff_details_title">Tariff Details</string>

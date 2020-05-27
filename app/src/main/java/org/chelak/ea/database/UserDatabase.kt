@@ -34,6 +34,8 @@ abstract class UserDatabase : RoomDatabase() {
 
     abstract fun meterDao(): MeterDao
 
+    abstract fun meterValueDao(): MeterValueDao
+
     abstract fun rateDao(): RateDao
 
     abstract fun paymentDao(): PaymentDao

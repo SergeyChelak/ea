@@ -2,10 +2,7 @@ package org.chelak.ea.core
 
 import androidx.lifecycle.LiveData
 import org.chelak.ea.database.UserDatabase
-import org.chelak.ea.database.entity.Estate
-import org.chelak.ea.database.entity.Meter
-import org.chelak.ea.database.entity.Tariff
-import org.chelak.ea.database.entity.TariffThreshold
+import org.chelak.ea.database.entity.*
 
 class Repository constructor(private val dataBase: UserDatabase) {
 
@@ -28,6 +25,10 @@ class Repository constructor(private val dataBase: UserDatabase) {
         val meter = Meter(estateUid = estateId, title = title)
         return dataBase.meterDao().insert(meter)
     }
+
+    fun meterValues(meterId: Long): LiveData<List<MeterValue>> =
+        dataBase.meterValueDao().fetchValues(meterId)
+
 
     // tariff
     fun allTariffs(): LiveData<List<Tariff>> = dataBase.tariffDao().fetchAll()

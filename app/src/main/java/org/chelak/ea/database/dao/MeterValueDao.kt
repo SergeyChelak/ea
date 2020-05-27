@@ -10,10 +10,7 @@ import org.chelak.ea.database.entity.MeterValue
 @Dao
 interface MeterValueDao: GenericDao<MeterValue> {
 
-    @Query("SELECT * FROM __meters WHERE __estate_uid = :estateId")
-    fun fetchMeters(estateId: Long): LiveData<List<Meter>>
-
-    @Query("SELECT * FROM __meters WHERE uid = :id LIMIT 1")
-    fun fetchById(id: Long): LiveData<Meter>
+    @Query("SELECT * FROM __meter_values WHERE __meter_uid = :meterId")
+    fun fetchValues(meterId: Long): LiveData<List<MeterValue>>
 
 }
