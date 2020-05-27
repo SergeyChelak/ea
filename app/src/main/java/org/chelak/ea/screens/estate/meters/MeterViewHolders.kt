@@ -2,35 +2,24 @@ package org.chelak.ea.screens.estate.meters
 
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import org.chelak.ea.R
 import org.chelak.ea.ui.VoidHandler
 import org.chelak.ea.ui.list.inflateView
+import java.util.*
 
 
-abstract class MeterViewHolder(view: View): RecyclerView.ViewHolder(view) {
+open class MeterViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
     protected val stateButton: ImageButton = view.findViewById(R.id.changeStateButton)
 
-    fun setStateSwitcher(handler: VoidHandler?) {
-        if (handler == null) {
-            stateButton.visibility = View.GONE
-            return
-        }
-        stateButton.visibility = View.VISIBLE
+    fun setStateSwitchHandler(handler: VoidHandler?) {
         stateButton.setOnClickListener {
-            handler.invoke()
+            handler?.invoke()
         }
     }
-
-    abstract fun setPaid(isPaid: Boolean)
-
-    abstract fun setValue(value: String)
-
-    abstract fun setDate(date: String)
 
 }
 
@@ -49,15 +38,15 @@ class CollapsedMeterViewHolder(view: View): MeterViewHolder(view) {
     val accessoryImage: ImageView = view.findViewById(R.id.accessoryImage)
 
 
-    override fun setPaid(isPaid: Boolean) {
-        accessoryImage.visibility = if (isPaid) View.GONE else View.VISIBLE
+    fun setPaid(isPaid: Boolean) {
+        accessoryImage.isVisible = !isPaid
     }
 
-    override fun setValue(value: String) {
+    fun setValue(value: String) {
         textValue.text = value
     }
 
-    override fun setDate(date: String) {
+    fun setDate(date: String) {
         textDate.text = date
     }
 
@@ -73,16 +62,32 @@ class ExpandedMeterViewHolder(view: View): MeterViewHolder(view) {
         }
     }
 
-    override fun setPaid(isPaid: Boolean) {
-        TODO("Not yet implemented")
+    val editValue: EditText = view.findViewById(R.id.editValue)
+    val paidSwitch: Switch = view.findViewById(R.id.switchPaid)
+    val calendarView: CalendarView = view.findViewById(R.id.calendarView)
+    val saveButton: Button = view.findViewById(R.id.buttonSave)
+    val deleteButton: Button = view.findViewById(R.id.buttonDelete)
+
+    fun setIsNewItem(isNew: Boolean) {
+        arrayOf(deleteButton, stateButton).forEach {
+            it.isVisible = !isNew
+        }
     }
 
-    override fun setValue(value: String) {
-        TODO("Not yet implemented")
+    fun setPaid(isPaid: Boolean) {
+        paidSwitch.isChecked = isPaid
     }
 
-    override fun setDate(date: String) {
-        TODO("Not yet implemented")
+    fun setValue(value: String) {
+        editValue.setText(value)
+    }
+
+    fun setDate(date: Date) {
+        calendarView.setDate(date.time, false, true)
+    }
+
+    fun setSaveHandler(handler: SaveMeterValueHandler?) {
+
     }
 
 }
