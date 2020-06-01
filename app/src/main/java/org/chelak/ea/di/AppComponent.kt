@@ -8,7 +8,7 @@ import org.chelak.ea.screens.home.tariff.TariffDetailsViewModel
 import org.chelak.ea.screens.home.tariff.TariffsViewModel
 
 @ApplicationScope
-@Component(modules = [RepositoryModule::class, HostModule::class])
+@Component(modules = [RepositoryModule::class, HostModule::class, Utilities::class])
 interface AppComponent {
 
     fun inject(obj: EstateListViewModel)

@@ -48,6 +48,17 @@ class AlertFragment : BaseDialogFragment() {
     }
 }
 
+data class AlertModel(
+    val title: String? = null,
+    val message: String? = null,
+    val positiveTitle: String? = null,
+    val positiveAction: DialogAction? = null,
+    val negativeTitle: String? = null,
+    val negativeAction: DialogAction? = null,
+    val neutralTitle: String? = null,
+    val neutralAction: DialogAction? = null
+)
+
 
 fun Fragment.presentAlert(
     title: String? = null,
@@ -59,19 +70,28 @@ fun Fragment.presentAlert(
     neutralTitle: String? = null,
     neutralAction: DialogAction? = null
 ) {
+    presentAlert(
+        AlertModel(
+            title, message, positiveTitle, positiveAction, negativeTitle, negativeAction, neutralTitle, neutralAction
+        )
+    )
+}
+
+
+fun Fragment.presentAlert(model: AlertModel) {
     val navController = (activity as? MainActivity)?.navController
     navController?.let {
         val owner = it.getViewModelStoreOwner(R.id.root_nav_graph)
         val viewModel = ViewModelProvider(owner).get(AlertViewModel::class.java)
-        val holder = DialogActionHolder(positiveAction, negativeAction, neutralAction)
+        val holder = DialogActionHolder(model.positiveAction, model.negativeAction, model.neutralAction)
         val alertId = viewModel.put(holder)
         val params = Bundle().apply {
             this.alertId = alertId
-            this.alertTitle = title
-            this.alertMessage = message
-            this.alertPositiveButton = positiveTitle
-            this.alertNegativeButton = negativeTitle
-            this.alertNeutralButton = neutralTitle
+            this.alertTitle = model.title
+            this.alertMessage = model.message
+            this.alertPositiveButton = model.positiveTitle
+            this.alertNegativeButton = model.negativeTitle
+            this.alertNeutralButton = model.neutralTitle
         }
         navController.navigate(R.id.alertDialog, params)
     }

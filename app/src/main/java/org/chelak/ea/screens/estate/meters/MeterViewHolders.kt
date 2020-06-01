@@ -87,7 +87,16 @@ class ExpandedMeterViewHolder(view: View): MeterViewHolder(view) {
     }
 
     fun setSaveHandler(handler: SaveMeterValueHandler?) {
-
+        saveButton.setOnClickListener {
+            handler?.let {
+                val userInput = MeterValueUserInput(
+                    inputValue = editValue.text.toString(),
+                    milliseconds = calendarView.date,
+                    isChecked = paidSwitch.isChecked
+                )
+                it.invoke(userInput)
+            }
+        }
     }
 
 }

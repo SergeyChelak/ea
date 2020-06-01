@@ -6,6 +6,7 @@
     <string name="btn_delete">Delete</string>
 
     <string name="dialog_title_warning">Warning</string>
+    <string name="dialog_title_error">Error</string>
     <string name="dialog_confirm_undone_action">This action could not be undone. Please confirm your action</string>
 
     <string name="estate_details_title">Estate Details</string>
@@ -36,5 +37,7 @@
     <string name="payment_history">Payment History</string>
 
     <string name="meter_dialog_new">New Meter</string>
+    <string name="meter_validation_incorrect_value">Incorrect meter value</string>
+    <string name="meter_validation_value_out_of_range">Provided value is out of range</string>
 
 </resources>

@@ -3,7 +3,10 @@ package org.chelak.ea.di
 import android.content.Context
 import dagger.Module
 import dagger.Provides
+import org.chelak.ea.core.Formatter
 import org.chelak.ea.core.Repository
+import org.chelak.ea.core.ResourceProvider
+import org.chelak.ea.core.StringResource
 import org.chelak.ea.database.UserDatabase
 import org.chelak.ea.ui.MainActivity
 import org.chelak.ea.ui.Navigator
@@ -28,9 +31,19 @@ import java.lang.ref.WeakReference
     @Provides fun provideContext(): Context = activityReference.get()!!
 
     @ApplicationScope
+    @Provides fun provideStringResource(context: Context): StringResource = ResourceProvider(context)
+
+    @ApplicationScope
     @Provides fun provideNavigator(): Navigator {
         val activity = activityReference.get()!!
         return Navigator(activity.navController)
     }
+
+}
+
+@Module class Utilities {
+
+    @ApplicationScope
+    @Provides fun provideFormatter(): Formatter = Formatter()
 
 }

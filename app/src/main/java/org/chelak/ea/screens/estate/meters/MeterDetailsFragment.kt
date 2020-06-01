@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 import org.chelak.ea.R
 import org.chelak.ea.common.Logger
-import org.chelak.ea.database.entity.MeterValue
 import org.chelak.ea.ui.MainActivity
+import org.chelak.ea.ui.dialog.presentAlert
 import org.chelak.ea.ui.list.setVerticalLayout
 import org.chelak.ea.ui.meterId
 
@@ -37,12 +37,14 @@ class MeterDetailsFragment : Fragment() {
             recyclerView.adapter = adapter
         }
         (activity as? MainActivity)?.component?.inject(viewModel)
-        assert(arguments?.meterId != null) { Logger.e("MeterDetailsFragment: arguments.meterId is null") }
         arguments?.meterId?.let {
             viewModel.setMeterId(it)
         }
         viewModel.meterValues.observe(viewLifecycleOwner, Observer {
             adapter.setValues(it)
+        })
+        viewModel.alertData.observe(viewLifecycleOwner, Observer {
+            presentAlert(it)
         })
     }
 

@@ -3,8 +3,6 @@ package org.chelak.ea.screens.estate.meters
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.chelak.ea.common.Logger
-import org.chelak.ea.database.entity.MeterValue
-import java.util.*
 
 class MeterDetailsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -13,7 +11,7 @@ class MeterDetailsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         const val EXPANDED = 2
     }
 
-    private var values: List<MeterValue> = emptyList()
+    private var values: List<MeterValueDisplayModel> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         if (viewType == COLLAPSED) {
@@ -36,30 +34,28 @@ class MeterDetailsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    private fun bindCollapsed(viewHolder: CollapsedMeterViewHolder, value: MeterValue?) {
+    private fun bindCollapsed(
+        viewHolder: CollapsedMeterViewHolder,
+        value: MeterValueDisplayModel?
+    ) {
         value?.let {
-            // TODO implement with formatter
-            var meterValue = "--"
-            value.value?.let { longValue ->
-                meterValue = longValue.toString()
-            }
-            viewHolder.setValue(meterValue)
-            viewHolder.setDate("")
+            viewHolder.setValue(it.formattedValue)
+            viewHolder.setDate(it.formattedDate)
         }
     }
 
-    private fun bindExpanded(viewHolder: ExpandedMeterViewHolder, value: MeterValue?) {
+    private fun bindExpanded(viewHolder: ExpandedMeterViewHolder, value: MeterValueDisplayModel?) {
         viewHolder.setIsNewItem(value == null)
         value?.let {
             viewHolder.setStateSwitchHandler {
                 // TODO implement
             }
-            viewHolder.setDate(value.date ?: Date())
-            value.value?.let { value ->
-                // TODO implement with formatter
-                viewHolder.setValue(value.toString())
-            }
+            viewHolder.setDate(value.date)
+            viewHolder.setValue(value.formattedValue)
             viewHolder.setPaid(value.isPaid)
+        }
+        viewHolder.setSaveHandler {
+
         }
     }
 
@@ -70,7 +66,7 @@ class MeterDetailsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return COLLAPSED
     }
 
-    public fun setValues(values: List<MeterValue>) {
+    fun setValues(values: List<MeterValueDisplayModel>) {
         this.values = values
         notifyDataSetChanged()
     }
