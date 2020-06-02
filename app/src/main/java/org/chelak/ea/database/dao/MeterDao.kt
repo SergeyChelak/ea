@@ -13,6 +13,6 @@ interface MeterDao : GenericDao<Meter> {
     fun fetchMeters(estateId: Long): LiveData<List<Meter>>
 
     @Query("SELECT * FROM __meters WHERE uid = :id LIMIT 1")
-    fun fetchMeter(id: Long): LiveData<Meter>
+    fun fetchMeter(id: Long): Meter
 
 }

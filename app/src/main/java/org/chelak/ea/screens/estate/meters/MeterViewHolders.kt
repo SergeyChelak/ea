@@ -68,6 +68,16 @@ class ExpandedMeterViewHolder(view: View): MeterViewHolder(view) {
     val saveButton: Button = view.findViewById(R.id.buttonSave)
     val deleteButton: Button = view.findViewById(R.id.buttonDelete)
 
+    private var selectedDate = Date()
+
+    init {
+        calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
+            val calendar = GregorianCalendar()
+            calendar.set(year, month, dayOfMonth)
+            selectedDate = calendar.time
+        }
+    }
+
     fun setIsNewItem(isNew: Boolean) {
         arrayOf(deleteButton, stateButton).forEach {
             it.isVisible = !isNew
@@ -84,6 +94,7 @@ class ExpandedMeterViewHolder(view: View): MeterViewHolder(view) {
 
     fun setDate(date: Date) {
         calendarView.setDate(date.time, false, true)
+        selectedDate = date
     }
 
     fun setSaveHandler(handler: SaveMeterValueHandler?) {
@@ -91,7 +102,7 @@ class ExpandedMeterViewHolder(view: View): MeterViewHolder(view) {
             handler?.let {
                 val userInput = MeterValueUserInput(
                     inputValue = editValue.text.toString(),
-                    milliseconds = calendarView.date,
+                    date = selectedDate,
                     isChecked = paidSwitch.isChecked
                 )
                 it.invoke(userInput)

@@ -4,7 +4,7 @@ import java.util.*
 
 data class MeterValueUserInput(
     val inputValue: String,
-    val milliseconds: Long,
+    val date: Date,
     val isChecked: Boolean
 )
 

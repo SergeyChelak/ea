@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 
 import org.chelak.ea.R
-import org.chelak.ea.common.Logger
 import org.chelak.ea.ui.MainActivity
 import org.chelak.ea.ui.dialog.presentAlert
 import org.chelak.ea.ui.list.setVerticalLayout
@@ -46,6 +45,9 @@ class MeterDetailsFragment : Fragment() {
         viewModel.alertData.observe(viewLifecycleOwner, Observer {
             presentAlert(it)
         })
+        adapter.saveHandler = { uid, userInput ->
+            viewModel.saveValue(uid, userInput)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

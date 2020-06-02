@@ -15,5 +15,6 @@ import androidx.room.*
 data class Meter(
     @PrimaryKey(autoGenerate = true) var uid: Long = 0,
     @ColumnInfo(name = "__estate_uid") var estateUid: Long?,
-    @ColumnInfo(name = "__title") var title: String = ""
+    @ColumnInfo(name = "__title") var title: String = "",
+    @ColumnInfo(name = "__capacity") var capacity: Int
 )

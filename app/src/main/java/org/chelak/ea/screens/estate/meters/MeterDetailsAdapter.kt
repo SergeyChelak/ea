@@ -12,6 +12,7 @@ class MeterDetailsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     private var values: List<MeterValueDisplayModel> = emptyList()
+    var saveHandler: ((Long?, MeterValueUserInput) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         if (viewType == COLLAPSED) {
@@ -41,6 +42,10 @@ class MeterDetailsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         value?.let {
             viewHolder.setValue(it.formattedValue)
             viewHolder.setDate(it.formattedDate)
+            viewHolder.setPaid(it.isPaid)
+            viewHolder.setStateSwitchHandler {
+                // TODO implement
+            }
         }
     }
 
@@ -55,7 +60,7 @@ class MeterDetailsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             viewHolder.setPaid(value.isPaid)
         }
         viewHolder.setSaveHandler {
-
+            saveHandler?.invoke(value?.uid, it)
         }
     }
 

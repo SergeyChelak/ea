@@ -21,14 +21,25 @@ class Repository constructor(private val dataBase: UserDatabase) {
     fun meters(estateId: Long): LiveData<List<Meter>> =
         dataBase.meterDao().fetchMeters(estateId = estateId)
 
-    fun addMeter(estateId: Long, title: String): Long {
-        val meter = Meter(estateUid = estateId, title = title)
+    fun addMeter(estateId: Long, title: String, capacity: Int): Long {
+        val meter = Meter(estateUid = estateId, title = title, capacity = capacity)
         return dataBase.meterDao().insert(meter)
     }
 
+    fun fetchMeter(meterId: Long): Meter = dataBase.meterDao().fetchMeter(meterId)
+
+    // meter values
     fun meterValues(meterId: Long): LiveData<List<MeterValue>> =
         dataBase.meterValueDao().fetchValues(meterId)
 
+    fun fetchMeterValue(meterValueId: Long): MeterValue =
+        dataBase.meterValueDao().fetchValue(meterValueId)
+
+    fun insertMeterValue(meterValue: MeterValue): Long =
+        dataBase.meterValueDao().insert(meterValue)
+
+    fun updateMeterValue(meterValue: MeterValue): Int =
+        dataBase.meterValueDao().update(meterValue)
 
     // tariff
     fun allTariffs(): LiveData<List<Tariff>> = dataBase.tariffDao().fetchAll()

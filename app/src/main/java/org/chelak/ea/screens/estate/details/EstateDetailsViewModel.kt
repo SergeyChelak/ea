@@ -47,7 +47,7 @@ class EstateDetailsViewModel : ViewModel() {
         GlobalScope.launch {
             var meterId: Long = 0
             withContext(Dispatchers.IO) {
-                meterId = repository.addMeter(estateId, title)
+                meterId = repository.addMeter(estateId, title, 7)
             }
             openMeter(meterId)
         }

@@ -13,4 +13,7 @@ interface MeterValueDao: GenericDao<MeterValue> {
     @Query("SELECT * FROM __meter_values WHERE __meter_uid = :meterId")
     fun fetchValues(meterId: Long): LiveData<List<MeterValue>>
 
+    @Query("SELECT * FROM __meter_values WHERE uid = :valueId")
+    fun fetchValue(valueId: Long): MeterValue
+
 }

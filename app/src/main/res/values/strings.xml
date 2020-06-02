@@ -9,6 +9,8 @@
     <string name="dialog_title_error">Error</string>
     <string name="dialog_confirm_undone_action">This action could not be undone. Please confirm your action</string>
 
+    <string name="app_error_unexpected">Unexpected error occurred</string>
+
     <string name="estate_details_title">Estate Details</string>
     <string name="estate_details_menu_add_meter">Add Meter</string>
     <string name="estate_details_menu_manage_rates">Manage Rates</string>
