@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import org.chelak.ea.R
+import org.chelak.ea.ui.Keyboard
 import org.chelak.ea.ui.MainActivity
 import org.chelak.ea.ui.dialog.presentAlert
 import org.chelak.ea.ui.list.setVerticalLayout
@@ -33,9 +34,15 @@ class MeterDetailsFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         adapter.saveHandler = { uid, userInput ->
             viewModel.saveValue(uid, userInput)
+            context?.let { context ->
+                Keyboard.hide(context)
+            }
         }
         adapter.deleteHandler = { uid ->
             viewModel.deleteValue(uid)
+            context?.let { context ->
+                Keyboard.hide(context)
+            }
         }
         view?.let {
             val recyclerView = it.findViewById<RecyclerView>(R.id.recyclerView)
