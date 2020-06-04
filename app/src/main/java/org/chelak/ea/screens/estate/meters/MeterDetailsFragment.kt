@@ -12,7 +12,6 @@ import org.chelak.ea.R
 import org.chelak.ea.ui.Keyboard
 import org.chelak.ea.ui.MainActivity
 import org.chelak.ea.ui.dialog.presentAlert
-import org.chelak.ea.ui.list.setVerticalLayout
 import org.chelak.ea.ui.meterId
 
 class MeterDetailsFragment : Fragment() {
