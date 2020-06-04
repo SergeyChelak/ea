@@ -11,9 +11,9 @@ data class MeterValueUserInput(
 typealias SaveMeterValueHandler = (MeterValueUserInput) -> Unit
 
 data class MeterValueDisplayModel(
-    val uid: Long,
-    val formattedValue: String,
-    val date: Date,
-    val formattedDate: String,
-    val isPaid: Boolean
+    val uid: Long = 0,
+    val formattedValue: String = "",
+    val date: Date = Date(),
+    val formattedDate: String = "",
+    val isPaid: Boolean = false
 )

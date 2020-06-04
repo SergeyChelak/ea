@@ -12,6 +12,8 @@ class MeterDetailsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     private var values: List<MeterValueDisplayModel> = emptyList()
+    private var collapseState: MutableList<Boolean> = mutableListOf()
+
     var saveHandler: ((Long?, MeterValueUserInput) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
@@ -33,6 +35,12 @@ class MeterDetailsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 viewHolder
             )
         }
+        if (viewHolder is MeterViewHolder) {
+            viewHolder.setStateSwitchHandler {
+                collapseState[postion - 1] = !collapseState[postion - 1]
+                notifyItemChanged(postion)
+            }
+        }
     }
 
     private fun bindCollapsed(
@@ -43,23 +51,19 @@ class MeterDetailsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             viewHolder.setValue(it.formattedValue)
             viewHolder.setDate(it.formattedDate)
             viewHolder.setPaid(it.isPaid)
-            viewHolder.setStateSwitchHandler {
-                // TODO implement
-            }
         }
     }
 
     private fun bindExpanded(viewHolder: ExpandedMeterViewHolder, value: MeterValueDisplayModel?) {
         viewHolder.setIsNewItem(value == null)
-        value?.let {
-            viewHolder.setStateSwitchHandler {
-                // TODO implement
-            }
-            viewHolder.setDate(value.date)
-            viewHolder.setValue(value.formattedValue)
-            viewHolder.setPaid(value.isPaid)
-        }
+        val data: MeterValueDisplayModel = value ?: MeterValueDisplayModel()
+        viewHolder.setDate(data.date)
+        viewHolder.setValue(data.formattedValue)
+        viewHolder.setPaid(data.isPaid)
         viewHolder.setSaveHandler {
+            if (saveHandler == null) {
+                Logger.d("MeterDetailsAdapter.saveHandler ")
+            }
             saveHandler?.invoke(value?.uid, it)
         }
     }
@@ -68,11 +72,12 @@ class MeterDetailsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         if (position == 0) {
             return EXPANDED
         }
-        return COLLAPSED
+        return if (collapseState[position - 1]) COLLAPSED else EXPANDED
     }
 
     fun setValues(values: List<MeterValueDisplayModel>) {
         this.values = values
+        this.collapseState = MutableList(values.size) { true }
         notifyDataSetChanged()
     }
 
