@@ -39,10 +39,13 @@ class MeterDetailsFragment : Fragment() {
         }
         view?.let {
             val recyclerView = it.findViewById<RecyclerView>(R.id.recyclerView)
-            recyclerView.setVerticalLayout()
+            val layoutManager = LinearLayoutManager(context).apply {
+                orientation = LinearLayoutManager.VERTICAL
+            }
+            recyclerView.layoutManager = layoutManager
             recyclerView.adapter = adapter
             adapter.scrollHandler = { pos ->
-                (recyclerView.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(pos, 0)
+                layoutManager.scrollToPositionWithOffset(pos, 0)
             }
         }
         (activity as? MainActivity)?.component?.inject(viewModel)
