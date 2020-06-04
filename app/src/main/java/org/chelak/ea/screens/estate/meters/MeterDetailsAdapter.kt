@@ -16,6 +16,7 @@ class MeterDetailsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var saveHandler: ((Long?, MeterValueUserInput) -> Unit)? = null
     var deleteHandler: ((Long) -> Unit)? = null
+    var scrollHandler: ((Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         if (viewType == COLLAPSED) {
@@ -40,6 +41,7 @@ class MeterDetailsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             viewHolder.setStateSwitchHandler {
                 collapseState[postion - 1] = !collapseState[postion - 1]
                 notifyItemChanged(postion)
+                scrollHandler?.invoke(postion)
             }
         }
     }

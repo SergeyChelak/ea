@@ -5,6 +5,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import org.chelak.ea.R
@@ -30,10 +31,19 @@ class MeterDetailsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        adapter.saveHandler = { uid, userInput ->
+            viewModel.saveValue(uid, userInput)
+        }
+        adapter.deleteHandler = { uid ->
+            viewModel.deleteValue(uid)
+        }
         view?.let {
             val recyclerView = it.findViewById<RecyclerView>(R.id.recyclerView)
             recyclerView.setVerticalLayout()
             recyclerView.adapter = adapter
+            adapter.scrollHandler = { pos ->
+                (recyclerView.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(pos, 0)
+            }
         }
         (activity as? MainActivity)?.component?.inject(viewModel)
         arguments?.meterId?.let {
@@ -45,12 +55,6 @@ class MeterDetailsFragment : Fragment() {
         viewModel.alertData.observe(viewLifecycleOwner, Observer {
             presentAlert(it)
         })
-        adapter.saveHandler = { uid, userInput ->
-            viewModel.saveValue(uid, userInput)
-        }
-        adapter.deleteHandler = { uid ->
-            viewModel.deleteValue(uid)
-        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
