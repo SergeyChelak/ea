@@ -2,6 +2,7 @@ package org.chelak.ea.screens.estate.meters
 
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -67,6 +68,10 @@ class ExpandedMeterViewHolder(view: View): MeterViewHolder(view) {
     val calendarView: CalendarView = view.findViewById(R.id.calendarView)
     val saveButton: Button = view.findViewById(R.id.buttonSave)
     val deleteButton: Button = view.findViewById(R.id.buttonDelete)
+
+    init {
+        editValue.imeOptions = EditorInfo.IME_ACTION_DONE
+    }
 
     private var selectedDate = Date()
 
