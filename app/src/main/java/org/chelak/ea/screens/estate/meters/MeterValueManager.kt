@@ -72,7 +72,16 @@ class MeterValueManager(
     private fun updateValue(valueId: Long, modifier: (MeterValue) -> Unit) {
         val meterValue = repository.fetchMeterValue(valueId)
         modifier(meterValue)
-        if (repository.updateMeterValue(meterValue) == 0)
+        val count = repository.updateMeterValue(meterValue)
+        if (count == 0)
             throw OperationFailureException()
+    }
+
+    fun deleteMeterValue(valueId: Long) {
+        val meterValue = repository.fetchMeterValue(valueId)
+        val count = repository.deleteMeterValue(meterValue)
+        if (count == 0) {
+            throw OperationFailureException()
+        }
     }
 }

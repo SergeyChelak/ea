@@ -15,6 +15,7 @@ class MeterDetailsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var collapseState: MutableList<Boolean> = mutableListOf()
 
     var saveHandler: ((Long?, MeterValueUserInput) -> Unit)? = null
+    var deleteHandler: ((Long) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         if (viewType == COLLAPSED) {
@@ -62,9 +63,12 @@ class MeterDetailsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         viewHolder.setPaid(data.isPaid)
         viewHolder.setSaveHandler {
             if (saveHandler == null) {
-                Logger.d("MeterDetailsAdapter.saveHandler ")
+                Logger.w("MeterDetailsAdapter.saveHandler is null")
             }
             saveHandler?.invoke(value?.uid, it)
+        }
+        viewHolder.setDeleteHandler {
+            deleteHandler?.invoke(data.uid)
         }
     }
 

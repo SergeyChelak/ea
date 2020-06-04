@@ -110,4 +110,10 @@ class ExpandedMeterViewHolder(view: View): MeterViewHolder(view) {
         }
     }
 
+    fun setDeleteHandler(handler: VoidHandler?) {
+        deleteButton.setOnClickListener {
+            handler?.invoke()
+        }
+    }
+
 }

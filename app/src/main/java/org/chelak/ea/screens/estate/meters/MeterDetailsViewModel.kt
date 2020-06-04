@@ -53,6 +53,31 @@ class MeterDetailsViewModel : ViewModel() {
     }
 
 
+    fun deleteValue(valueId: Long) {
+        _alertData.value = AlertModel(
+            title = res.getString(R.string.dialog_title_warning),
+            message = res.getString(R.string.dialog_confirm_undone_action),
+            positiveTitle = res.getString(R.string.btn_yes),
+            positiveAction = { performDeleteValue(valueId) },
+            negativeTitle = res.getString(R.string.btn_no)
+        )
+    }
+
+    private fun performDeleteValue(valueId: Long) {
+        GlobalScope.launch {
+            try {
+                meterValueManager.deleteMeterValue(valueId)
+            } catch (e: Exception) {
+                _alertData.value = AlertModel(
+                    title = res.getString(R.string.dialog_title_error),
+                    message = res.getString(R.string.app_error_unexpected),
+                    positiveTitle = res.getString(R.string.btn_ok)
+                )
+            }
+        }
+    }
+
+
     fun setMeterId(meterId: Long) {
         meterValueManager.meterId = meterId
     }

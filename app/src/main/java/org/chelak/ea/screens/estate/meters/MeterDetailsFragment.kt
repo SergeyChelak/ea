@@ -48,6 +48,9 @@ class MeterDetailsFragment : Fragment() {
         adapter.saveHandler = { uid, userInput ->
             viewModel.saveValue(uid, userInput)
         }
+        adapter.deleteHandler = { uid ->
+            viewModel.deleteValue(uid)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
