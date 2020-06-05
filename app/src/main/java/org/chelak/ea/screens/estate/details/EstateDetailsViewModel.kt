@@ -1,10 +1,7 @@
 package org.chelak.ea.screens.estate.details
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.chelak.ea.common.Logger
@@ -26,14 +23,13 @@ class EstateDetailsViewModel : ViewModel() {
 
     val estate: LiveData<Estate> get() = repository.estate(estateId)
 
-
     fun setEstateId(id: Long) {
         Logger.d("Estate id: $id")
         this.estateId = id
     }
 
     fun deleteEstate() {
-        GlobalScope.launch {
+        viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 repository.deleteEstate(estateId)
             }
@@ -44,7 +40,7 @@ class EstateDetailsViewModel : ViewModel() {
     }
 
     fun addMeter(title: String) {
-        GlobalScope.launch {
+        viewModelScope.launch {
             var meterId: Long = 0
             withContext(Dispatchers.IO) {
                 meterId = repository.addMeter(estateId, title, 7)
@@ -54,7 +50,7 @@ class EstateDetailsViewModel : ViewModel() {
     }
 
     fun openMeter(meterId: Long) {
-        GlobalScope.launch {
+        viewModelScope.launch {
             withContext(Dispatchers.Main) {
                 navigator.openMeterDetails(meterId)
             }

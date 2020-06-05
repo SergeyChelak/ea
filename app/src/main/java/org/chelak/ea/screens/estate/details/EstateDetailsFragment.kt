@@ -43,7 +43,6 @@ class EstateDetailsFragment : Fragment() {
             recyclerView.adapter = adapter
         }
         (activity as? MainActivity)?.component?.inject(viewModel)
-        assert(arguments?.estateId != null) { Logger.e("EstateDetailsFragment: arguments.estateId is null") }
         arguments?.estateId?.let {
             viewModel.setEstateId(it)
         }

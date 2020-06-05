@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import org.chelak.ea.database.common.GenericDao
-import org.chelak.ea.database.entity.Meter
 import org.chelak.ea.database.entity.MeterValue
 
 @Dao
