@@ -56,4 +56,8 @@
         android:id="@+id/twoTextFieldDialogFragment"
         android:name="org.chelak.ea.ui.dialog.TwoTextFieldDialogFragment"
         android:label="TwoTextFieldDialogFragment" />
+    <fragment
+        android:id="@+id/rateListFragment"
+        android:name="org.chelak.ea.screens.estate.rates.RateListFragment"
+        android:label="RateListFragment" />
 </navigation>

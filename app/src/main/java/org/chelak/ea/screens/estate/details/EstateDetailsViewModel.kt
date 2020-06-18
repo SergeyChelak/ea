@@ -114,7 +114,7 @@ class EstateDetailsViewModel : ViewModel() {
     }
 
     fun manageRates() {
-
+        navigator.openRateList(estateId)
     }
 
     fun paymentSettings() {

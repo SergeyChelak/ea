@@ -31,4 +31,10 @@ class Navigator(private val navController: NavController) {
         navController.navigate(R.id.meterDetailsFragment, bundle)
     }
 
+    fun openRateList(estateId: Long) {
+        val bundle = Bundle().apply {
+            this.estateId = estateId
+        }
+        navController.navigate(R.id.rateListFragment, bundle)
+    }
 }

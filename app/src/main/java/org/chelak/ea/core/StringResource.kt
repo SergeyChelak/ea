@@ -18,7 +18,7 @@ class ResourceProvider(context: Context): StringResource {
         const val UNKNOWN = "<???>"
     }
 
-    val contextReference =  WeakReference(context)
+    private val contextReference =  WeakReference(context)
 
     override fun getString(resId: Int): String {
         contextReference.get()?.let {
