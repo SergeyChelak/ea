@@ -6,7 +6,6 @@ import org.chelak.ea.core.*
 import org.chelak.ea.core.Formatter
 import org.chelak.ea.database.entity.MeterValue
 import java.util.*
-import kotlin.math.pow
 
 class MeterValueManager(
     val repository: Repository,
@@ -35,21 +34,15 @@ class MeterValueManager(
     fun saveMeterValue(valueId: Long?, userInput: MeterValueUserInput) {
         val value =
             formatter.stringToAmount(userInput.inputValue) ?: throw IncorrectValueException()
-        if (value < 0) {
-            throw OutOfRangeException()
-        }
         val meter = repository.fetchMeter(meterId)
-        val maxValue = 10.0.pow(meter.capacity) - 1
-        if (value > maxValue) {
+        if (!Calculator.isCorrect(value, meter)) {
             throw OutOfRangeException()
         }
-
         val modifier = { meterValue: MeterValue ->
             meterValue.value = value
             meterValue.date = userInput.date
             meterValue.isPaid = userInput.isChecked
         }
-
         if (valueId != null) {
             updateValue(valueId, modifier)
         } else {
@@ -61,7 +54,7 @@ class MeterValueManager(
         val meterValue = MeterValue(
             0,
             date = null,
-            value = null,
+            value = 0,
             meterUid = meterId
         )
         modifier(meterValue)

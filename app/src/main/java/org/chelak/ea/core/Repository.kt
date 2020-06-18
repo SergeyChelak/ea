@@ -35,6 +35,9 @@ class Repository constructor(private val dataBase: UserDatabase) {
     fun fetchMeterValue(meterValueId: Long): MeterValue =
         dataBase.meterValueDao().fetchValue(meterValueId)
 
+    fun fetchLastMeterValue(meterValueId: Long): LiveData<List<MeterValue>> =
+        dataBase.meterValueDao().fetchLastValues(meterValueId)
+
     fun insertMeterValue(meterValue: MeterValue): Long =
         dataBase.meterValueDao().insert(meterValue)
 

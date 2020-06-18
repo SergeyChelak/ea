@@ -16,7 +16,7 @@ import java.util.*
 data class MeterValue (
     @PrimaryKey(autoGenerate = true) var uid: Long = 0,
     @ColumnInfo(name = "__date") var date: Date?,
-    @ColumnInfo(name = "__value") var value: Long?,
+    @ColumnInfo(name = "__value") var value: Long = 0,
     @ColumnInfo(name = "__meter_uid") var meterUid: Long = 0,
     @ColumnInfo(name = "__is_paid") var isPaid: Boolean = false
 )

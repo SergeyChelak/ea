@@ -18,6 +18,7 @@ class EstateDetailsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var title: String? = null
     private var meters: List<Meter> = emptyList()
+    private var meterInfo = HashMap<Long, MeterBriefInfo>()
 
     private var calculateHandler: VoidHandler? = null
     private var meterSelectionHandler: MeterSelectionHandler? = null
@@ -55,6 +56,11 @@ class EstateDetailsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 viewHolder.cellClickHandler = {
                     meterSelectionHandler?.invoke(meter.uid)
                 }
+                meterInfo[meter.uid]?.let {
+                    viewHolder.setValue(it.value)
+                    viewHolder.setDelta(it.delta)
+                    viewHolder.setTrendDirection(it.trendDirection)
+                }
             }
         }
     }
@@ -68,7 +74,16 @@ class EstateDetailsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     fun setMeters(meters: List<Meter>, handler: MeterSelectionHandler?) {
         this.meters = meters
         this.meterSelectionHandler = handler
+        meterInfo.clear()
         notifyDataSetChanged()
+    }
+
+    fun updateMeterInfo(info: MeterBriefInfo) {
+        val index = meters.indexOfFirst { it.uid == info.uid }
+        if (index >= 0) {
+            meterInfo[info.uid] = info
+            notifyItemChanged(2 + index, Unit)
+        }
     }
 
 }

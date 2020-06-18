@@ -46,8 +46,8 @@ class EstateViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 open class PaymentViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val titleView: TextView = view.findViewById(R.id.titleLabel)
-    private val price: TextView = view.findViewById(R.id.lastPaymentPrice)
-    private val delta: TextView = view.findViewById(R.id.lastPaymentDelta)
+    private val valueTextView: TextView = view.findViewById(R.id.lastPaymentPrice)
+    private val deltaTextView: TextView = view.findViewById(R.id.lastPaymentDelta)
     private val trendingImage: ImageView = view.findViewById(R.id.imageTrending)
 
     init {
@@ -58,12 +58,12 @@ open class PaymentViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     var cellClickHandler: VoidHandler? = null
 
-    fun setPaymentPrice(price: String) {
-        this.price.text = price
+    fun setValue(price: String) {
+        this.valueTextView.text = price
     }
 
     fun setDelta(delta: String) {
-        this.delta.text = delta
+        this.deltaTextView.text = delta
     }
 
     fun setTrendDirection(trendDirection: TrendDirection) {
