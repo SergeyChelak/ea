@@ -47,6 +47,9 @@ class Repository constructor(private val dataBase: UserDatabase) {
     fun deleteMeterValue(meterValue: MeterValue): Int =
         dataBase.meterValueDao().delete(meterValue)
 
+    // rates
+    fun fetchRates(estateId: Long): LiveData<List<Rate>> = dataBase.rateDao().fetchRates(estateId)
+
     // tariff
     fun allTariffs(): LiveData<List<Tariff>> = dataBase.tariffDao().fetchAll()
 

@@ -44,4 +44,6 @@
     <string name="meter_validation_incorrect_value">Incorrect meter value</string>
     <string name="meter_validation_value_out_of_range">Provided value is out of range</string>
 
+    <string name="rate_list_title">Estate Rates</string>
+
 </resources>
