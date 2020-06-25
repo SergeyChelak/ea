@@ -29,9 +29,9 @@ class TariffsViewModel : ViewModel() {
             GlobalScope.launch {
                 // TODO perform inside data manager/repository
                 val tariff = Tariff(title = title)
-                val tariffId = repository.addTariff(tariff)
+                val tariffId = repository.insertTariff(tariff)
                 val baseThreshold = TariffThreshold(tariffUid = tariffId, price = price)
-                repository.addThreshold(baseThreshold)
+                repository.insertThreshold(baseThreshold)
                 withContext(Dispatchers.Main) {
                     openTariffDetails(tariffId)
                 }

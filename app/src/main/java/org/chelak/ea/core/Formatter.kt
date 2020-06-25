@@ -19,6 +19,11 @@ class Formatter {
         return result
     }
 
+    fun formatAmount(amount: BigDecimal?): String =
+        amount?.toString() ?: ""
+
+    fun stringToDecimalAmount(string: String?): BigDecimal = BigDecimal(string)
+
     fun stringToAmount(string: String?): Long? {
         var result: Long? = null
         string?.let {

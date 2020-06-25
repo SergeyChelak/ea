@@ -11,7 +11,7 @@ class Repository constructor(private val dataBase: UserDatabase) {
 
     fun estate(uid: Long): LiveData<Estate> = dataBase.estateDao().fetchById(uid)
 
-    fun addEstate(estate: Estate): Long = dataBase.estateDao().insert(estate)
+    fun insertEstate(estate: Estate): Long = dataBase.estateDao().insert(estate)
 
     fun updateEstate(estate: Estate): Int = dataBase.estateDao().update(estate)
 
@@ -50,17 +50,25 @@ class Repository constructor(private val dataBase: UserDatabase) {
     // rates
     fun fetchRates(estateId: Long): LiveData<List<Rate>> = dataBase.rateDao().fetchRates(estateId)
 
+    fun fetchRate(uid: Long): Rate = dataBase.rateDao().fetchById(uid)
+
+    fun insertRate(rate: Rate): Long = dataBase.rateDao().insert(rate)
+
+    fun updateRate(rate: Rate): Int = dataBase.rateDao().update(rate)
+
+    fun deleteRate(rate: Rate): Int = dataBase.rateDao().delete(rate)
+
     // tariff
     fun allTariffs(): LiveData<List<Tariff>> = dataBase.tariffDao().fetchAll()
 
     fun tariff(uid: Long): LiveData<Tariff> = dataBase.tariffDao().fetchById(uid)
 
-    fun addTariff(tariff: Tariff): Long = dataBase.tariffDao().insert(tariff)
+    fun insertTariff(tariff: Tariff): Long = dataBase.tariffDao().insert(tariff)
 
     fun thresholds(tariffId: Long): LiveData<List<TariffThreshold>> =
         dataBase.tariffThresholdDao().fetchThresholds(tariffId)
 
-    fun addThreshold(threshold: TariffThreshold): Long =
+    fun insertThreshold(threshold: TariffThreshold): Long =
         dataBase.tariffThresholdDao().insert(threshold)
 
     fun updateThreshold(threshold: TariffThreshold): Int = dataBase.tariffThresholdDao().update(threshold)

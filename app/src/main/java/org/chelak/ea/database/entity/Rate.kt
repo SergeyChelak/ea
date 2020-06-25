@@ -16,6 +16,6 @@ import java.math.BigDecimal
 data class Rate(
     @PrimaryKey(autoGenerate = true) var uid: Long = 0,
     @ColumnInfo(name = "__estate_uid") var estateUid: Long = 0,
-    @ColumnInfo(name = "__title") var title: String?,
-    @ColumnInfo(name = "__value") var value: BigDecimal?
+    @ColumnInfo(name = "__title") var title: String? = null,
+    @ColumnInfo(name = "__value") var value: BigDecimal? = null
 )

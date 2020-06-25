@@ -13,6 +13,6 @@ interface RateDao: GenericDao<Rate> {
     fun fetchRates(estateId: Long): LiveData<List<Rate>>
 
     @Query("SELECT * FROM __rates WHERE uid = :id LIMIT 1")
-    fun fetchById(id: Long): LiveData<Rate>
+    fun fetchById(id: Long): Rate
 
 }

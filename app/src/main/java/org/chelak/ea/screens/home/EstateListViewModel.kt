@@ -6,7 +6,6 @@ import kotlinx.coroutines.*
 import org.chelak.ea.core.Repository
 import org.chelak.ea.database.entity.Estate
 import org.chelak.ea.ui.Navigator
-import java.util.*
 import javax.inject.Inject
 
 class EstateListViewModel : ViewModel() {
@@ -23,7 +22,7 @@ class EstateListViewModel : ViewModel() {
     fun addEstate(name: String) {
         GlobalScope.launch {
             val estate = Estate(title = name)
-            val id = repository.addEstate(estate)
+            val id = repository.insertEstate(estate)
             withContext(Dispatchers.Main) {
                 openEstateDetails(id)
             }

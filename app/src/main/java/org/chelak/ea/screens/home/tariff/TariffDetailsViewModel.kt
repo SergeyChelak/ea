@@ -30,7 +30,7 @@ class TariffDetailsViewModel : ViewModel() {
         val priceValue = BigDecimal(price)
         GlobalScope.launch {
             val threshold = TariffThreshold(tariffUid = tariffId, value = start, price = priceValue)
-            repository.addThreshold(threshold)
+            repository.insertThreshold(threshold)
         }
     }
 
