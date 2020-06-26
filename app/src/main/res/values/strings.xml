@@ -50,4 +50,6 @@
     <string name="rate_dialog_label_title">Title</string>
     <string name="rate_dialog_label_value">Value</string>
 
+    <string name="calculation_list_title">Calculation Rules</string>
+
 </resources>

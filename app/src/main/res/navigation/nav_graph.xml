@@ -60,4 +60,8 @@
         android:id="@+id/rateListFragment"
         android:name="org.chelak.ea.screens.estate.rates.RateListFragment"
         android:label="@string/rate_list_title" />
+    <fragment
+        android:id="@+id/calculationListFragment"
+        android:name="org.chelak.ea.screens.estate.calculation.CalculationListFragment"
+        android:label="@string/calculation_list_title" />
 </navigation>

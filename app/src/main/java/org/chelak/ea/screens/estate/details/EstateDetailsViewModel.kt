@@ -118,6 +118,6 @@ class EstateDetailsViewModel : ViewModel() {
     }
 
     fun paymentSettings() {
-
+        navigator.openCalculationSettings(estateId)
     }
 }
