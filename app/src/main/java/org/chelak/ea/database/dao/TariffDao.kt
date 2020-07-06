@@ -12,6 +12,9 @@ interface TariffDao : GenericDao<Tariff> {
     @Query("SELECT * FROM __tariffs")
     fun fetchAll(): LiveData<List<Tariff>>
 
+    @Query("SELECT * FROM __tariffs")
+    fun tariffList(): List<Tariff>
+
     @Query("SELECT * FROM __tariffs WHERE uid = :id LIMIT 1")
     fun fetchById(id: Long): LiveData<Tariff>
 

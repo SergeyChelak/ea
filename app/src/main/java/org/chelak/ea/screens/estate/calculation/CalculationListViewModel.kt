@@ -1,7 +1,51 @@
 package org.chelak.ea.screens.estate.calculation
 
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.chelak.ea.common.Logger
+import org.chelak.ea.core.Repository
+import org.chelak.ea.ui.Navigator
+import javax.inject.Inject
 
-class CalculationListViewModel: ViewModel() {
+class PaymentListItem {
+    var uid: Long = 0
+    var title: String = ""
+}
+
+class CalculationListViewModel : ViewModel() {
+
+    @Inject
+    lateinit var repository: Repository
+
+    @Inject
+    lateinit var navigator: Navigator
+
+    private var estateId: Long = 0
+
+    private var tariffTitle = HashMap<Long, String>()
+
+    val items = MediatorLiveData<List<PaymentListItem>>()
+
+    fun setEstateId(id: Long) {
+        Logger.d("Estate id: $id")
+        this.estateId = id
+        GlobalScope.launch {
+            repository.tariffList().forEach {
+                it.title?.let { title ->
+                    tariffTitle[it.uid] = title
+                }
+            }
+            items.addSource(repository.fetchPaymentSettings(id)) { items ->
+                items.map {
+                    val item = PaymentListItem()
+                    item.uid = it.uid
+                    item.title = tariffTitle[it.tariffUid] ?: ""
+                }
+            }
+        }
+    }
+
 
 }

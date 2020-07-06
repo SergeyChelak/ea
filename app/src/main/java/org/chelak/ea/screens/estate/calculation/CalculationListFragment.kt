@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import org.chelak.ea.R
+import org.chelak.ea.ui.MainActivity
+import org.chelak.ea.ui.estateId
 
 class CalculationListFragment : Fragment() {
 
@@ -21,5 +23,12 @@ class CalculationListFragment : Fragment() {
         return inflater.inflate(R.layout.calculation_list_fragment, container, false)
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        (activity as? MainActivity)?.component?.inject(viewModel)
+        arguments?.estateId?.let {
+            viewModel.setEstateId(it)
+        }
+    }
 
 }
