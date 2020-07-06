@@ -2,8 +2,10 @@ package org.chelak.ea.screens.estate.calculation
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.chelak.ea.common.Logger
 import org.chelak.ea.core.Repository
 import org.chelak.ea.ui.Navigator
@@ -37,11 +39,14 @@ class CalculationListViewModel : ViewModel() {
                     tariffTitle[it.uid] = title
                 }
             }
-            items.addSource(repository.fetchPaymentSettings(id)) { items ->
-                items.map {
-                    val item = PaymentListItem()
-                    item.uid = it.uid
-                    item.title = tariffTitle[it.tariffUid] ?: ""
+            withContext(Dispatchers.Main) {
+                items.addSource(repository.fetchPaymentSettings(id)) { calculationItems ->
+                    items.value = calculationItems.map {
+                        val item = PaymentListItem()
+                        item.uid = it.uid
+                        item.title = tariffTitle[it.tariffUid] ?: ""
+                        item
+                    }
                 }
             }
         }
