@@ -23,10 +23,14 @@ class BitMask(private var rawValue: Int) {
         return rawValue == (other as? BitMask)?.raw
     }
 
+    override fun hashCode(): Int {
+        return rawValue
+    }
+
     companion object {
         fun fromArray(array: List<Boolean>): BitMask {
             val mask = BitMask()
-            for (i in 0..array.count()) {
+            for (i in array.indices) {
                 mask[i] = array[i]
             }
             return mask
