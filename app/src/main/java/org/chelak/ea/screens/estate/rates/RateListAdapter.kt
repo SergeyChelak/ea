@@ -6,9 +6,9 @@ import org.chelak.ea.ui.list.CaptionValueViewHolder
 
 class RateListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var rates: List<RateModel> = listOf()
+    private var rates: List<RateData> = listOf()
 
-    fun updateRates(rates: List<RateModel>) {
+    fun updateRates(rates: List<RateData>) {
         this.rates = rates
         notifyDataSetChanged()
     }
@@ -18,7 +18,7 @@ class RateListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemCount(): Int = rates.size
 
-    fun itemAt(position: Int): RateModel = rates[position]
+    fun itemAt(position: Int): RateData = rates[position]
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as? CaptionValueViewHolder)?.let {

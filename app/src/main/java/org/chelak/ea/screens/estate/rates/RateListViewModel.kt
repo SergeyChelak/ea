@@ -9,6 +9,7 @@ import org.chelak.ea.common.Logger
 import org.chelak.ea.core.Formatter
 import org.chelak.ea.core.Repository
 import org.chelak.ea.database.entity.Rate
+import org.chelak.ea.ui.list.SimpleListItem
 import javax.inject.Inject
 
 class RateListViewModel : ViewModel() {
@@ -20,10 +21,10 @@ class RateListViewModel : ViewModel() {
     @Inject
     lateinit var formatter: Formatter
 
-    val rates: LiveData<List<RateModel>>
+    val rates: LiveData<List<RateData>>
         get() = Transformations.map(repository.fetchRates(estateId)) { list ->
             list.map {
-                val model = RateModel()
+                val model = RateData()
                 model.uid = it.uid
                 model.title = it.title ?: ""
                 model.value = formatter.formatAmount(it.value)
@@ -63,8 +64,6 @@ class RateListViewModel : ViewModel() {
 }
 
 
-class RateModel {
-    var uid: Long = 0
-    var title: String = ""
+class RateData: SimpleListItem() {
     var value: String = ""
 }

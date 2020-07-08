@@ -48,12 +48,12 @@ class RateListFragment : Fragment() {
                 changeRateItem(item)
             })
             it.appendButton.setOnClickListener {
-                changeRateItem(RateModel())
+                changeRateItem(RateData())
             }
         }
     }
 
-    private fun changeRateItem(rate: RateModel) {
+    private fun changeRateItem(rate: RateData) {
         val options = Bundle().apply {
             this.alertTopLabel = getString(R.string.rate_dialog_label_title)
             this.alertBottomLabel = getString(R.string.rate_dialog_label_value)

@@ -9,12 +9,8 @@ import kotlinx.coroutines.withContext
 import org.chelak.ea.common.Logger
 import org.chelak.ea.core.Repository
 import org.chelak.ea.ui.Navigator
+import org.chelak.ea.ui.list.SimpleListItem
 import javax.inject.Inject
-
-class PaymentListItem {
-    var uid: Long = 0
-    var title: String = ""
-}
 
 class CalculationListViewModel : ViewModel() {
 
@@ -28,7 +24,7 @@ class CalculationListViewModel : ViewModel() {
 
     private var tariffTitle = HashMap<Long, String>()
 
-    val items = MediatorLiveData<List<PaymentListItem>>()
+    val items = MediatorLiveData<List<SimpleListItem>>()
 
     fun setEstateId(id: Long) {
         Logger.d("Estate id: $id")
@@ -42,7 +38,7 @@ class CalculationListViewModel : ViewModel() {
             withContext(Dispatchers.Main) {
                 items.addSource(repository.fetchPaymentSettings(id)) { calculationItems ->
                     items.value = calculationItems.map {
-                        val item = PaymentListItem()
+                        val item = SimpleListItem()
                         item.uid = it.uid
                         item.title = tariffTitle[it.tariffUid] ?: ""
                         item
@@ -52,5 +48,13 @@ class CalculationListViewModel : ViewModel() {
         }
     }
 
+
+    fun editItem(uid: Long) {
+
+    }
+
+    fun createItem() {
+
+    }
 
 }

@@ -12,14 +12,11 @@ import kotlinx.android.synthetic.main.estate_list_fragment.*
 import org.chelak.ea.R
 import org.chelak.ea.ui.MainActivity
 import org.chelak.ea.ui.estateId
-import org.chelak.ea.ui.list.ArrayListAdapter
-import org.chelak.ea.ui.list.CaptionValueViewHolder
-import org.chelak.ea.ui.list.clickPosition
-import org.chelak.ea.ui.list.setVerticalLayout
+import org.chelak.ea.ui.list.*
 
 class CalculationListFragment : Fragment() {
 
-    private val adapter = object : ArrayListAdapter<PaymentListItem, CaptionValueViewHolder>() {
+    private val adapter = object : ArrayListAdapter<SimpleListItem, CaptionValueViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CaptionValueViewHolder =
             CaptionValueViewHolder.instance(parent)
@@ -48,12 +45,12 @@ class CalculationListFragment : Fragment() {
             val recyclerView = it.findViewById<RecyclerView>(R.id.recyclerView)
             recyclerView.setVerticalLayout()
             recyclerView.adapter = adapter
-            recyclerView.clickPosition().observe(viewLifecycleOwner, Observer {
-                //
+            recyclerView.clickPosition().observe(viewLifecycleOwner, Observer {index ->
+                viewModel.editItem(adapter[index].uid)
             })
 
             appendButton.setOnClickListener {
-
+                viewModel.createItem()
             }
         }
         (activity as? MainActivity)?.component?.inject(viewModel)
