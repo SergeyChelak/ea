@@ -22,7 +22,7 @@ class TariffsViewModel : ViewModel() {
     @Inject
     lateinit var navigator: Navigator
 
-    fun getTariffs() : LiveData<List<Tariff>> = repository.allTariffs()
+    fun getTariffs() : LiveData<List<Tariff>> = repository.fetchTariffList()
 
     fun addTariff(title: String, priceText: String) {
         (try { BigDecimal(priceText) } catch (e: Exception) { null })?.let { price ->

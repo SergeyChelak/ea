@@ -7,9 +7,9 @@ import org.chelak.ea.database.entity.*
 class Repository constructor(private val dataBase: UserDatabase) {
 
     // estates
-    fun allEstates(): LiveData<List<Estate>> = dataBase.estateDao().fetchAll()
+    fun fetchEstateList(): LiveData<List<Estate>> = dataBase.estateDao().fetchAll()
 
-    fun estate(uid: Long): LiveData<Estate> = dataBase.estateDao().fetchById(uid)
+    fun fetchEstate(uid: Long): LiveData<Estate> = dataBase.estateDao().fetchById(uid)
 
     fun insertEstate(estate: Estate): Long = dataBase.estateDao().insert(estate)
 
@@ -18,7 +18,7 @@ class Repository constructor(private val dataBase: UserDatabase) {
     fun deleteEstate(id: Long) = dataBase.estateDao().delete(id)
 
     // meters
-    fun meters(estateId: Long): LiveData<List<Meter>> =
+    fun fetchMeterList(estateId: Long): LiveData<List<Meter>> =
         dataBase.meterDao().fetchMeters(estateId = estateId)
 
     fun addMeter(estateId: Long, title: String, capacity: Int): Long {
@@ -26,13 +26,13 @@ class Repository constructor(private val dataBase: UserDatabase) {
         return dataBase.meterDao().insert(meter)
     }
 
-    fun fetchMeter(meterId: Long): Meter = dataBase.meterDao().fetchMeter(meterId)
+    fun getMeter(meterId: Long): Meter = dataBase.meterDao().fetchMeter(meterId)
 
     // meter values
     fun meterValues(meterId: Long): LiveData<List<MeterValue>> =
         dataBase.meterValueDao().fetchValues(meterId)
 
-    fun fetchMeterValue(meterValueId: Long): MeterValue =
+    fun getMeterValue(meterValueId: Long): MeterValue =
         dataBase.meterValueDao().fetchValue(meterValueId)
 
     fun fetchLastMeterValue(meterValueId: Long): LiveData<List<MeterValue>> =
@@ -50,7 +50,7 @@ class Repository constructor(private val dataBase: UserDatabase) {
     // rates
     fun fetchRates(estateId: Long): LiveData<List<Rate>> = dataBase.rateDao().fetchRates(estateId)
 
-    fun fetchRate(uid: Long): Rate = dataBase.rateDao().fetchById(uid)
+    fun getRate(uid: Long): Rate = dataBase.rateDao().fetchById(uid)
 
     fun insertRate(rate: Rate): Long = dataBase.rateDao().insert(rate)
 
@@ -59,15 +59,17 @@ class Repository constructor(private val dataBase: UserDatabase) {
     fun deleteRate(rate: Rate): Int = dataBase.rateDao().delete(rate)
 
     // tariff
-    fun allTariffs(): LiveData<List<Tariff>> = dataBase.tariffDao().fetchAll()
+    fun fetchTariffList(): LiveData<List<Tariff>> = dataBase.tariffDao().fetchAll()
 
-    fun tariff(uid: Long): LiveData<Tariff> = dataBase.tariffDao().fetchById(uid)
+    fun fetchTariff(uid: Long): LiveData<Tariff> = dataBase.tariffDao().fetchById(uid)
 
-    fun tariffList(): List<Tariff> = dataBase.tariffDao().tariffList()
+    fun getTariff(uid: Long): Tariff = dataBase.tariffDao().getById(uid)
+
+    fun getTariffList(): List<Tariff> = dataBase.tariffDao().tariffList()
 
     fun insertTariff(tariff: Tariff): Long = dataBase.tariffDao().insert(tariff)
 
-    fun thresholds(tariffId: Long): LiveData<List<TariffThreshold>> =
+    fun fetchThresholdList(tariffId: Long): LiveData<List<TariffThreshold>> =
         dataBase.tariffThresholdDao().fetchThresholds(tariffId)
 
     fun insertThreshold(threshold: TariffThreshold): Long =
@@ -80,10 +82,30 @@ class Repository constructor(private val dataBase: UserDatabase) {
         dataBase.tariffThresholdDao().delete(id)
     }
 
-    fun fetchThreshold(id: Long): TariffThreshold = dataBase.tariffThresholdDao().fetchById(id)
+    fun getThreshold(id: Long): TariffThreshold = dataBase.tariffThresholdDao().fetchById(id)
 
     // payment settings
-
-    fun fetchPaymentSettings(estateId: Long): LiveData<List<CalculationItem>> =
+    fun fetchPaymentSettingList(estateId: Long): LiveData<List<CalculationItem>> =
         dataBase.calculationItemDao().fetchCalculationItems(estateId)
+
+    fun getPaymentSetting(uid: Long): CalculationItem = dataBase.calculationItemDao().fetchById(uid)
+
+    fun updatePaymentSetting(item: CalculationItem): Int =
+        dataBase.calculationItemDao().update(item)
+
+    fun insertPaymentSetting(item: CalculationItem): Long =
+        dataBase.calculationItemDao().insert(item)
+
+    fun getMeterLinkList(calculationItemId: Long): List<CalculationLinkMeter> =
+        dataBase.calculationLinkMeterDao().fetchMeterLinks(calculationItemId)
+
+    fun removeMeterLinks(calculationItemId: Long): Int =
+        dataBase.calculationLinkMeterDao().removeMeterLinks(calculationItemId)
+
+    fun getRateLinkList(calculationItemId: Long): List<CalculationLinkRate> =
+        dataBase.calculationLinkRateDao().fetchRateLinks(calculationItemId)
+
+    fun removeRateLinks(calculationItemId: Long): Int =
+        dataBase.calculationLinkRateDao().removeRateLinks(calculationItemId)
+
 }

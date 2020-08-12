@@ -10,4 +10,7 @@ interface CalculationLinkRateDao: GenericDao<CalculationLinkRate> {
 
     @Query("SELECT * FROM __calculation_rate_links WHERE __calculation_item_uid = :calculationItemId")
     fun fetchRateLinks(calculationItemId: Long): List<CalculationLinkRate>
+
+    @Query("DELETE FROM __calculation_rate_links WHERE __calculation_item_uid = :calculationItemId")
+    fun removeRateLinks(calculationItemId: Long): Int
 }

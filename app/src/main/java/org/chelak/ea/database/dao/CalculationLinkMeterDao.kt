@@ -10,4 +10,8 @@ interface CalculationLinkMeterDao: GenericDao<CalculationLinkMeter> {
 
     @Query("SELECT * FROM __calculation_meter_links WHERE __calculation_item_uid = :calculationItemId")
     fun fetchMeterLinks(calculationItemId: Long): List<CalculationLinkMeter>
+
+    @Query("DELETE FROM __calculation_meter_links WHERE __calculation_item_uid = :calculationItemId")
+    fun removeMeterLinks(calculationItemId: Long): Int
+
 }

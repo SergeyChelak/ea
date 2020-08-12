@@ -30,13 +30,13 @@ class CalculationListViewModel : ViewModel() {
         Logger.d("Estate id: $id")
         this.estateId = id
         GlobalScope.launch {
-            repository.tariffList().forEach {
+            repository.getTariffList().forEach {
                 it.title?.let { title ->
                     tariffTitle[it.uid] = title
                 }
             }
             withContext(Dispatchers.Main) {
-                items.addSource(repository.fetchPaymentSettings(id)) { calculationItems ->
+                items.addSource(repository.fetchPaymentSettingList(id)) { calculationItems ->
                     items.value = calculationItems.map {
                         val item = SimpleListItem()
                         item.uid = it.uid

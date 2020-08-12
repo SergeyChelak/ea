@@ -40,9 +40,9 @@ class EstateDetailsViewModel : ViewModel() {
         Logger.d("Estate id: $id")
         this.estateId = id
 
-        estate.addSource(repository.estate(estateId)) { estateEntity ->
+        estate.addSource(repository.fetchEstate(estateId)) { estateEntity ->
             estate.value = estateEntity
-            estate.addSource(repository.meters(estateId)) { list ->
+            estate.addSource(repository.fetchMeterList(estateId)) { list ->
                 _meters.value = list
                 for (meter in list) {
                     estate.addSource(repository.fetchLastMeterValue(meter.uid)) { lastValues ->

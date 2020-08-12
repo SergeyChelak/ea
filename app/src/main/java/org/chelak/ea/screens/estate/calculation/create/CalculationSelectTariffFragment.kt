@@ -1,4 +1,4 @@
-package org.chelak.ea.screens.estate.calculation.edit
+package org.chelak.ea.screens.estate.calculation.create
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels

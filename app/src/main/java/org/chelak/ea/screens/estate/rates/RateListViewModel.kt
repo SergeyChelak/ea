@@ -46,7 +46,7 @@ class RateListViewModel : ViewModel() {
                 rate.value = formatter.stringToDecimalAmount(value)
                 repository.insertRate(rate)
             } else {
-                val rate = repository.fetchRate(uid)
+                val rate = repository.getRate(uid)
                 rate.title = title
                 rate.value = formatter.stringToDecimalAmount(value)
                 repository.updateRate(rate)
@@ -56,7 +56,7 @@ class RateListViewModel : ViewModel() {
 
     fun delete(uid: Long) {
         GlobalScope.launch {
-            val rate = repository.fetchRate(uid)
+            val rate = repository.getRate(uid)
             repository.deleteRate(rate)
         }
     }
@@ -64,6 +64,6 @@ class RateListViewModel : ViewModel() {
 }
 
 
-class RateData: SimpleListItem() {
-    var value: String = ""
+class RateData(uid: Long = 0, title: String = "", var value: String = ""): SimpleListItem(uid, title) {
+
 }

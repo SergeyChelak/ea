@@ -17,9 +17,9 @@ class TariffDetailsViewModel : ViewModel() {
 
     private var tariffId: Long = 0
 
-    val tariff: LiveData<Tariff> get() = repository.tariff(tariffId)
+    val tariff: LiveData<Tariff> get() = repository.fetchTariff(tariffId)
 
-    val thresholds: LiveData<List<TariffThreshold>> get() = repository.thresholds(tariffId)
+    val thresholds: LiveData<List<TariffThreshold>> get() = repository.fetchThresholdList(tariffId)
 
     fun setTariffId(tariffId: Long) {
         this.tariffId = tariffId
@@ -37,7 +37,7 @@ class TariffDetailsViewModel : ViewModel() {
     fun updateThreshold(id: Long, startFrom: String, price: String) {
         GlobalScope.launch {
             // TODO formatting
-            val threshold = repository.fetchThreshold(id)
+            val threshold = repository.getThreshold(id)
             threshold.price = BigDecimal(price)
             threshold.value = startFrom.toLong()
             repository.updateThreshold(threshold)

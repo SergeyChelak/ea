@@ -13,7 +13,7 @@ class EstateListViewModel : ViewModel() {
     @Inject lateinit var repository: Repository
     @Inject lateinit var navigator: Navigator
 
-    fun getEstates(): LiveData<List<Estate>> = repository.allEstates()
+    fun getEstates(): LiveData<List<Estate>> = repository.fetchEstateList()
 
     fun openEstateDetails(estateId: Long) {
         navigator.openEstateDetails(estateId)

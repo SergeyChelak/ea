@@ -34,7 +34,7 @@ class MeterValueManager(
     fun saveMeterValue(valueId: Long?, userInput: MeterValueUserInput) {
         val value =
             formatter.stringToAmount(userInput.inputValue) ?: throw IncorrectValueException()
-        val meter = repository.fetchMeter(meterId)
+        val meter = repository.getMeter(meterId)
         if (!Calculator.isCorrect(value, meter)) {
             throw OutOfRangeException()
         }
@@ -63,7 +63,7 @@ class MeterValueManager(
     }
 
     private fun updateValue(valueId: Long, modifier: (MeterValue) -> Unit) {
-        val meterValue = repository.fetchMeterValue(valueId)
+        val meterValue = repository.getMeterValue(valueId)
         modifier(meterValue)
         val count = repository.updateMeterValue(meterValue)
         if (count == 0)
@@ -71,7 +71,7 @@ class MeterValueManager(
     }
 
     fun deleteMeterValue(valueId: Long) {
-        val meterValue = repository.fetchMeterValue(valueId)
+        val meterValue = repository.getMeterValue(valueId)
         val count = repository.deleteMeterValue(meterValue)
         if (count == 0) {
             throw OperationFailureException()

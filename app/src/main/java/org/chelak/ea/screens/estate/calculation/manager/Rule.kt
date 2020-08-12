@@ -1,9 +1,11 @@
-package org.chelak.ea.screens.estate.calculation.edit
+package org.chelak.ea.screens.estate.calculation.manager
 
 import org.chelak.ea.common.BitMask
 import org.chelak.ea.ui.list.SimpleListItem
 
-class CalculationItemData(var estateId: Long) {
+class Rule(var uid: Long) {
+
+    var estateId: Long = 0
 
     var tariff: SimpleListItem? = null
 
@@ -12,5 +14,8 @@ class CalculationItemData(var estateId: Long) {
     var rates: List<SimpleListItem>? = null
 
     var monthMask: BitMask? = null
+
+    val isNew: Boolean
+        get() = uid == 0L
 
 }

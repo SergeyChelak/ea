@@ -52,3 +52,8 @@ import java.lang.ref.WeakReference
     @Provides fun provideFormatter(): Formatter = Formatter()
 
 }
+
+
+@Module class RuleWizardModule {
+
+}
