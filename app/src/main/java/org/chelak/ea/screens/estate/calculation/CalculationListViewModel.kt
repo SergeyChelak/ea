@@ -8,7 +8,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.chelak.ea.common.Logger
 import org.chelak.ea.core.Repository
-import org.chelak.ea.ui.Navigator
+import org.chelak.ea.screens.estate.calculation.editor.Rule
+import org.chelak.ea.screens.estate.calculation.editor.RuleEditor
 import org.chelak.ea.ui.list.SimpleListItem
 import javax.inject.Inject
 
@@ -18,7 +19,7 @@ class CalculationListViewModel : ViewModel() {
     lateinit var repository: Repository
 
     @Inject
-    lateinit var navigator: Navigator
+    lateinit var ruleEditor: RuleEditor
 
     private var estateId: Long = 0
 
@@ -50,11 +51,16 @@ class CalculationListViewModel : ViewModel() {
 
 
     fun editItem(uid: Long) {
-
+        processRule(Rule(uid, estateId))
     }
 
     fun createItem() {
+        processRule(Rule(uid = 0L, estateId = estateId))
+    }
 
+    private fun processRule(rule: Rule) {
+        ruleEditor.setRule(rule)
+        ruleEditor.start()
     }
 
 }

@@ -1,11 +1,10 @@
-package org.chelak.ea.screens.estate.calculation.manager
+package org.chelak.ea.screens.estate.calculation.editor
 
 import org.chelak.ea.common.BitMask
 import org.chelak.ea.ui.list.SimpleListItem
 
-class Rule(var uid: Long) {
-
-    var estateId: Long = 0
+class Rule(var uid: Long,
+           var estateId: Long) {
 
     var tariff: SimpleListItem? = null
 

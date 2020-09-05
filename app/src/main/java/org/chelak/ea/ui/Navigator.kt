@@ -44,4 +44,8 @@ class Navigator(private val navController: NavController) {
         }
         navController.navigate(R.id.calculationListFragment, bundle)
     }
+
+    fun openSelectTariff() {
+        navController.navigate(R.id.selectTariffFragment)
+    }
 }
