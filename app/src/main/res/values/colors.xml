@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#101010</color>
     <color name="colorAccent">#303030</color>
     <color name="colorNavDrawerHeader">#000000</color>
+
+    <color name="colorListItemSelected">#539928</color>
+    <color name="colorListItemDefault">#000000FF</color>
 </resources>

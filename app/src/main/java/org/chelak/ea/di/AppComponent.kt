@@ -2,6 +2,7 @@ package org.chelak.ea.di
 
 import dagger.Component
 import org.chelak.ea.screens.estate.calculation.CalculationListViewModel
+import org.chelak.ea.screens.estate.calculation.editor.StepSelectViewModel
 import org.chelak.ea.screens.estate.meters.MeterDetailsViewModel
 import org.chelak.ea.screens.estate.details.EstateDetailsViewModel
 import org.chelak.ea.screens.estate.rates.RateListViewModel
@@ -20,4 +21,5 @@ interface AppComponent {
     fun inject(obj: TariffDetailsViewModel)
     fun inject(obj: RateListViewModel)
     fun inject(obj: CalculationListViewModel)
+    fun inject(obj: StepSelectViewModel)
 }

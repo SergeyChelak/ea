@@ -18,3 +18,5 @@ class Rule(var uid: Long,
         get() = uid == 0L
 
 }
+
+class SelectionListItem(uid: Long, title: String, var isSelected: Boolean) : SimpleListItem(uid, title)

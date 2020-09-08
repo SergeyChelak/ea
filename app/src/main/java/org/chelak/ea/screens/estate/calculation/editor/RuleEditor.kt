@@ -11,11 +11,17 @@ import org.chelak.ea.ui.list.SimpleListItem
 class RuleEditor(val repository: Repository,
                  val navigator: Navigator) {
 
+    internal object StepIdentifier {
+        const val tariffList = 100
+        const val meterList = 101
+        const val rateList = 102
+        const val monthMask = 103
+    }
+
     private lateinit var rule: Rule
 
     public fun setRule(rule: Rule) {
         this.rule = rule
-
     }
 
     public fun start() {
@@ -50,6 +56,16 @@ class RuleEditor(val repository: Repository,
 
     }
 
+    public fun items(stepId: Long): List<SelectionListItem> {
+        // TODO implement
+        return listOf<SelectionListItem>()
+    }
+
+    public fun commit(stepId: Long, items: List<SelectionListItem>) {
+        // TODO implement
+        next()
+    }
+
     private fun save() {
         if (rule.isNew) {
             // TODO
@@ -61,7 +77,7 @@ class RuleEditor(val repository: Repository,
 
     public fun next() {
         if (rule.tariff == null) {
-            navigator.openSelectTariff()
+            //navigator.openSelectScreen()
         } else if (rule.meters == null) {
             // TODO select meters
         } else if (rule.rates == null) {

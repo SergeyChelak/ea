@@ -2,9 +2,10 @@ package org.chelak.ea.ui.list
 
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class ArrayListAdapter<T, VH: RecyclerView.ViewHolder> : RecyclerView.Adapter<VH>() {
+abstract class ArrayListAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<VH>() {
 
-    private var items: List<T> = emptyList()
+    var items: List<T> = emptyList()
+        protected set
 
     fun replace(items: List<T>) {
         this.items = items

@@ -13,11 +13,25 @@ import org.chelak.ea.R
 import org.chelak.ea.ui.MainActivity
 import org.chelak.ea.ui.dialog.*
 import org.chelak.ea.ui.estateId
+import org.chelak.ea.ui.list.ArrayListAdapter
+import org.chelak.ea.ui.list.CaptionValueViewHolder
 import org.chelak.ea.ui.list.clickPosition
 import org.chelak.ea.ui.list.setVerticalLayout
 
 class RateListFragment : Fragment() {
-    val adapter = RateListAdapter()
+    
+    val adapter = object : ArrayListAdapter<RateData, RecyclerView.ViewHolder> () {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+            CaptionValueViewHolder.instance(parent)
+
+        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+            (holder as? CaptionValueViewHolder)?.let {
+                val item = get(position)
+                it.setCaption(item.title)
+                it.setValue(item.value)
+            }
+        }
+    }
 
     private val viewModel: RateListViewModel by lazy {
         ViewModelProvider(this).get(RateListViewModel::class.java)
@@ -37,14 +51,14 @@ class RateListFragment : Fragment() {
             viewModel.setEstateId(it)
         }
         viewModel.rates.observe(viewLifecycleOwner, Observer {
-            adapter.updateRates(it)
+            adapter.replace(it)
         })
         view?.let {
             val recyclerView = it.findViewById<RecyclerView>(R.id.recyclerView)
             recyclerView.setVerticalLayout()
             recyclerView.adapter = adapter
             recyclerView.clickPosition().observe(viewLifecycleOwner, Observer {
-                val item = adapter.itemAt(it)
+                val item = adapter.get(it)
                 changeRateItem(item)
             })
             it.appendButton.setOnClickListener {

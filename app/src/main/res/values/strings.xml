@@ -6,6 +6,8 @@
     <string name="btn_no">No</string>
     <string name="btn_cancel">Cancel</string>
     <string name="btn_delete">Delete</string>
+    <string name="btn_next">Next</string>
+    <string name="btn_save">Save</string>
 
     <string name="dialog_title_warning">Warning</string>
     <string name="dialog_title_error">Error</string>

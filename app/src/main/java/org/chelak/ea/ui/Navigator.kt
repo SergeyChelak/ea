@@ -45,7 +45,12 @@ class Navigator(private val navController: NavController) {
         navController.navigate(R.id.calculationListFragment, bundle)
     }
 
-    fun openSelectTariff() {
-        navController.navigate(R.id.selectTariffFragment)
+    fun openSelectScreen(title: String, stepId: Long, isMultipleChoice: Boolean) {
+        val bundle = Bundle().apply {
+            this.navigationTitle = title
+            this.stepIdentifier = stepId
+            this.isMultipleChoice = isMultipleChoice
+        }
+        navController.navigate(R.id.stepSelectFragment, bundle)
     }
 }

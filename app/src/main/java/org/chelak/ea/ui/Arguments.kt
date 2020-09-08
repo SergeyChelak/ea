@@ -3,25 +3,36 @@ package org.chelak.ea.ui
 import android.os.Bundle
 
 internal object BundleKeys {
-    internal const val ESTATE_ID = "estate_id"
-    internal const val TARIFF_ID = "tariff_id"
-    internal const val METER_ID = "meter_id"
+    const val estateId = "estate_id"
+    const val tariffId = "tariff_id"
+    const val meterId = "meter_id"
+    const val navigationTitle = "navigation_title"
+    const val stepId = "step_id"
+    const val isMultipleChoice = "is_multiple_choice"
 }
 
 var Bundle.estateId: Long
-    get() = getLong(BundleKeys.ESTATE_ID)
-    set(value) {
-        putLong(BundleKeys.ESTATE_ID, value)
-    }
+    get() = getLong(BundleKeys.estateId)
+    set(value) = putLong(BundleKeys.estateId, value)
 
 var Bundle.tariffId: Long
-    get() = getLong(BundleKeys.TARIFF_ID)
-    set(value) {
-        putLong(BundleKeys.TARIFF_ID, value)
-    }
+    get() = getLong(BundleKeys.tariffId)
+    set(value) = putLong(BundleKeys.tariffId, value)
 
 var Bundle.meterId: Long
-    get() = getLong(BundleKeys.METER_ID)
-    set(value) {
-        putLong(BundleKeys.METER_ID, value)
-    }
+    get() = getLong(BundleKeys.meterId)
+    set(value) = putLong(BundleKeys.meterId, value)
+
+
+var Bundle.navigationTitle: String
+    get() = getString(BundleKeys.navigationTitle) ?: "!!EMPTY!!"
+    set(value) = putString(BundleKeys.navigationTitle, value)
+
+var Bundle.stepIdentifier: Long
+    get() = getLong(BundleKeys.stepId)
+    set(value) = putLong(BundleKeys.stepId, value)
+
+
+var Bundle.isMultipleChoice: Boolean
+    get() = getBoolean(BundleKeys.isMultipleChoice)
+    set(value) = putBoolean(BundleKeys.isMultipleChoice, value)
