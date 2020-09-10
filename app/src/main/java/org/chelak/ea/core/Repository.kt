@@ -21,6 +21,9 @@ class Repository constructor(private val dataBase: UserDatabase) {
     fun fetchMeterList(estateId: Long): LiveData<List<Meter>> =
         dataBase.meterDao().fetchMeters(estateId = estateId)
 
+    fun getMeterList(estateId: Long): List<Meter> =
+        dataBase.meterDao().getMeters(estateId = estateId)
+
     fun addMeter(estateId: Long, title: String, capacity: Int): Long {
         val meter = Meter(estateUid = estateId, title = title, capacity = capacity)
         return dataBase.meterDao().insert(meter)
@@ -49,6 +52,8 @@ class Repository constructor(private val dataBase: UserDatabase) {
 
     // rates
     fun fetchRates(estateId: Long): LiveData<List<Rate>> = dataBase.rateDao().fetchRates(estateId)
+
+    fun getRates(estateId: Long): List<Rate> = dataBase.rateDao().getRates(estateId)
 
     fun getRate(uid: Long): Rate = dataBase.rateDao().fetchById(uid)
 

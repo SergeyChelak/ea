@@ -55,8 +55,8 @@ class HostModule(activity: MainActivity) {
 
     @ApplicationScope
     @Provides
-    fun provideRuleEditor(repository: Repository, navigator: Navigator): RuleEditor =
-        RuleEditor(repository = repository, navigator = navigator)
+    fun provideRuleEditor(repository: Repository, navigator: Navigator, stringResource: StringResource): RuleEditor =
+        RuleEditor(repository = repository, navigator = navigator, stringResource = stringResource)
 
 }
 

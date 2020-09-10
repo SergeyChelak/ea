@@ -18,6 +18,7 @@ class StepSelectAdapter : ArrayListAdapter<SelectionListItem, RecyclerView.ViewH
         (holder as? CaptionValueViewHolder)?.let { vh ->
             val item = get(position)
             vh.setCaption(item.title)
+            vh.setValue("")
             val colorId = if (item.isSelected) R.color.colorListItemSelected else R.color.colorListItemDefault
             vh.itemView.setBackgroundResource(colorId)
         }

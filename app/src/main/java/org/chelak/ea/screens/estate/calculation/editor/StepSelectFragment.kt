@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import org.chelak.ea.R
 import org.chelak.ea.ui.MainActivity
+import org.chelak.ea.ui.dialog.presentAlert
 import org.chelak.ea.ui.isMultipleChoice
 import org.chelak.ea.ui.list.clickPosition
 import org.chelak.ea.ui.list.setVerticalLayout
@@ -35,6 +36,14 @@ class StepSelectFragment : Fragment() {
                 adapter.onItemClick(it)
             })
         }
+        viewModel.items.observe(viewLifecycleOwner, Observer {
+            adapter.replace(it)
+        })
+        viewModel.alerts.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                presentAlert(it)
+            }
+        })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -4,18 +4,24 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.chelak.ea.R
+import org.chelak.ea.common.BitMask
 import org.chelak.ea.core.Repository
+import org.chelak.ea.core.StringResource
 import org.chelak.ea.ui.Navigator
 import org.chelak.ea.ui.list.SimpleListItem
 
-class RuleEditor(val repository: Repository,
-                 val navigator: Navigator) {
+class RuleEditor(
+    val repository: Repository,
+    val navigator: Navigator,
+    val stringResource: StringResource
+) {
 
     internal object StepIdentifier {
-        const val tariffList = 100
-        const val meterList = 101
-        const val rateList = 102
-        const val monthMask = 103
+        const val tariffList = 100L
+        const val meterList = 101L
+        const val rateList = 102L
+        const val monthMask = 103L
     }
 
     private lateinit var rule: Rule
@@ -56,14 +62,74 @@ class RuleEditor(val repository: Repository,
 
     }
 
-    public fun items(stepId: Long): List<SelectionListItem> {
-        // TODO implement
-        return listOf<SelectionListItem>()
-    }
+    public fun items(stepId: Long): List<SelectionListItem> =
+        when (stepId) {
+            StepIdentifier.tariffList -> {
+                val selectedUid = rule.tariff?.uid ?: -1L
+                repository.getTariffList().map {
+                    SelectionListItem(it.uid, it.title ?: "", it.uid == selectedUid)
+                }
+            }
+            StepIdentifier.meterList -> {
+                val selected = mutableSetOf<Long>()
+                rule.meters?.forEach {
+                    selected.add(it.uid)
+                }
+                repository.getMeterList(rule.estateId).map {
+                    SelectionListItem(it.uid, it.title, selected.contains(it.uid))
+                }
+            }
+            StepIdentifier.rateList -> {
+                val selected = mutableSetOf<Long>()
+                rule.rates?.forEach { selected.add(it.uid) }
+                repository.getRates(rule.estateId).map {
+                    SelectionListItem(it.uid, it.title ?: "", selected.contains(it.uid))
+                }
+            }
+            StepIdentifier.monthMask -> {
+                val items = mutableListOf<SelectionListItem>()
+                val monthList = stringResource.getMonthNames()
+                for (i in monthList.indices) {
+                    val isSelected = rule.monthMask?.get(i) ?: true
+                    items.add(SelectionListItem(i.toLong(), monthList[i], isSelected))
+                }
+                items
+            }
+            else -> listOf()
+        }
+
+
+    public fun isValid(stepId: Long, items: List<SelectionListItem>): Boolean =
+        when (stepId) {
+            StepIdentifier.tariffList,
+            StepIdentifier.monthMask -> items.containsSelection
+            else -> true
+        }
 
     public fun commit(stepId: Long, items: List<SelectionListItem>) {
-        // TODO implement
-        next()
+        GlobalScope.launch {
+            when (stepId) {
+                StepIdentifier.tariffList -> {
+                    rule.tariff = items.findLast { it.isSelected }
+                }
+                StepIdentifier.meterList -> {
+                    rule.meters = items.filter { it.isSelected }
+                }
+                StepIdentifier.rateList -> {
+                    rule.rates = items.filter { it.isSelected }
+                }
+                StepIdentifier.monthMask -> {
+                    val mask = BitMask(0)
+                    for (i in items.indices) {
+                        mask[i] = items[i].isSelected
+                    }
+                    rule.monthMask = mask
+                }
+            }
+            withContext(Dispatchers.Main) {
+                next()
+            }
+        }
     }
 
     private fun save() {
@@ -77,13 +143,29 @@ class RuleEditor(val repository: Repository,
 
     public fun next() {
         if (rule.tariff == null) {
-            //navigator.openSelectScreen()
+            navigator.openSelectScreen(
+                title = stringResource.getString(R.string.calculation_select_tariff),
+                stepId = StepIdentifier.tariffList,
+                isMultipleChoice = false
+            )
         } else if (rule.meters == null) {
-            // TODO select meters
+            navigator.openSelectScreen(
+                title = stringResource.getString(R.string.calculation_select_meters),
+                stepId = StepIdentifier.meterList,
+                isMultipleChoice = true
+            )
         } else if (rule.rates == null) {
-            // TODO select rates
+            navigator.openSelectScreen(
+                title = stringResource.getString(R.string.calculation_select_rates),
+                stepId = StepIdentifier.rateList,
+                isMultipleChoice = false
+            )
         } else if (rule.monthMask == null) {
-            // TODO select month
+            navigator.openSelectScreen(
+                title = stringResource.getString(R.string.calculation_select_month),
+                stepId = StepIdentifier.monthMask,
+                isMultipleChoice = true
+            )
         } else {
             // TODO review step
         }

@@ -3,6 +3,18 @@ package org.chelak.ea.screens.estate.calculation.editor
 import org.chelak.ea.common.BitMask
 import org.chelak.ea.ui.list.SimpleListItem
 
+
+typealias SelectItemList = List<SelectionListItem>
+
+val SelectItemList.containsSelection: Boolean
+    get() {
+        for (item in this) {
+            if (item.isSelected)
+                return true
+        }
+        return false
+    }
+
 class Rule(var uid: Long,
            var estateId: Long) {
 
@@ -20,3 +32,4 @@ class Rule(var uid: Long,
 }
 
 class SelectionListItem(uid: Long, title: String, var isSelected: Boolean) : SimpleListItem(uid, title)
+
