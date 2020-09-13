@@ -58,7 +58,8 @@
     <string name="calculation_select_rates">Select Rates</string>
     <string name="calculation_select_month">Select Month</string>
 
-    <string name="calculation_error_nothing_selected">You should select at least one item</string>
+    <string name="calculation_error_nothing_selected">You should select an item</string>
+    <string name="calculation_review_title">Payment Item Review</string>
 
     <string name="month_january">January</string>
     <string name="month_february">February</string>

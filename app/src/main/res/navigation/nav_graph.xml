@@ -71,5 +71,5 @@
     <fragment
         android:id="@+id/ruleReviewFragment"
         android:name="org.chelak.ea.screens.estate.calculation.editor.RuleReviewFragment"
-        android:label="RuleReviewFragment" />
+        android:label="@string/calculation_review_title" />
 </navigation>

@@ -8,6 +8,9 @@ import org.chelak.ea.R
 import org.chelak.ea.common.BitMask
 import org.chelak.ea.core.Repository
 import org.chelak.ea.core.StringResource
+import org.chelak.ea.database.entity.CalculationItem
+import org.chelak.ea.database.entity.CalculationLinkMeter
+import org.chelak.ea.database.entity.CalculationLinkRate
 import org.chelak.ea.ui.Navigator
 import org.chelak.ea.ui.list.SimpleListItem
 
@@ -73,7 +76,7 @@ class RuleEditor(
             next()
         } else {
             GlobalScope.launch {
-                val item = repository.getPaymentSetting(rule.uid)
+                val item = repository.getCalculationItem(rule.uid)
                 rule.estateId = item.estateUid
                 rule.monthMask = item.monthMask
 
@@ -170,12 +173,46 @@ class RuleEditor(
         }
     }
 
-    fun save() {
-        if (rule.uid == 0L) {
-            // TODO
-        } else {
-            repository.removeRateLinks(rule.uid)
-            repository.removeMeterLinks(rule.uid)
+    fun saveChanges() {
+        val calculationItem: CalculationItem =
+            if (rule.uid == 0L) {
+                val calculationItem = CalculationItem(
+                    uid = 0,
+                    estateUid = rule.estateId,
+                    tariffUid = rule.tariff!!.uid,
+                    order = 0,
+                    monthMask = rule.monthMask!!
+                )
+                repository.insertCalculationItem(calculationItem)
+                calculationItem
+            } else {
+                val item = repository.getCalculationItem(rule.uid)
+                item.tariffUid = rule.tariff!!.uid
+                item.monthMask = rule.monthMask!!
+                repository.updateCalculationItem(item)
+                item
+            }
+        repository.removeMeterLinks(calculationItem.uid)
+        rule.meters?.let {
+            for (item in it) {
+                val link = CalculationLinkMeter(
+                    uid = 0,
+                    calculationItemUId = calculationItem.uid,
+                    meterUid = item.uid
+                )
+                repository.insertMeterLink(link)
+            }
+        }
+        repository.removeRateLinks(calculationItem.uid)
+        rule.rates?.let {
+            for (item in it) {
+                val link = CalculationLinkRate(
+                    uid = 0,
+                    calculationItemUId = calculationItem.uid,
+                    rateUid = item.uid
+                )
+                repository.insertRateLink(link)
+            }
         }
     }
 
@@ -183,8 +220,13 @@ class RuleEditor(
         //
     }
 
-    private fun finalize() {
-        navigator.popToCalculationSettings()
+    fun save() {
+        GlobalScope.launch {
+            saveChanges()
+            withContext(Dispatchers.Main) {
+                navigator.popToCalculationSettings()
+            }
+        }
     }
 
     public fun next() {

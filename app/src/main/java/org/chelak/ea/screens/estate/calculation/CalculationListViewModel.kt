@@ -37,7 +37,7 @@ class CalculationListViewModel : ViewModel() {
                 }
             }
             withContext(Dispatchers.Main) {
-                items.addSource(repository.fetchPaymentSettingList(id)) { calculationItems ->
+                items.addSource(repository.fetchCalculationItemList(id)) { calculationItems ->
                     items.value = calculationItems.map {
                         val item = SimpleListItem()
                         item.uid = it.uid

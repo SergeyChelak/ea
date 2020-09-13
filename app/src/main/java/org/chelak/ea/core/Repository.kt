@@ -90,15 +90,15 @@ class Repository constructor(private val dataBase: UserDatabase) {
     fun getThreshold(id: Long): TariffThreshold = dataBase.tariffThresholdDao().fetchById(id)
 
     // payment settings
-    fun fetchPaymentSettingList(estateId: Long): LiveData<List<CalculationItem>> =
+    fun fetchCalculationItemList(estateId: Long): LiveData<List<CalculationItem>> =
         dataBase.calculationItemDao().fetchCalculationItems(estateId)
 
-    fun getPaymentSetting(uid: Long): CalculationItem = dataBase.calculationItemDao().fetchById(uid)
+    fun getCalculationItem(uid: Long): CalculationItem = dataBase.calculationItemDao().fetchById(uid)
 
-    fun updatePaymentSetting(item: CalculationItem): Int =
+    fun updateCalculationItem(item: CalculationItem): Int =
         dataBase.calculationItemDao().update(item)
 
-    fun insertPaymentSetting(item: CalculationItem): Long =
+    fun insertCalculationItem(item: CalculationItem): Long =
         dataBase.calculationItemDao().insert(item)
 
     fun getMeterLinkList(calculationItemId: Long): List<CalculationLinkMeter> =
@@ -107,8 +107,14 @@ class Repository constructor(private val dataBase: UserDatabase) {
     fun removeMeterLinks(calculationItemId: Long): Int =
         dataBase.calculationLinkMeterDao().removeMeterLinks(calculationItemId)
 
+    fun insertMeterLink(link: CalculationLinkMeter): Long =
+        dataBase.calculationLinkMeterDao().insert(link)
+
     fun getRateLinkList(calculationItemId: Long): List<CalculationLinkRate> =
         dataBase.calculationLinkRateDao().fetchRateLinks(calculationItemId)
+
+    fun insertRateLink(link: CalculationLinkRate): Long =
+        dataBase.calculationLinkRateDao().insert(link)
 
     fun removeRateLinks(calculationItemId: Long): Int =
         dataBase.calculationLinkRateDao().removeRateLinks(calculationItemId)
