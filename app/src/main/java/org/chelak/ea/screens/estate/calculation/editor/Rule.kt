@@ -28,6 +28,8 @@ class Rule(
 
     var monthMask: BitMask? = null
 
+    var order: Int = 0
+
     val isLoaded: Boolean
         get() =
             tariff != null && monthMask != null && meters != null && rates != null

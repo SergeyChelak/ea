@@ -15,4 +15,7 @@ interface CalculationItemDao: GenericDao<CalculationItem> {
     @Query("SELECT * FROM __calculation_items WHERE uid = :id LIMIT 1")
     fun fetchById(id: Long): CalculationItem
 
+    @Query("SELECT MAX(__order) FROM __calculation_items WHERE __estate_uid = :estateId")
+    fun lastOrder(estateId: Long): Int
+
 }

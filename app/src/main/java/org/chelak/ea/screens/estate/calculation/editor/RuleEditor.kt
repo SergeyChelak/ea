@@ -92,15 +92,12 @@ class RuleEditor(
                     val rate = repository.getRate(it.rateUid)
                     SimpleListItem(rate.uid, rate.title ?: "")
                 }
+                rule.order = repository.lastOrder(rule.estateId) + 1
                 withContext(Dispatchers.Main) {
                     next()
                 }
             }
         }
-    }
-
-    public fun complete() {
-
     }
 
     public fun items(stepId: Long): List<SelectionListItem> =
@@ -173,63 +170,7 @@ class RuleEditor(
         }
     }
 
-    fun saveChanges() {
-        val calculationItem: CalculationItem =
-            if (rule.uid == 0L) {
-                val calculationItem = CalculationItem(
-                    uid = 0,
-                    estateUid = rule.estateId,
-                    tariffUid = rule.tariff!!.uid,
-                    order = 0,
-                    monthMask = rule.monthMask!!
-                )
-                repository.insertCalculationItem(calculationItem)
-                calculationItem
-            } else {
-                val item = repository.getCalculationItem(rule.uid)
-                item.tariffUid = rule.tariff!!.uid
-                item.monthMask = rule.monthMask!!
-                repository.updateCalculationItem(item)
-                item
-            }
-        repository.removeMeterLinks(calculationItem.uid)
-        rule.meters?.let {
-            for (item in it) {
-                val link = CalculationLinkMeter(
-                    uid = 0,
-                    calculationItemUId = calculationItem.uid,
-                    meterUid = item.uid
-                )
-                repository.insertMeterLink(link)
-            }
-        }
-        repository.removeRateLinks(calculationItem.uid)
-        rule.rates?.let {
-            for (item in it) {
-                val link = CalculationLinkRate(
-                    uid = 0,
-                    calculationItemUId = calculationItem.uid,
-                    rateUid = item.uid
-                )
-                repository.insertRateLink(link)
-            }
-        }
-    }
-
-    fun delete() {
-        //
-    }
-
-    fun save() {
-        GlobalScope.launch {
-            saveChanges()
-            withContext(Dispatchers.Main) {
-                navigator.popToCalculationSettings()
-            }
-        }
-    }
-
-    public fun next() {
+    fun next() {
         val pointer = if (stepPointer != null) stepPointer!! + 1 else 0
         if (steps.size > pointer) {
             stepPointer = pointer
@@ -260,6 +201,76 @@ class RuleEditor(
             navigator.pushRuleReview()
             stepPointer = null
         }
+    }
+
+    fun save() {
+        GlobalScope.launch {
+            saveChanges()
+            withContext(Dispatchers.Main) {
+                navigator.popToCalculationSettings()
+            }
+        }
+    }
+
+    fun delete() {
+        GlobalScope.launch {
+            if (rule.uid != 0L) {
+                removeRelatedData()
+                val item = repository.getCalculationItem(rule.uid)
+                repository.removeCalculationItem(item)
+            }
+            withContext(Dispatchers.Main) {
+                navigator.popToCalculationSettings()
+            }
+        }
+    }
+
+
+    private fun saveChanges() {
+        val calculationItem: CalculationItem =
+            if (rule.uid == 0L) {
+                val calculationItem = CalculationItem(
+                    uid = 0,
+                    estateUid = rule.estateId,
+                    tariffUid = rule.tariff!!.uid,
+                    order = rule.order,
+                    monthMask = rule.monthMask!!
+                )
+                rule.uid = repository.insertCalculationItem(calculationItem)
+                calculationItem
+            } else {
+                val item = repository.getCalculationItem(rule.uid)
+                item.tariffUid = rule.tariff!!.uid
+                item.monthMask = rule.monthMask!!
+                repository.updateCalculationItem(item)
+                item
+            }
+        removeRelatedData()
+        rule.meters?.let {
+            for (item in it) {
+                val link = CalculationLinkMeter(
+                    uid = 0,
+                    calculationItemUId = calculationItem.uid,
+                    meterUid = item.uid
+                )
+                repository.insertMeterLink(link)
+            }
+        }
+        rule.rates?.let {
+            for (item in it) {
+                val link = CalculationLinkRate(
+                    uid = 0,
+                    calculationItemUId = calculationItem.uid,
+                    rateUid = item.uid
+                )
+                repository.insertRateLink(link)
+            }
+        }
+    }
+
+    private fun removeRelatedData() {
+        repository.removeRateLinks(rule.uid)
+        repository.removeMeterLinks(rule.uid)
     }
 
 }

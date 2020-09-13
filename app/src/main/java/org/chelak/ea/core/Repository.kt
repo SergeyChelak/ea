@@ -101,6 +101,12 @@ class Repository constructor(private val dataBase: UserDatabase) {
     fun insertCalculationItem(item: CalculationItem): Long =
         dataBase.calculationItemDao().insert(item)
 
+    fun removeCalculationItem(item: CalculationItem): Int =
+        dataBase.calculationItemDao().delete(item)
+
+    fun lastOrder(estateId: Long): Int =
+        dataBase.calculationItemDao().lastOrder(estateId)
+
     fun getMeterLinkList(calculationItemId: Long): List<CalculationLinkMeter> =
         dataBase.calculationLinkMeterDao().fetchMeterLinks(calculationItemId)
 
