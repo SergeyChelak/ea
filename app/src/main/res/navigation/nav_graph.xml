@@ -67,7 +67,7 @@
     <fragment
         android:id="@+id/stepSelectFragment"
         android:name="org.chelak.ea.screens.estate.calculation.editor.StepSelectFragment"
-        android:label="Step Select" />
+        />
     <fragment
         android:id="@+id/ruleReviewFragment"
         android:name="org.chelak.ea.screens.estate.calculation.editor.RuleReviewFragment"

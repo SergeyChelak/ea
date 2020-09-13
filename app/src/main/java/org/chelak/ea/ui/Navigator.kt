@@ -51,6 +51,7 @@ class Navigator(private val navController: NavController) {
             this.stepIdentifier = stepId
             this.isMultipleChoice = isMultipleChoice
         }
+
         navController.navigate(R.id.stepSelectFragment, bundle)
     }
 

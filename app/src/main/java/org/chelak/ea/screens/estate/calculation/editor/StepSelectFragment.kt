@@ -60,7 +60,7 @@ class StepSelectFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        activity?.actionBar?.title = arguments?.navigationTitle
+        (activity as? MainActivity)?.supportActionBar?.title = arguments?.navigationTitle
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
