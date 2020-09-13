@@ -90,7 +90,7 @@ class EstateDetailsViewModel : ViewModel() {
                 repository.deleteEstate(estateId)
             }
             withContext(Dispatchers.Main) {
-                navigator.navigateBackToEstates()
+                navigator.popToEstates()
             }
         }
     }
@@ -108,16 +108,16 @@ class EstateDetailsViewModel : ViewModel() {
     fun openMeter(meterId: Long) {
         viewModelScope.launch {
             withContext(Dispatchers.Main) {
-                navigator.openMeterDetails(meterId)
+                navigator.pushMeterDetails(meterId)
             }
         }
     }
 
     fun manageRates() {
-        navigator.openRateList(estateId)
+        navigator.pushRateList(estateId)
     }
 
     fun paymentSettings() {
-        navigator.openCalculationSettings(estateId)
+        navigator.pushCalculationSettings(estateId)
     }
 }

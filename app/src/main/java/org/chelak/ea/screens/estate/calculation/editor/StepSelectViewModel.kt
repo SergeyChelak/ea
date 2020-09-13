@@ -37,7 +37,7 @@ class StepSelectViewModel : ViewModel() {
     val items: LiveData<SelectItemList>
         get() = _items
 
-    var alerts = MutableLiveData<AlertModel>()
+    var alertData = MutableLiveData<AlertModel>()
         private set
 
     fun update(items: SelectItemList) {
@@ -49,10 +49,10 @@ class StepSelectViewModel : ViewModel() {
                 message = stringResource.getString(R.string.calculation_error_nothing_selected),
                 positiveTitle = stringResource.getString(R.string.btn_ok),
                 positiveAction = {
-                    alerts.value = null
+                    alertData.value = null
                 }
             )
-            alerts.value = model
+            alertData.value = model
         }
     }
 

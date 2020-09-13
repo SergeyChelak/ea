@@ -15,8 +15,10 @@ val SelectItemList.containsSelection: Boolean
         return false
     }
 
-class Rule(var uid: Long,
-           var estateId: Long) {
+class Rule(
+    var uid: Long,
+    var estateId: Long
+) {
 
     var tariff: SimpleListItem? = null
 
@@ -26,10 +28,13 @@ class Rule(var uid: Long,
 
     var monthMask: BitMask? = null
 
-    val isNew: Boolean
-        get() = uid == 0L
+    val isLoaded: Boolean
+        get() =
+            tariff != null && monthMask != null && meters != null && rates != null
+
 
 }
 
-class SelectionListItem(uid: Long, title: String, var isSelected: Boolean) : SimpleListItem(uid, title)
+class SelectionListItem(uid: Long, title: String, var isSelected: Boolean) :
+    SimpleListItem(uid, title)
 

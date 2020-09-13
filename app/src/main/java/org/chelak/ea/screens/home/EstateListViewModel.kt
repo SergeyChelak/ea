@@ -16,7 +16,7 @@ class EstateListViewModel : ViewModel() {
     fun getEstates(): LiveData<List<Estate>> = repository.fetchEstateList()
 
     fun openEstateDetails(estateId: Long) {
-        navigator.openEstateDetails(estateId)
+        navigator.pushEstateDetails(estateId)
     }
 
     fun addEstate(name: String) {

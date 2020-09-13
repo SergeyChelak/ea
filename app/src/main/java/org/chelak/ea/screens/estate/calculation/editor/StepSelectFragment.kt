@@ -39,7 +39,7 @@ class StepSelectFragment : Fragment() {
         viewModel.items.observe(viewLifecycleOwner, Observer {
             adapter.replace(it)
         })
-        viewModel.alerts.observe(viewLifecycleOwner, Observer {
+        viewModel.alertData.observe(viewLifecycleOwner, Observer {
             it?.let {
                 presentAlert(it)
             }

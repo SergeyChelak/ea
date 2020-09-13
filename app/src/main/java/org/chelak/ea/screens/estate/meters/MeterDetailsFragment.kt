@@ -55,7 +55,9 @@ class MeterDetailsFragment : Fragment() {
             adapter.setValues(it)
         })
         viewModel.alertData.observe(viewLifecycleOwner, Observer {
-            presentAlert(it)
+            it?.let {
+                presentAlert(it)
+            }
         })
     }
 

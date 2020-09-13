@@ -40,6 +40,6 @@ class TariffsViewModel : ViewModel() {
     }
 
     fun openTariffDetails(tariffId: Long) {
-        navigator.openTariffDetails(tariffId)
+        navigator.pushTariffDetails(tariffId)
     }
 }

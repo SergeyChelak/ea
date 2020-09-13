@@ -51,16 +51,13 @@ class CalculationListViewModel : ViewModel() {
 
 
     fun editItem(uid: Long) {
-        processRule(Rule(uid, estateId))
+        ruleEditor.setRule(Rule(uid, estateId))
+        ruleEditor.show()
     }
 
     fun createItem() {
-        processRule(Rule(uid = 0L, estateId = estateId))
-    }
-
-    private fun processRule(rule: Rule) {
-        ruleEditor.setRule(rule)
-        ruleEditor.start()
+        ruleEditor.setRule(Rule(uid = 0L, estateId = estateId))
+        ruleEditor.startCreation()
     }
 
 }

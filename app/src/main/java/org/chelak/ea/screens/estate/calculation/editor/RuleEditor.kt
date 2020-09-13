@@ -25,13 +25,51 @@ class RuleEditor(
     }
 
     private lateinit var rule: Rule
+    private var steps: List<Long> = mutableListOf()
+    private var stepPointer: Int? = null
 
     public fun setRule(rule: Rule) {
         this.rule = rule
     }
 
-    public fun start() {
-        if (rule.isNew) {
+    public fun startCreation() {
+        steps = listOf(
+            StepIdentifier.tariffList,
+            StepIdentifier.meterList,
+            StepIdentifier.rateList,
+            StepIdentifier.monthMask
+        )
+        start()
+    }
+
+    public fun show() {
+        steps = listOf()
+        start()
+    }
+
+    public fun editTariff() {
+        steps = listOf(StepIdentifier.tariffList)
+        start()
+    }
+
+    public fun editMeters() {
+        steps = listOf(StepIdentifier.meterList)
+        start()
+    }
+
+    public fun editRates() {
+        steps = listOf(StepIdentifier.rateList)
+        start()
+    }
+
+    public fun editMonth() {
+        steps = listOf(StepIdentifier.monthMask)
+        start()
+    }
+
+    private fun start() {
+        stepPointer = null
+        if (rule.isLoaded || rule.uid == 0L) {
             next()
         } else {
             GlobalScope.launch {
@@ -132,8 +170,8 @@ class RuleEditor(
         }
     }
 
-    private fun save() {
-        if (rule.isNew) {
+    fun save() {
+        if (rule.uid == 0L) {
             // TODO
         } else {
             repository.removeRateLinks(rule.uid)
@@ -141,33 +179,44 @@ class RuleEditor(
         }
     }
 
+    fun delete() {
+        //
+    }
+
+    private fun finalize() {
+        navigator.popToCalculationSettings()
+    }
+
     public fun next() {
-        if (rule.tariff == null) {
-            navigator.openSelectScreen(
-                title = stringResource.getString(R.string.calculation_select_tariff),
-                stepId = StepIdentifier.tariffList,
-                isMultipleChoice = false
-            )
-        } else if (rule.meters == null) {
-            navigator.openSelectScreen(
-                title = stringResource.getString(R.string.calculation_select_meters),
-                stepId = StepIdentifier.meterList,
-                isMultipleChoice = true
-            )
-        } else if (rule.rates == null) {
-            navigator.openSelectScreen(
-                title = stringResource.getString(R.string.calculation_select_rates),
-                stepId = StepIdentifier.rateList,
-                isMultipleChoice = false
-            )
-        } else if (rule.monthMask == null) {
-            navigator.openSelectScreen(
-                title = stringResource.getString(R.string.calculation_select_month),
-                stepId = StepIdentifier.monthMask,
-                isMultipleChoice = true
-            )
+        val pointer = if (stepPointer != null) stepPointer!! + 1 else 0
+        if (steps.size > pointer) {
+            stepPointer = pointer
+            when (steps[pointer]) {
+                StepIdentifier.tariffList -> navigator.pushSelectScreen(
+                    title = stringResource.getString(R.string.calculation_select_tariff),
+                    stepId = StepIdentifier.tariffList,
+                    isMultipleChoice = false
+                )
+                StepIdentifier.meterList -> navigator.pushSelectScreen(
+                    title = stringResource.getString(R.string.calculation_select_meters),
+                    stepId = StepIdentifier.meterList,
+                    isMultipleChoice = true
+                )
+                StepIdentifier.rateList -> navigator.pushSelectScreen(
+                    title = stringResource.getString(R.string.calculation_select_rates),
+                    stepId = StepIdentifier.rateList,
+                    isMultipleChoice = false
+                )
+                StepIdentifier.monthMask -> navigator.pushSelectScreen(
+                    title = stringResource.getString(R.string.calculation_select_month),
+                    stepId = StepIdentifier.monthMask,
+                    isMultipleChoice = true
+                )
+            }
         } else {
-            // TODO review step
+            navigator.popToCalculationSettings()
+            navigator.pushRuleReview()
+            stepPointer = null
         }
     }
 
