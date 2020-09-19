@@ -17,8 +17,7 @@ class StepSelectAdapter : ArrayListAdapter<SelectionListItem, RecyclerView.ViewH
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as? CaptionValueViewHolder)?.let { vh ->
             val item = get(position)
-            vh.setCaption(item.title)
-            vh.setValue("")
+            vh.setCaptionOnly(item.title)
             val colorId = if (item.isSelected) R.color.colorListItemSelected else R.color.colorListItemDefault
             vh.itemView.setBackgroundResource(colorId)
         }

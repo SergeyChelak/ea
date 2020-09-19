@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import org.chelak.ea.R
 import org.chelak.ea.ui.MainActivity
+import org.chelak.ea.ui.observeAlerts
 
 class RuleReviewFragment : Fragment() {
 
@@ -24,7 +25,7 @@ class RuleReviewFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         (activity as? MainActivity)?.component?.inject(viewModel)
         view?.let {
-
+            observeAlerts(viewModel)
         }
     }
 

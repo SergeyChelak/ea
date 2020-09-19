@@ -11,11 +11,12 @@ import org.chelak.ea.R
 import org.chelak.ea.core.IncorrectValueException
 import org.chelak.ea.core.OutOfRangeException
 import org.chelak.ea.core.StringResource
+import org.chelak.ea.ui.AlertEmitter
 import org.chelak.ea.ui.Navigator
 import org.chelak.ea.ui.dialog.AlertModel
 import javax.inject.Inject
 
-class MeterDetailsViewModel : ViewModel() {
+class MeterDetailsViewModel : ViewModel(), AlertEmitter {
     @Inject
     lateinit var navigator: Navigator
 
@@ -26,7 +27,7 @@ class MeterDetailsViewModel : ViewModel() {
     lateinit var res: StringResource
 
     private var _alertData = MutableLiveData<AlertModel>()
-    val alertData: LiveData<AlertModel> get() = _alertData
+    override val alertData: LiveData<AlertModel> get() = _alertData
 
     val meterValues: LiveData<List<MeterValueDisplayModel>>
         get() = meterValueManager.meterValues

@@ -23,7 +23,7 @@ class CalculationListFragment : Fragment() {
 
         override fun onBindViewHolder(holder: CaptionValueViewHolder, position: Int) {
             val item = this[position]
-            holder.setCaption(item.title)
+            holder.setCaptionOnly(item.title)
         }
 
     }

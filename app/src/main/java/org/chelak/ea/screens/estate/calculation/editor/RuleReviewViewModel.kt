@@ -4,18 +4,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.chelak.ea.R
 import org.chelak.ea.core.StringResource
-import org.chelak.ea.screens.estate.calculation.editor.RuleEditor
+import org.chelak.ea.ui.AlertEmitter
 import org.chelak.ea.ui.dialog.AlertModel
 import javax.inject.Inject
 
-class RuleReviewViewModel: ViewModel() {
+class RuleReviewViewModel: ViewModel(), AlertEmitter {
 
     @Inject
     lateinit var ruleEditor: RuleEditor
     @Inject
     lateinit var stringResource: StringResource
 
-    var alertData = MutableLiveData<AlertModel>()
+    override var alertData = MutableLiveData<AlertModel>()
         private set
 
     fun save() {

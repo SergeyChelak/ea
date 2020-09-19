@@ -12,6 +12,7 @@ import org.chelak.ea.R
 import org.chelak.ea.ui.MainActivity
 import org.chelak.ea.ui.dialog.presentAlert
 import org.chelak.ea.ui.meterId
+import org.chelak.ea.ui.observeAlerts
 
 class MeterDetailsFragment : Fragment() {
 
@@ -46,19 +47,16 @@ class MeterDetailsFragment : Fragment() {
             adapter.scrollHandler = { pos ->
                 layoutManager.scrollToPositionWithOffset(pos, 0)
             }
+
+            viewModel.meterValues.observe(viewLifecycleOwner, Observer {
+                adapter.setValues(it)
+            })
+            observeAlerts(viewModel)
         }
         (activity as? MainActivity)?.component?.inject(viewModel)
         arguments?.meterId?.let {
             viewModel.setMeterId(it)
         }
-        viewModel.meterValues.observe(viewLifecycleOwner, Observer {
-            adapter.setValues(it)
-        })
-        viewModel.alertData.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                presentAlert(it)
-            }
-        })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

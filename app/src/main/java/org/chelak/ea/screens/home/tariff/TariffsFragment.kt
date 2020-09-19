@@ -29,8 +29,7 @@ class TariffsFragment : Fragment() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CaptionValueViewHolder = CaptionValueViewHolder.instance(parent)
 
         override fun onBindViewHolder(holder: CaptionValueViewHolder, position: Int) {
-            holder.setCaption(this[position].title)
-            holder.setValue(null)
+            holder.setCaptionOnly(this[position].title)
         }
     }
 

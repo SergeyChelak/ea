@@ -3,7 +3,6 @@ package org.chelak.ea.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -72,5 +71,3 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
-
-val Fragment.appComponent: AppComponent? get() = (activity as? MainActivity)?.component

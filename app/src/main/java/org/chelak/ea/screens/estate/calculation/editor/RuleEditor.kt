@@ -165,6 +165,7 @@ class RuleEditor(
                 }
             }
             withContext(Dispatchers.Main) {
+                stepPointer = steps.indexOf(stepId)
                 next()
             }
         }

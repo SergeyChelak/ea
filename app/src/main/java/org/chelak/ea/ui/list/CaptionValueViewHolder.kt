@@ -16,6 +16,11 @@ class CaptionValueViewHolder(view: View): RecyclerView.ViewHolder(view) {
     private val captionText: TextView = view.findViewById(R.id.cell_title)
     private val valueText: TextView = view.findViewById(R.id.cell_value)
 
+    fun setCaptionOnly(caption: String?) {
+        setCaption(caption)
+        setValue("")
+    }
+
     fun setCaption(caption: String?) {
         captionText.text = caption
     }

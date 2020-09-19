@@ -9,11 +9,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.chelak.ea.R
 import org.chelak.ea.core.StringResource
+import org.chelak.ea.ui.AlertEmitter
 import org.chelak.ea.ui.dialog.AlertModel
 import javax.inject.Inject
 
 
-class StepSelectViewModel : ViewModel() {
+class StepSelectViewModel : ViewModel(), AlertEmitter {
 
     @Inject
     lateinit var ruleEditor: RuleEditor
@@ -37,7 +38,7 @@ class StepSelectViewModel : ViewModel() {
     val items: LiveData<SelectItemList>
         get() = _items
 
-    var alertData = MutableLiveData<AlertModel>()
+    override var alertData = MutableLiveData<AlertModel>()
         private set
 
     fun update(items: SelectItemList) {
