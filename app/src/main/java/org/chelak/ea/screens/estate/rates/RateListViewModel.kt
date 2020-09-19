@@ -64,6 +64,4 @@ class RateListViewModel : ViewModel() {
 }
 
 
-class RateData(uid: Long = 0, title: String = "", var value: String = ""): SimpleListItem(uid, title) {
-
-}
+class RateData(uid: Long = 0, title: String = "", var value: String = ""): SimpleListItem(uid, title)

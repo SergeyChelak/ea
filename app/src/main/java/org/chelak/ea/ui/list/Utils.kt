@@ -30,12 +30,12 @@ fun RecyclerView.clickPosition(): LiveData<Int> {
             }
         }
 
-        override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-            return if (gestureDetector.onTouchEvent(e)) {
+        override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean =
+            if (gestureDetector.onTouchEvent(e)) {
                 onTouchEvent(rv, e)
                 true
             } else false
-        }
+
 
         override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
             //
