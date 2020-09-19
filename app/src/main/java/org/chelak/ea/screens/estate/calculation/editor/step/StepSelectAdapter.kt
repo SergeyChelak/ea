@@ -1,8 +1,9 @@
-package org.chelak.ea.screens.estate.calculation.editor
+package org.chelak.ea.screens.estate.calculation.editor.step
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.chelak.ea.R
+import org.chelak.ea.screens.estate.calculation.editor.SelectionListItem
 import org.chelak.ea.ui.list.ArrayListAdapter
 import org.chelak.ea.ui.list.CaptionValueViewHolder
 

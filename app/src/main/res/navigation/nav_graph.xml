@@ -66,10 +66,10 @@
         android:label="@string/calculation_list_title" />
     <fragment
         android:id="@+id/stepSelectFragment"
-        android:name="org.chelak.ea.screens.estate.calculation.editor.StepSelectFragment"
+        android:name="org.chelak.ea.screens.estate.calculation.editor.step.StepSelectFragment"
         />
     <fragment
         android:id="@+id/ruleReviewFragment"
-        android:name="org.chelak.ea.screens.estate.calculation.editor.RuleReviewFragment"
+        android:name="org.chelak.ea.screens.estate.calculation.editor.review.RuleReviewFragment"
         android:label="@string/calculation_review_title" />
 </navigation>

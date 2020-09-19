@@ -27,7 +27,8 @@ class RuleEditor(
         const val monthMask = 103L
     }
 
-    private lateinit var rule: Rule
+    lateinit var rule: Rule
+        private set
     private var steps: List<Long> = mutableListOf()
     private var stepPointer: Int? = null
 
@@ -157,11 +158,7 @@ class RuleEditor(
                     rule.rates = items.filter { it.isSelected }
                 }
                 StepIdentifier.monthMask -> {
-                    val mask = BitMask(0)
-                    for (i in items.indices) {
-                        mask[i] = items[i].isSelected
-                    }
-                    rule.monthMask = mask
+                    rule.monthMask = BitMask.fromArray(items.map { it.isSelected })
                 }
             }
             withContext(Dispatchers.Main) {

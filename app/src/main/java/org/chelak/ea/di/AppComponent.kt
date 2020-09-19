@@ -2,8 +2,8 @@ package org.chelak.ea.di
 
 import dagger.Component
 import org.chelak.ea.screens.estate.calculation.CalculationListViewModel
-import org.chelak.ea.screens.estate.calculation.editor.RuleReviewViewModel
-import org.chelak.ea.screens.estate.calculation.editor.StepSelectViewModel
+import org.chelak.ea.screens.estate.calculation.editor.review.RuleReviewViewModel
+import org.chelak.ea.screens.estate.calculation.editor.step.StepSelectViewModel
 import org.chelak.ea.screens.estate.meters.MeterDetailsViewModel
 import org.chelak.ea.screens.estate.details.EstateDetailsViewModel
 import org.chelak.ea.screens.estate.rates.RateListViewModel

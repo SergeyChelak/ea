@@ -29,8 +29,8 @@ class CaptionValueViewHolder(view: View): RecyclerView.ViewHolder(view) {
         captionText.text = getContext().getString(resourceId)
     }
 
-    fun setValue(caption: String?) {
-        valueText.text = caption
+    fun setValue(value: String?) {
+        valueText.text = value
     }
 
     fun setValue(resourceId: Int) {

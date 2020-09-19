@@ -1,4 +1,4 @@
-package org.chelak.ea.screens.estate.calculation.editor
+package org.chelak.ea.screens.estate.calculation.editor.step
 
 import android.os.Bundle
 import android.view.*
@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import org.chelak.ea.R
 import org.chelak.ea.ui.*
-import org.chelak.ea.ui.dialog.presentAlert
 import org.chelak.ea.ui.list.clickPosition
 import org.chelak.ea.ui.list.setVerticalLayout
 
