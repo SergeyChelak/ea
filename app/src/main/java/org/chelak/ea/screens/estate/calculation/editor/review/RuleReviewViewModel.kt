@@ -74,8 +74,7 @@ class RuleReviewViewModel : ViewModel(), AlertEmitter {
                         val count = (0..11).fold(0) { sum, elem ->
                             sum + mask[elem].toInt()
                         }
-                        //stringResource.getString(R.string.review_cell_value_n_months_1, count.toInt())
-                        count.toString()
+                        stringResource.getString(R.string.review_cell_value_n_months_1, count)
                     }
                 }
                 items.add(

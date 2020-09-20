@@ -8,7 +8,7 @@ interface StringResource {
 
     fun getString(resId: Int): String
 
-    fun getString(resId: Int, vararg formatArgs: Any?): String
+    fun getString(resId: Int, vararg formatArgs: Any): String
 
     fun getMonthNames(): List<String>
 }
@@ -29,9 +29,9 @@ class ResourceProvider(context: Context) : StringResource {
         return UNKNOWN
     }
 
-    override fun getString(resId: Int, vararg formatArgs: Any?): String {
+    override fun getString(resId: Int, vararg formatArgs: Any): String {
         contextReference.get()?.let {
-            return it.getString(resId, formatArgs)
+            return it.getString(resId, *formatArgs)
         }
         return UNKNOWN
     }

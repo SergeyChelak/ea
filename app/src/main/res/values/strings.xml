@@ -80,7 +80,7 @@
     <string name="review_cell_title_active_period">Active Period</string>
     <string name="review_cell_value_whole_year">Whole Year</string>
     <string name="review_cell_value_never">Never</string>
-    <string name="review_cell_value_n_months_1" formatted="false">%s months</string>
+    <string name="review_cell_value_n_months_1">%d months</string>
     <string name="review_cell_value_not_accessible">N/A</string>
 
 </resources>
