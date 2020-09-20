@@ -34,9 +34,9 @@ class CollapsedMeterViewHolder(view: View): MeterViewHolder(view) {
         }
     }
 
-    val textValue: TextView = view.findViewById(R.id.textValue)
-    val textDate: TextView = view.findViewById(R.id.textDate)
-    val accessoryImage: ImageView = view.findViewById(R.id.accessoryImage)
+    private val textValue: TextView = view.findViewById(R.id.textValue)
+    private val textDate: TextView = view.findViewById(R.id.textDate)
+    private val accessoryImage: ImageView = view.findViewById(R.id.accessoryImage)
 
 
     fun setPaid(isPaid: Boolean) {
@@ -63,11 +63,11 @@ class ExpandedMeterViewHolder(view: View): MeterViewHolder(view) {
         }
     }
 
-    val editValue: EditText = view.findViewById(R.id.editValue)
-    val paidSwitch: Switch = view.findViewById(R.id.switchPaid)
-    val calendarView: CalendarView = view.findViewById(R.id.calendarView)
-    val saveButton: Button = view.findViewById(R.id.buttonSave)
-    val deleteButton: Button = view.findViewById(R.id.buttonDelete)
+    private val editValue: EditText = view.findViewById(R.id.editValue)
+    private val paidSwitch: Switch = view.findViewById(R.id.switchPaid)
+    private val calendarView: CalendarView = view.findViewById(R.id.calendarView)
+    private val saveButton: Button = view.findViewById(R.id.buttonSave)
+    private val deleteButton: Button = view.findViewById(R.id.buttonDelete)
 
     init {
         editValue.imeOptions = EditorInfo.IME_ACTION_DONE

@@ -50,7 +50,7 @@ class TwoTextInputViewModel : GenericActionShareViewModel<TwoTextInputActionHold
 
 class TwoTextFieldDialogFragment : BaseDialogFragment() {
     private val viewModel: TwoTextInputViewModel by navGraphViewModels(R.id.root_nav_graph)
-    var dialogView: View? = null
+    private var dialogView: View? = null
 
     @SuppressLint("InflateParams")
     override fun setupView(builder: AlertDialog.Builder) {
@@ -113,8 +113,8 @@ fun Fragment.presentTwoTextFieldDialog(
         val holder = TwoTextInputActionHolder(positiveAction, negativeAction, neutralAction)
         val alertId = viewModel.put(holder)
         val params = Bundle().apply {
-            options?.let {
-                this.putAll(it)
+            options?.let { other ->
+                this.putAll(other)
             }
             this.alertId = alertId
             this.alertTitle = title

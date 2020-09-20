@@ -1,7 +1,6 @@
 package org.chelak.ea.common
 
 import androidx.room.TypeConverter
-import org.chelak.ea.common.BitMask
 import java.math.BigDecimal
 import java.util.*
 

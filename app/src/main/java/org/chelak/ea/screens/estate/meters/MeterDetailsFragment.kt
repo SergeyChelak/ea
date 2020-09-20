@@ -7,10 +7,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import org.chelak.ea.R
 import org.chelak.ea.ui.MainActivity
-import org.chelak.ea.ui.dialog.presentAlert
 import org.chelak.ea.ui.meterId
 import org.chelak.ea.ui.observeAlerts
 
@@ -48,8 +46,8 @@ class MeterDetailsFragment : Fragment() {
                 layoutManager.scrollToPositionWithOffset(pos, 0)
             }
 
-            viewModel.meterValues.observe(viewLifecycleOwner, Observer {
-                adapter.setValues(it)
+            viewModel.meterValues.observe(viewLifecycleOwner, Observer { list ->
+                adapter.setValues(list)
             })
             observeAlerts(viewModel)
         }

@@ -5,8 +5,6 @@ import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.chelak.ea.common.Logger
 import java.util.concurrent.atomic.AtomicLong

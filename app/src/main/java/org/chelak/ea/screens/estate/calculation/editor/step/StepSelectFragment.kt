@@ -32,8 +32,8 @@ class StepSelectFragment : Fragment() {
                 adapter.onItemClick(index)
             })
 
-            viewModel.items.observe(viewLifecycleOwner, Observer {
-                adapter.replace(it)
+            viewModel.items.observe(viewLifecycleOwner, Observer { item ->
+                adapter.replace(item)
             })
             observeAlerts(viewModel)
         }

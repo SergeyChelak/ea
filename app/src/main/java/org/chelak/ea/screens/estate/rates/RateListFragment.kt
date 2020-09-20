@@ -57,8 +57,8 @@ class RateListFragment : Fragment() {
             val recyclerView = it.findViewById<RecyclerView>(R.id.recyclerView)
             recyclerView.setVerticalLayout()
             recyclerView.adapter = adapter
-            recyclerView.clickPosition().observe(viewLifecycleOwner, Observer {
-                val item = adapter.get(it)
+            recyclerView.clickPosition().observe(viewLifecycleOwner, Observer { index ->
+                val item = adapter[index]
                 changeRateItem(item)
             })
             it.appendButton.setOnClickListener {

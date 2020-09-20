@@ -32,11 +32,11 @@ class RuleEditor(
     private var steps: List<Long> = mutableListOf()
     private var stepPointer: Int? = null
 
-    public fun setRule(rule: Rule) {
+    fun setRule(rule: Rule) {
         this.rule = rule
     }
 
-    public fun startCreation() {
+    fun startCreation() {
         steps = listOf(
             StepIdentifier.tariffList,
             StepIdentifier.meterList,
@@ -46,27 +46,27 @@ class RuleEditor(
         start()
     }
 
-    public fun show() {
+    fun show() {
         steps = listOf()
         start()
     }
 
-    public fun editTariff() {
+    fun editTariff() {
         steps = listOf(StepIdentifier.tariffList)
         start()
     }
 
-    public fun editMeters() {
+    fun editMeters() {
         steps = listOf(StepIdentifier.meterList)
         start()
     }
 
-    public fun editRates() {
+    fun editRates() {
         steps = listOf(StepIdentifier.rateList)
         start()
     }
 
-    public fun editMonth() {
+    fun editMonth() {
         steps = listOf(StepIdentifier.monthMask)
         start()
     }
@@ -101,7 +101,7 @@ class RuleEditor(
         }
     }
 
-    public fun items(stepId: Long): List<SelectionListItem> =
+    fun items(stepId: Long): List<SelectionListItem> =
         when (stepId) {
             StepIdentifier.tariffList -> {
                 val selectedUid = rule.tariff?.uid ?: -1L
@@ -138,14 +138,14 @@ class RuleEditor(
         }
 
 
-    public fun isValid(stepId: Long, items: List<SelectionListItem>): Boolean =
+    fun isValid(stepId: Long, items: List<SelectionListItem>): Boolean =
         when (stepId) {
             StepIdentifier.tariffList,
             StepIdentifier.monthMask -> items.containsSelection
             else -> true
         }
 
-    public fun commit(stepId: Long, items: List<SelectionListItem>) {
+    fun commit(stepId: Long, items: List<SelectionListItem>) {
         GlobalScope.launch {
             when (stepId) {
                 StepIdentifier.tariffList -> {
@@ -222,7 +222,6 @@ class RuleEditor(
             }
         }
     }
-
 
     private fun saveChanges() {
         val calculationItem: CalculationItem =

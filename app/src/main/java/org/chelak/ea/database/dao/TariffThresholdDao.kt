@@ -2,7 +2,6 @@ package org.chelak.ea.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Query
 import org.chelak.ea.database.common.GenericDao
 import org.chelak.ea.database.entity.TariffThreshold

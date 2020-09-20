@@ -49,7 +49,7 @@ class TextInputViewModel : GenericActionShareViewModel<TextInputActionHolder>() 
 class TextInputDialogFragment : BaseDialogFragment() {
 
     private val viewModel: TextInputViewModel by navGraphViewModels(R.id.root_nav_graph)
-    var dialogView: View? = null
+    private var dialogView: View? = null
 
     @SuppressLint("InflateParams")
     override fun setupView(builder: AlertDialog.Builder) {
@@ -57,8 +57,8 @@ class TextInputDialogFragment : BaseDialogFragment() {
         dialogView?.let {
             val editText: EditText = it.findViewById(R.id.textInputField)
             editText.doAfterTextChanged { text -> viewModel.setInputText(text?.toString() ?: "") }
-            arguments?.alertInitialTextValue?.let {
-                editText.setText(it)
+            arguments?.alertInitialTextValue?.let { value ->
+                editText.setText(value)
             }
             builder.setView(it)
         }
