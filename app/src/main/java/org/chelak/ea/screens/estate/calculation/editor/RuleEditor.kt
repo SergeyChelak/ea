@@ -234,7 +234,8 @@ class RuleEditor(
                     order = rule.order,
                     monthMask = rule.monthMask!!
                 )
-                rule.uid = repository.insertCalculationItem(calculationItem)
+                calculationItem.uid = repository.insertCalculationItem(calculationItem)
+                rule.uid = calculationItem.uid
                 calculationItem
             } else {
                 val item = repository.getCalculationItem(rule.uid)
