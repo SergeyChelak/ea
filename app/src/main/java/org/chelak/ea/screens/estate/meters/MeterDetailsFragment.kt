@@ -35,6 +35,10 @@ class MeterDetailsFragment : Fragment() {
         adapter.deleteHandler = { uid ->
             viewModel.deleteValue(uid)
         }
+        (activity as? MainActivity)?.component?.inject(viewModel)
+        arguments?.meterId?.let {
+            viewModel.setMeterId(it)
+        }
         view?.let {
             val recyclerView = it.findViewById<RecyclerView>(R.id.recyclerView)
             val layoutManager = LinearLayoutManager(context).apply {
@@ -46,14 +50,10 @@ class MeterDetailsFragment : Fragment() {
                 layoutManager.scrollToPositionWithOffset(pos, 0)
             }
 
-            viewModel.meterValues.observe(viewLifecycleOwner, Observer { list ->
+            viewModel.meterValues.observe(viewLifecycleOwner, { list ->
                 adapter.setValues(list)
             })
             observeAlerts(viewModel)
-        }
-        (activity as? MainActivity)?.component?.inject(viewModel)
-        arguments?.meterId?.let {
-            viewModel.setMeterId(it)
         }
     }
 
