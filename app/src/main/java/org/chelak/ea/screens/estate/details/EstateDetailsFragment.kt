@@ -46,19 +46,19 @@ class EstateDetailsFragment : Fragment() {
         arguments?.estateId?.let {
             viewModel.setEstateId(it)
         }
-        viewModel.estate.observe(viewLifecycleOwner, Observer {
+        viewModel.estate.observe(viewLifecycleOwner, {
             val title = it.title ?: ""
             adapter.setEstate(title) {
                 debugAlert()
             }
         })
-        viewModel.meters.observe(viewLifecycleOwner, Observer {
+        viewModel.meters.observe(viewLifecycleOwner, {
             Logger.d("Meters: $it")
             adapter.setMeters(it) { uid ->
                 viewModel.openMeter(uid)
             }
         })
-        viewModel.meterBriefData.observe(viewLifecycleOwner, Observer {
+        viewModel.meterBriefData.observe(viewLifecycleOwner, {
             adapter.updateMeterInfo(it)
         })
     }

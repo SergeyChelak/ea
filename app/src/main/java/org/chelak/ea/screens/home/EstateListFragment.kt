@@ -46,7 +46,7 @@ class EstateListFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         view?.let {
-            recyclerView.clickPosition().observe(viewLifecycleOwner, Observer {
+            recyclerView.clickPosition().observe(viewLifecycleOwner, {
                 val estate = adapter[it]
                 viewModel.openEstateDetails(estate.uid)
             })
@@ -62,7 +62,7 @@ class EstateListFragment : Fragment() {
             }
         }
         appComponent?.inject(viewModel)
-        viewModel.getEstates().observe(viewLifecycleOwner, Observer { list ->
+        viewModel.getEstates().observe(viewLifecycleOwner, { list ->
             Logger.i("Loaded ${list.size} estates")
             adapter.replace(list)
         })

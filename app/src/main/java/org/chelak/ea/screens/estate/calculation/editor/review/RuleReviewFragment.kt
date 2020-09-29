@@ -32,10 +32,10 @@ class RuleReviewFragment : Fragment() {
             val recyclerView = it.findViewById<RecyclerView>(R.id.recyclerView)
             recyclerView.setVerticalLayout()
             recyclerView.adapter = adapter
-            recyclerView.clickPosition().observe(viewLifecycleOwner, Observer {index ->
+            recyclerView.clickPosition().observe(viewLifecycleOwner, { index ->
                 adapter[index].handler?.invoke()
             })
-            viewModel.data.observe(viewLifecycleOwner, Observer { list ->
+            viewModel.data.observe(viewLifecycleOwner, { list ->
                 list?.let { items -> adapter.replace(items) }
             })
             observeAlerts(viewModel)

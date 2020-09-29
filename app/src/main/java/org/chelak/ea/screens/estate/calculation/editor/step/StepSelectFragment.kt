@@ -28,11 +28,11 @@ class StepSelectFragment : Fragment() {
             val recyclerView = it.findViewById<RecyclerView>(R.id.recyclerView)
             recyclerView.setVerticalLayout()
             recyclerView.adapter = adapter
-            recyclerView.clickPosition().observe(viewLifecycleOwner, Observer { index ->
+            recyclerView.clickPosition().observe(viewLifecycleOwner, { index ->
                 adapter.onItemClick(index)
             })
 
-            viewModel.items.observe(viewLifecycleOwner, Observer { item ->
+            viewModel.items.observe(viewLifecycleOwner, { item ->
                 adapter.replace(item)
             })
             observeAlerts(viewModel)

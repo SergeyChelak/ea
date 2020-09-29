@@ -45,7 +45,7 @@ class CalculationListFragment : Fragment() {
             val recyclerView = it.findViewById<RecyclerView>(R.id.recyclerView)
             recyclerView.setVerticalLayout()
             recyclerView.adapter = adapter
-            recyclerView.clickPosition().observe(viewLifecycleOwner, Observer {index ->
+            recyclerView.clickPosition().observe(viewLifecycleOwner, { index ->
                 viewModel.editItem(adapter[index].uid)
             })
 
@@ -57,7 +57,7 @@ class CalculationListFragment : Fragment() {
         arguments?.estateId?.let {
             viewModel.setEstateId(it)
         }
-        viewModel.items.observe(viewLifecycleOwner, Observer {
+        viewModel.items.observe(viewLifecycleOwner, {
             adapter.replace(it)
         })
     }

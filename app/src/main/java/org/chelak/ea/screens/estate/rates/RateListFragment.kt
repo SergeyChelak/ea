@@ -50,14 +50,14 @@ class RateListFragment : Fragment() {
         arguments?.estateId?.let {
             viewModel.setEstateId(it)
         }
-        viewModel.rates.observe(viewLifecycleOwner, Observer {
+        viewModel.rates.observe(viewLifecycleOwner, {
             adapter.replace(it)
         })
         view?.let {
             val recyclerView = it.findViewById<RecyclerView>(R.id.recyclerView)
             recyclerView.setVerticalLayout()
             recyclerView.adapter = adapter
-            recyclerView.clickPosition().observe(viewLifecycleOwner, Observer { index ->
+            recyclerView.clickPosition().observe(viewLifecycleOwner, { index ->
                 val item = adapter[index]
                 changeRateItem(item)
             })

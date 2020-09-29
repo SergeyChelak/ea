@@ -13,7 +13,7 @@ interface AlertEmitter {
 }
 
 fun Fragment.observeAlerts(emitter: AlertEmitter) {
-    emitter.alertData.observe(viewLifecycleOwner, Observer {
+    emitter.alertData.observe(viewLifecycleOwner, {
         it?.let {
             presentAlert(it)
         }

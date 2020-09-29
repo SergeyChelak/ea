@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupNavigation() {
         val drawerFragments = setOf(R.id.myEstatesFragment, R.id.tariffsFragment, R.id.paymentHistoryFragment)
         appBarConfiguration = AppBarConfiguration.Builder(drawerFragments)
-            .setDrawerLayout(drawerLayout)
+            .setOpenableLayout(drawerLayout)
             .build()
         setupActionBarWithNavController(navController, appBarConfiguration)
         navController.addOnDestinationChangedListener { _, destination, _ ->
